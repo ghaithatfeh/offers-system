@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         a {
             text-decoration: none
@@ -58,6 +61,14 @@
                         <span class="mx-2">|</span>
                         <li>
                             <a href="/tags">{{ __('Tags') }}</a>
+                        </li>
+                        <span class="mx-2">|</span>
+                        <li>
+                            <a href="/offer_types">{{ __('Offers Types') }}</a>
+                        </li>
+                        <span class="mx-2">|</span>
+                        <li>
+                            <a href="/offers">{{ __('Offers') }}</a>
                         </li>
                     </ul>
 
@@ -107,7 +118,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

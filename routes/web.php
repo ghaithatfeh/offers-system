@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OfferTypeController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/customer/change-status/{customer}', [CustomerController::class, 'changeStatus']);
 Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
 Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
+Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
 
 Route::get('/cities/search', [CityController::class, 'search']);
 Route::get('/categories/search', [CategoryController::class, 'search']);
@@ -37,6 +40,8 @@ Route::resources([
     '/cities' => CityController::class,
     '/customers' => CustomerController::class,
     '/categories' => CategoryController::class,
-    '/tags' => TagController::class
+    '/tags' => TagController::class,
+    '/offer_types' => OfferTypeController::class,
+    '/offers' => OfferController::class,
 ]);
 

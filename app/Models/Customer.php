@@ -19,4 +19,10 @@ class Customer extends Model
     {
         return $this->belongsToMany(Category::class, 'customers_interests');
     }
+
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
