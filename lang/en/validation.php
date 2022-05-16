@@ -164,6 +164,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name_en' => 'name english',
+        'name_pt' => 'name portuguese',
+        'name_ar' => 'name arabic',
+    ],
 
 ];

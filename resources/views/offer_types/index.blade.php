@@ -3,7 +3,6 @@
 @section('content')
     <h2 class="">{{ __('Offers Types') }}</h2>
     <div class="d-flex mt-4">
-        <a href="/offer_types/create" class="btn btn-success">{{ __('Create Offer Type') }}</a>
 
         <form action="/offer_types/search" method="GET" class="ms-auto">
             <div class="input-group">
@@ -49,16 +48,6 @@
                         <a href="/offer_types/{{ $offer_type->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (!json_decode($offer_type->offers))
-                            <form class="d-inline-block" method="POST" action="/offer_types/{{ $offer_type->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this offer type?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        @endif
                     </td>
                 </tr>
             @endforeach

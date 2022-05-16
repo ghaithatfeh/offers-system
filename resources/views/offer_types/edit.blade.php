@@ -8,29 +8,48 @@
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>
             <input id="name_en" name="name_en" class="form-control" type="text" value="{{ $offer_type->name_en }}">
-            <div class="valid-feedback"></div>
-            <small class="text-danger">
-                @error('name_en')
+            @error('name_en')
+                <small class="text-danger">
                     {{ $message }}
-                @enderror
-            </small>
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_pt">{{ __('Name Portuguese') }}</label>
             <input id="name_pt" name="name_pt" class="form-control" type="text" value="{{ $offer_type->name_pt }}">
+            @error('name_pt')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_ar">{{ __('Name Arabic') }}</label>
             <input id="name_ar" name="name_ar" class="form-control" type="text" value="{{ $offer_type->name_ar }}">
+            @error('name_ar')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
             <input id="price" name="price" class="form-control" type="number" value="{{ $offer_type->price }}">
+            @error('price')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
             <textarea id="description" name="description" class="form-control" cols="30"
                 rows="5">{{ $offer_type->description }}</textarea>
+            @error('description')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <input id="status" name="status" class="form-check-input" type="checkbox"

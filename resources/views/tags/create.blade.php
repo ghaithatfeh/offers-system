@@ -2,7 +2,7 @@
 
 @section('content')
     {{ Breadcrumbs::render('create_tag') }}
-    <h2 class="text-center">{{ __('Create Tag') }}</h2>
+    <h2 class="text-center">{{ __('Add Tag') }}</h2>
     <form action="/tags" method="post" class="mt-4 col-6 mx-auto">
         @csrf
         <div class="mb-3">

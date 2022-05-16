@@ -7,7 +7,6 @@
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>
             <input id="name_en" name="name_en" class="form-control" type="text">
-            <div class="valid-feedback"></div>
             <small class="text-danger">
                 @error('name_en')
                     {{ $message }}
@@ -17,10 +16,20 @@
         <div class="mb-3">
             <label class="form-label" for="name_pt">{{ __('Name Portuguese') }}</label>
             <input id="name_pt" name="name_pt" class="form-control" type="text">
+            <small class="text-danger">
+                @error('name_pt')
+                    {{ $message }}
+                @enderror
+            </small>
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_ar">{{ __('Name Arabic') }}</label>
             <input id="name_ar" name="name_ar" class="form-control" type="text">
+            <small class="text-danger">
+                @error('name_ar')
+                    {{ $message }}
+                @enderror
+            </small>
         </div>
         <div class="mb-3">
             <label class="form-label" for="parent_id">{{ __('Parent Category') }}</label>

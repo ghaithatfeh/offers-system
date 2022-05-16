@@ -8,20 +8,29 @@
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>
             <input id="name_en" name="name_en" class="form-control" type="text" value="{{ $category->name_en }}">
-            <div class="valid-feedback"></div>
-            <small class="text-danger">
-                @error('name_en')
+            @error('name_en')
+                <small class="text-danger">
                     {{ $message }}
-                @enderror
-            </small>
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_pt">{{ __('Name Portuguese') }}</label>
             <input id="name_pt" name="name_pt" class="form-control" type="text" value="{{ $category->name_pt }}">
+            @error('name_pt')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_ar">{{ __('Name Arabic') }}</label>
             <input id="name_ar" name="name_ar" class="form-control" type="text" value="{{ $category->name_ar }}">
+            @error('name_ar')
+                <small class="text-danger">
+                    {{ $message }}
+                </small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="parent_id">{{ __('Parent Category') }}</label>

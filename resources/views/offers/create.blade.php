@@ -3,25 +3,36 @@
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-        .select2-selection.select2-selection--multiple{
-            padding: 6px 12px !important; border: 1px solid #ced4da !important;
+        .select2-selection.select2-selection--multiple {
+            padding: 6px 12px !important;
+            border: 1px solid #ced4da !important;
         }
+
     </style>
 
-    <h2 class="text-center">{{ __('Create Offer') }}</h2>
+    <h2 class="text-center">{{ __('Add Offer') }}</h2>
     <form action="/offers" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
-            <input id="title" name="title" class="form-control" type="text">
+            <input id="title" name="title" class="form-control" type="text" value="{{ old('title') }}">
+            @error('title')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
-            <input id="expiry_date" name="expiry_date" class="form-control" type="date">
+            <input id="expiry_date" name="expiry_date" class="form-control" type="date" value="{{ old('expiry_date') }}">
+            @error('expiry_date')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
-            <input id="price" name="price" class="form-control" type="number">
+            <input id="price" name="price" class="form-control" type="number" value="{{ old('price') }}">
+            @error('price')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="category">{{ __('Category') }}</label>
@@ -31,6 +42,9 @@
                     <option value="{{ $category->id }}">{{ $category->name_en }}</option>
                 @endforeach
             </select>
+            @error('category_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="tags">{{ __('Tags') }}</label>
@@ -49,6 +63,9 @@
                     <option value="{{ $city->id }}">{{ $city->name_en }}</option>
                 @endforeach
             </select>
+            @error('cities')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
@@ -58,19 +75,25 @@
                     <option value="{{ $offer_type->id }}">{{ $offer_type->name_en }}</option>
                 @endforeach
             </select>
+            @error('offer_type_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
-            <textarea id="description" name="description" class="form-control" cols="30" rows="5"></textarea>
+            <textarea id="description" name="description" class="form-control" cols="30" rows="5">{{old('description')}}</textarea>
+            @error('description')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label" for="images">{{ __('Images') }}</label>
+            <label class="form-label" for="images">{{ __('Upload Images') }}</label>
             <input type="file" id="images" name="images[]" class="form-control" multiple>
+            @error('images')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
-        {{-- <div class="mb-3">
-            <input id="status" name="status" class="form-check-input" type="checkbox" checked>
-            <label class="form-label" for="status">{{ __('Active') }}</label>
-        </div> --}}
+        </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>

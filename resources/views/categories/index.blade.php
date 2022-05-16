@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="">{{ __('Category') }}</h2>
     <div class="d-flex mt-4">
-        <a href="/categories/create" class="btn btn-success">{{ __('Create Category') }}</a>
+        <a href="/categories/create" class="btn btn-success">{{ __('Add Category') }}</a>
 
         <form action="/categories/search" method="GET" class="ms-auto">
             <div class="input-group">
@@ -33,8 +33,8 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name_en }}</td>
-                    <td>{{ $category->name_pt }}</td>
-                    <td>{{ $category->name_ar }}</td>
+                    <td>{!! $category->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                    <td>{!! $category->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>{!! $category->parent->name_en ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>
                         {{ $category->status ? 'Active' : 'Inactive' }}
@@ -49,7 +49,7 @@
                         <a href="/categories/{{ $category->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (!json_decode($category->children))
+                        @if (!json_decode($category->children) && !json_decode($category->offers))
                             <form class="d-inline-block" method="POST" action="/categories/{{ $category->id }}">
                                 @csrf
                                 @method('DELETE')

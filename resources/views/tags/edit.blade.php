@@ -10,7 +10,7 @@
             <input id="name" name="name" class="form-control" type="text" value="{{ $tag->name }}">
             <div class="valid-feedback"></div>
             <small class="text-danger">
-                @error('name_en')
+                @error('name')
                     {{ $message }}
                 @enderror
             </small>

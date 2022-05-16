@@ -55,9 +55,11 @@
                 <td>{{ __('Tags') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
-                        @foreach ($offer->tags as $i => $tags)
+                        @forelse ($offer->tags as $i => $tags)
                             {{ $tags->name . ($i + 1 != count($offer->tags) ? ',' : '') }}
-                        @endforeach
+                            @empty
+                            <em class="text-danger">Not Set</em>
+                        @endforelse
                     </div>
                 </td>
             </tr>
@@ -65,9 +67,11 @@
                 <td>{{ __('Target Areas') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
-                        @foreach ($offer->targetAreas as $i => $target)
+                        @forelse ($offer->targetAreas as $i => $target)
                             {{ $target->name_en . ($i + 1 != count($offer->targetAreas) ? ',' : '') }}
-                        @endforeach
+                            @empty
+                            <em class="text-danger">Not Set</em>
+                        @endforelse
                     </div>
                 </td>
             </tr>
@@ -75,9 +79,11 @@
                 <td>{{ __('Images') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
-                        @foreach ($offer->images as $image)
+                        @forelse ($offer->images as $image)
                             <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2" alt="" width="300">
-                        @endforeach
+                            @empty
+                            <em class="text-danger">Not Set</em>
+                        @endforelse
                     </div>
                 </td>
             </tr>

@@ -7,7 +7,17 @@
         }
 
     </style>
-    <h2 class="text-center">{{ __('City Details') }}</h2>
+    <div class="d-flex justify-content-between">
+        <h2>{{ __('City Details') }}</h2>
+        <div>
+            <a href="/cities/{{ $city->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
+            <form class="d-inline-block" action="/cities/{{ $city->id }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to delete this city?')">{{ __('Delete') }}</button>
+            </form>
+        </div>
+    </div>
 
     <table class="table text-center mt-4">
         <tbody>
@@ -17,11 +27,11 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{{ $city->name_pt }}</td>
+                <td>{!! $city->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{{ $city->name_ar }}</td>
+                <td>{!! $city->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>

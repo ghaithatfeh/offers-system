@@ -14,11 +14,6 @@ use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $offers = Offer::paginate(10);
@@ -27,11 +22,6 @@ class OfferController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('offers.create', [
@@ -42,28 +32,35 @@ class OfferController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'expiry_date' => 'after:yesterday',
+            'price' => 'numeric|min:1',
+            'category_id' => 'required',
+            'offer_type_id' => 'required',
+            'description' => 'min:50',
+            // 'images' => 'mimes:jpg,jpeg,png'
+        ]);
         $request['user_id'] = 1;
         $offer = Offer::create($request->all());
 
-        $offerTags = [];
-        foreach ($request->tags as $tag) {
-            $offerTags[] = ['offer_id' => $offer->id, 'tag_id' => $tag];
+        if ($request->tags) {
+            $offerTags = [];
+            foreach ($request->tags as $tag) {
+                $offerTags[] = ['offer_id' => $offer->id, 'tag_id' => $tag];
+            }
+            OfferTag::insert($offerTags);
         }
-        OfferTag::insert($offerTags);
 
-        $offerCities = [];
-        foreach ($request->cities as $city) {
-            $offerCities[] = ['offer_id' => $offer->id, 'city_id' => $city];
+        if ($request->cities) {
+            $offerCities = [];
+            foreach ($request->cities as $city) {
+                $offerCities[] = ['offer_id' => $offer->id, 'city_id' => $city];
+            }
+            TargetArea::insert($offerCities);
         }
-        TargetArea::insert($offerCities);
 
         if ($request->hasFile('images')) {
             $files = $request->file('images');
@@ -80,48 +77,28 @@ class OfferController extends Controller
         return redirect('/offers');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
     public function show(Offer $offer)
     {
         return view('offers.view', ['offer' => $offer]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Offer $offer)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Offer $offer)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Offer $offer)
     {
-        //
+        if (json_decode($offer->images))
+            foreach ($offer->images as $image)
+                if (file_exists(public_path('uploaded_images/' . $image->name)))
+                    unlink(public_path('uploaded_images/' . $image->name));
+        $offer->delete();
+        return redirect('/offers');
     }
 }

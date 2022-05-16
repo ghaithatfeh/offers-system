@@ -37,7 +37,7 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:tags'
+            'name' => 'required|unique:tags|min:3'
         ]);
         Tag::create($request->all());
         return redirect('/tags');
@@ -74,6 +74,9 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        $request->validate([
+            'name' => 'required|unique:tags|min:3'
+        ]);
         $tag->update($request->all());
         return redirect('/tags');
     }

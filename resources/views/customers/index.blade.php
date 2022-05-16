@@ -43,14 +43,6 @@
                         <a href="/customers/{{ $customer->id }}" title="View">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <form class="d-inline-block" method="POST" action="/customers/{{ $customer->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
-                                onclick="return confirm('Are you sure you want to delete this customer?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

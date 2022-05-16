@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('target_areas', function (Blueprint $table) {
             $table->unsignedBigInteger('offer_id');
             $table->unsignedBigInteger('city_id');
-            $table->foreign('offer_id')->references('id')->on('offers');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->primary(['offer_id', 'city_id']);
             $table->timestamps();
         });

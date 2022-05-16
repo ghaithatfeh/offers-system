@@ -52,9 +52,11 @@
                 <td>{{ __('Interested Category') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
-                        @foreach ($customer->customers_interests as $i => $interested_category)
+                        @forelse ($customer->customers_interests as $i => $interested_category)
                             {{ $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? ',' : '') }}
-                        @endforeach
+                        @empty
+                            <em class="text-danger">Not Set</em>
+                        @endforelse
                     </div>
                 </td>
             </tr>

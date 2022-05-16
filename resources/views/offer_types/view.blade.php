@@ -7,7 +7,12 @@
         }
 
     </style>
-    <h2 class="text-center">{{ __('Offer Type Details') }}</h2>
+    <div class="d-flex justify-content-between">
+        <h2>{{ __('Offer Type Details') }}</h2>
+        <div>
+            <a href="/offer_types/{{ $offer_type->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
+        </div>
+    </div>
 
     <table class="table text-center mt-4">
         <tbody>
@@ -17,11 +22,11 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{{ $offer_type->name_pt }}</td>
+                <td>{!! $offer_type->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{{ $offer_type->name_ar }}</td>
+                <td>{!! $offer_type->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Price') }}</td>

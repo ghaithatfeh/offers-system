@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="">{{ __('Offers') }}</h2>
     <div class="d-flex mt-4">
-        <a href="/offers/create" class="btn btn-success">{{ __('Create Offer') }}</a>
+        <a href="/offers/create" class="btn btn-success">{{ __('Add Offer') }}</a>
         <form action="/offer/search" method="GET" class="ms-auto">
             <div class="input-group">
                 <div class="form-outline">
@@ -41,7 +41,7 @@
                         <a href="/offers/{{ $offer->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <form class="d-inline-block" method="POST" action="/offer/{{ $offer->id }}">
+                        <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
                             @csrf
                             @method('DELETE')
                             <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
