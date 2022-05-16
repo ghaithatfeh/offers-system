@@ -63,6 +63,9 @@ class OfferController extends Controller
         }
 
         if ($request->hasFile('images')) {
+            if (!file_exists(public_path('uploaded_images'))) {
+                mkdir(public_path('uploaded_images'), 0777, true);
+            }
             $files = $request->file('images');
             foreach ($files as $file) {
                 $fileName = time() . '_' . $file->getClientOriginalName();
