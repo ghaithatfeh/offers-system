@@ -27,7 +27,9 @@
         a {
             text-decoration: none
         }
-
+        textarea{
+            resize: none;
+        }
     </style>
 </head>
 

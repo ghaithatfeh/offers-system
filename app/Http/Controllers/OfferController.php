@@ -41,7 +41,7 @@ class OfferController extends Controller
             'category_id' => 'required',
             'offer_type_id' => 'required',
             'description' => 'min:50',
-            // 'images' => 'mimes:jpg,jpeg,png'
+            'images.*' => 'image',
         ]);
         $request['user_id'] = 1;
         $offer = Offer::create($request->all());
@@ -87,7 +87,13 @@ class OfferController extends Controller
 
     public function edit(Offer $offer)
     {
-        //
+        return view('offers.edit', [
+            'offer' => $offer,
+            'offer_types' => OfferType::all(),
+            'categories' => Category::all(),
+            'tags' => Tag::all(),
+            'cities' => City::all(),
+        ]);
     }
 
     public function update(Request $request, Offer $offer)

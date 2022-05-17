@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {{ Breadcrumbs::render('tags') }}
+    {{-- {{ Breadcrumbs::render('tags') }} --}}
     <h2 class="">{{ __('Tags') }}</h2>
     <div class="d-flex mt-4">
         <a href="/tags/create" class="btn btn-success">{{ __('Add Tag') }}</a>

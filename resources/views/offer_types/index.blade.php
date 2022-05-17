@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="">{{ __('Offers Types') }}</h2>
-    <div class="d-flex mt-4">
-
+<div class="d-flex mt-4">
+        <h2 class="">{{ __('Offers Types') }}</h2>
         <form action="/offer_types/search" method="GET" class="ms-auto">
             <div class="input-group">
                 <div class="form-outline">

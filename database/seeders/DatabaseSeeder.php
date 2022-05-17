@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\City;
 use App\Models\Customer;
 use App\Models\CustomerInterest;
 use App\Models\OfferType;
@@ -10,16 +12,13 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        // Customer::factory(10)->create();
-        // CustomerInterest::factory(3)->create();
-        // Tag::factory(5)->create();
-        OfferType::factory(5)->create();
+        City::factory(5)->create();
+        Category::factory(5)->create();
+        Customer::factory(15)->create();
+        CustomerInterest::factory(3)->create();
+        Tag::factory(5)->create();
+        OfferType::factory(3)->create();
     }
 }
