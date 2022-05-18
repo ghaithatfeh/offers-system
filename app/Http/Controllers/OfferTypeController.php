@@ -27,7 +27,7 @@ class OfferTypeController extends Controller
             'name_pt' => 'required|min:3',
             'name_ar' => 'required|min:3',
             'price' => 'numeric|required|min:1',
-            'description' => 'required|min:50',
+            'description' => 'required|min:20',
         ]);
         $offerType->update($request->all());
         return redirect('offer_types');

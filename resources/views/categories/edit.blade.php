@@ -7,7 +7,8 @@
         @csrf
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>
-            <input id="name_en" name="name_en" class="form-control" type="text" value="{{ $category->name_en }}">
+            <input id="name_en" name="name_en" class="form-control" type="text"
+                value="{{ old('name_en') ?? $category->name_en }}">
             @error('name_en')
                 <small class="text-danger">
                     {{ $message }}
@@ -16,7 +17,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_pt">{{ __('Name Portuguese') }}</label>
-            <input id="name_pt" name="name_pt" class="form-control" type="text" value="{{ $category->name_pt }}">
+            <input id="name_pt" name="name_pt" class="form-control" type="text"
+                value="{{ old('name_pt') ?? $category->name_pt }}">
             @error('name_pt')
                 <small class="text-danger">
                     {{ $message }}
@@ -25,7 +27,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="name_ar">{{ __('Name Arabic') }}</label>
-            <input id="name_ar" name="name_ar" class="form-control" type="text" value="{{ $category->name_ar }}">
+            <input id="name_ar" name="name_ar" class="form-control" type="text"
+                value="{{ old('name_ar') ?? $category->name_ar }}">
             @error('name_ar')
                 <small class="text-danger">
                     {{ $message }}
@@ -37,7 +40,8 @@
             <select name="parent_id" id="parent_id" class="form-control">
                 <option></option>
                 @foreach ($parentsCategories as $parentCategory)
-                    <option {{ $category->parent_id == $parentCategory->id ? 'selected' : '' }}
+                    <option
+                        {{ old('parent_id') != null ? (old('parent_id') == $parentCategory->id ? 'selected' : '') : ($category->parent_id == $parentCategory->id ? 'selected' : '') }}
                         value="{{ $parentCategory->id }}">
                         {{ $parentCategory->name_en }}</option>
                 @endforeach

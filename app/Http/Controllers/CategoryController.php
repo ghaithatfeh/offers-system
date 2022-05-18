@@ -33,6 +33,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name_en' => 'required|min:3',
+            'name_pt' => 'required|min:3',
+            'name_ar' => 'required|min:3',
         ]);
         $request['status'] = isset($request->status) ? 1 : 0;
         Category::create($request->all());
@@ -63,6 +65,8 @@ class CategoryController extends Controller
         $request['status'] = isset($request->status) ? 1 : 0;
         $request->validate([
             'name_en' => 'required|min:3',
+            'name_pt' => 'required|min:3',
+            'name_ar' => 'required|min:3',
         ]);
         $category->update($request->all());
         return redirect('/categories');

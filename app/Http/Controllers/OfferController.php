@@ -40,7 +40,7 @@ class OfferController extends Controller
             'price' => 'numeric|min:1',
             'category_id' => 'required',
             'offer_type_id' => 'required',
-            'description' => 'min:50',
+            'description' => 'min:20',
             'images.*' => 'image',
         ]);
         $request['user_id'] = 1;
