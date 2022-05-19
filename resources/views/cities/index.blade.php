@@ -37,7 +37,7 @@
                     <td>
                         {{ $city->status ? 'Active' : 'Inactive' }}
                         <a href="/cities/change-status/{{ $city->id }}" class="text-primary">
-                            {{ $city->status ? '(Deactive)' : '(Active)' }}
+                            {{ $city->status ? '(Deactivate)' : '(Activate)' }}
                         </a>
                     </td>
                     <td>

@@ -7,18 +7,27 @@ use Illuminate\Http\Request;
 
 class OfferTypeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         return view('offer_types.index', ['offer_types' => OfferType::paginate(10)]);
     }
+
     public function show(OfferType $offerType)
     {
         return view('offer_types.view', ['offer_type' => $offerType]);
     }
+
     public function edit(OfferType $offerType)
     {
         return view('offer_types.edit', ['offer_type' => $offerType]);
     }
+    
     public function update(Request $request, OfferType $offerType)
     {
         $request['status'] = isset($request->status) ? 1 : 0;
@@ -32,6 +41,7 @@ class OfferTypeController extends Controller
         $offerType->update($request->all());
         return redirect('offer_types');
     }
+    
     public function changeStatus(OfferType $offerType)
     {
         $offerType->status = $offerType->status ? 0 : 1;

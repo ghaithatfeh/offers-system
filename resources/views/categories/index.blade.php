@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="">{{ __('Category') }}</h2>
+    <h2 class="">{{ __('Categories') }}</h2>
+    <div class="alert alert-warning">
+        {{__('NOTE: You can\'t delete a category if it has childern categories or offers releted with it, you can deactivate it.')}}<br>
+        {{__('Inactive category (and its children and offers) won’t be displayed in mobile application.')}}
+    </div>
     <div class="d-flex mt-4">
         <a href="/categories/create" class="btn btn-success">{{ __('Add Category') }}</a>
 
@@ -39,7 +43,7 @@
                     <td>
                         {{ $category->status ? 'Active' : 'Inactive' }}
                         <a href="/categories/change-status/{{ $category->id }}" class="text-primary">
-                            {{ $category->status ? '(Deactive)' : '(Active)' }}
+                            {{ $category->status ? '(Deactivate)' : '(Activate)' }}
                         </a>
                     </td>
                     <td>

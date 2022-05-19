@@ -7,7 +7,20 @@
         }
 
     </style>
-    <h2 class="text-center">{{ __('Offer Details') }}</h2>
+    <div class="d-flex justify-content-between">
+        <h2>{{ __('Offer Details') }}</h2>
+        @if ($offer->user_id == auth()->id())
+            <div>
+                <a href="/offers/{{ $offer->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
+                <a class="btn btn-danger" href=""
+                    onclick="event.preventDefault();document.querySelector('#form-delete').submit();">{{ __('Delete') }}</a>
+                <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            </div>
+        @endif
+    </div>
 
     <table class="table text-center mt-4">
         <tbody>
@@ -33,7 +46,7 @@
             </tr>
             <tr>
                 <td>{{ __('User') }}</td>
-                <td>{!! $offer->user->name !!}</td>
+                <td>{!! $offer->user->name ?? '<em class="text-danger">Not Set</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
@@ -57,7 +70,7 @@
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->tags as $i => $tags)
                             {{ $tags->name . ($i + 1 != count($offer->tags) ? ',' : '') }}
-                            @empty
+                        @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse
                     </div>
@@ -69,7 +82,7 @@
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->targetAreas as $i => $target)
                             {{ $target->name_en . ($i + 1 != count($offer->targetAreas) ? ',' : '') }}
-                            @empty
+                        @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse
                     </div>
@@ -80,8 +93,9 @@
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->images as $image)
-                            <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2" alt="" width="300">
-                            @empty
+                            <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2" alt=""
+                                width="300">
+                        @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse
                     </div>

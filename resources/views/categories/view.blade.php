@@ -11,7 +11,7 @@
         <h2>{{ __('Category Details') }}</h2>
         <div>
             <a href="/categories/{{ $category->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
-            @if (!json_decode($category->children))
+            @if (!json_decode($category->children) && !json_decode($category->offers))
                 <form class="d-inline-block" action="/categories/{{ $category->id }}" method="post">
                     @csrf
                     @method('DELETE')

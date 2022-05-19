@@ -27,9 +27,11 @@
         a {
             text-decoration: none
         }
-        textarea{
+
+        textarea {
             resize: none;
         }
+
     </style>
 </head>
 
@@ -48,31 +50,33 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto ms-4">
-                        <li>
-                            <a href="/cities">{{ __('Cities') }}</a>
-                        </li>
-                        <span class="mx-2">|</span>
-                        <li>
-                            <a href="/customers">{{ __('Customers') }}</a>
-                        </li>
-                        <span class="mx-2">|</span>
-                        <li>
-                            <a href="/categories">{{ __('Categories') }}</a>
-                        </li>
-                        <span class="mx-2">|</span>
-                        <li>
-                            <a href="/tags">{{ __('Tags') }}</a>
-                        </li>
-                        <span class="mx-2">|</span>
-                        <li>
-                            <a href="/offer_types">{{ __('Offers Types') }}</a>
-                        </li>
-                        <span class="mx-2">|</span>
-                        <li>
-                            <a href="/offers">{{ __('Offers') }}</a>
-                        </li>
-                    </ul>
+                    @auth
+                        <ul class="navbar-nav me-auto ms-4">
+                            <li>
+                                <a href="/cities">{{ __('Cities') }}</a>
+                            </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/customers">{{ __('Customers') }}</a>
+                            </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/categories">{{ __('Categories') }}</a>
+                            </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/tags">{{ __('Tags') }}</a>
+                            </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/offer_types">{{ __('Offers Types') }}</a>
+                            </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/offers">{{ __('Offers') }}</a>
+                            </li>
+                        </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

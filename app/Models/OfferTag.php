@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class OfferTag extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'offer_id';
     protected $fillable = ['offer_id', 'tag_id'];
 }

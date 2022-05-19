@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect('/login');
 });
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/customer/change-status/{customer}', [CustomerController::class, 'changeStatus']);
 Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);

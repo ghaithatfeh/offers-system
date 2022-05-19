@@ -42,7 +42,7 @@
         </div>
         <div class="mb-3">
             <input id="status" name="status" class="form-check-input" type="checkbox" checked>
-            <label class="form-label" for="status">{{ __('Active') }}</label>
+            <label class="form-label" for="status" title="{{ __('Deactivating category will hide it from mobile app.') }}">{{ __('Active') }}</label>
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>

@@ -4,15 +4,16 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .select2-selection.select2-selection--multiple {
-            padding: 6px 12px !important;
+            padding: 4px 2px 8px !important;
             border: 1px solid #ced4da !important;
         }
 
     </style>
 
-    <h2 class="text-center">{{ __('Add Offer') }}</h2>
-    <form action="/offers" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
+    <h2 class="text-center">{{ __('Edit Offer') }}</h2>
+    <form action="/offers/{{$offer->id}}" method="post" class="mt-4 col-6 mx-auto">
         @csrf
+        @method('PUT')
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
             <input id="title" name="title" class="form-control" type="text" value="{{ old('title') ?? $offer->title }}">
@@ -80,7 +81,8 @@
                 @foreach ($tags as $tag)
                     <option value="{{ $tag->id }}"
                         {{ old('tags') != null ? (in_array($tag->id, old('tags')) ? 'selected' : '') : (in_array($tag->id, $offer->tags->modelKeys()) ? 'selected' : '') }}>
-                        {{ $tag->name }}</option>
+                        {{ $tag->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -92,14 +94,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="images">{{ __('Upload Images') }}</label>
-            <input type="file" id="images" name="images[]" class="form-control" multiple>
-            @error('images.*')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
@@ -107,12 +101,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.select2-multiple').select2({
-                placeholder: "Select",
-                allowClear: true,
-                theme: "classic"
-            });
+        $('.select2-multiple').select2({
+            placeholder: '',
+            allowClear: true,
+            closeOnSelect: false,
+            debug: true
+            // tags: true,
         });
     </script>
 @endsection

@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $offers = Offer::paginate(10);
@@ -43,7 +48,7 @@ class OfferController extends Controller
             'description' => 'min:20',
             'images.*' => 'image',
         ]);
-        $request['user_id'] = 1;
+        $request['user_id'] = auth()->id();
         $offer = Offer::create($request->all());
 
         if ($request->tags) {
@@ -87,6 +92,9 @@ class OfferController extends Controller
 
     public function edit(Offer $offer)
     {
+        if ($offer->user->id != auth()->id())
+            return abort('403');
+
         return view('offers.edit', [
             'offer' => $offer,
             'offer_types' => OfferType::all(),
@@ -98,16 +106,48 @@ class OfferController extends Controller
 
     public function update(Request $request, Offer $offer)
     {
-        //
+        if ($offer->user->id != auth()->id())
+            return abort('403');
+        $request->validate([
+            'title' => 'required',
+            'expiry_date' => 'after:yesterday',
+            'price' => 'numeric|min:1',
+            'category_id' => 'required',
+            'offer_type_id' => 'required',
+            'description' => 'min:20',
+        ]);
+        $offer->update($request->all());
+        OfferTag::destroy($offer->id);
+        TargetArea::destroy($offer->id);
+
+        if ($request->tags) {
+            $offerTags = [];
+            foreach ($request->tags as $tag) {
+                $offerTags[] = ['offer_id' => $offer->id, 'tag_id' => $tag];
+            }
+            OfferTag::insert($offerTags);
+        }
+
+        if ($request->cities) {
+            $offerCities = [];
+            foreach ($request->cities as $city) {
+                $offerCities[] = ['offer_id' => $offer->id, 'city_id' => $city];
+            }
+            TargetArea::insert($offerCities);
+        }
+
+        return redirect('/offers');
     }
 
     public function destroy(Offer $offer)
     {
-        if (json_decode($offer->images))
-            foreach ($offer->images as $image)
-                if (file_exists(public_path('uploaded_images/' . $image->name)))
-                    unlink(public_path('uploaded_images/' . $image->name));
-        $offer->delete();
+        if ($offer->user->id == auth()->id()) {
+            if (json_decode($offer->images))
+                foreach ($offer->images as $image)
+                    if (file_exists(public_path('uploaded_images/' . $image->name)))
+                        unlink(public_path('uploaded_images/' . $image->name));
+            $offer->delete();
+        }
         return redirect('/offers');
     }
 }
