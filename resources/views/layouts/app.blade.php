@@ -75,6 +75,10 @@
                             <li>
                                 <a href="/offers">{{ __('Offers') }}</a>
                             </li>
+                            <span class="mx-2">|</span>
+                            <li>
+                                <a href="/stores">{{ __('Stores') }}</a>
+                            </li>
                         </ul>
                     @endauth
 

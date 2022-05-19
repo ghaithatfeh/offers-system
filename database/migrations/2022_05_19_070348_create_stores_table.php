@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('logo');
             $table->text('cover');
+            $table->boolean('status')->default(1);
+            $table->date('expiry_date');
             $table->text('description');
             $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')->references('cities')->on('id');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
         });
     }
