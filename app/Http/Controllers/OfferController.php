@@ -10,6 +10,7 @@ use App\Models\OfferTag;
 use App\Models\OfferType;
 use App\Models\Tag;
 use App\Models\TargetArea;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OfferController extends Controller
@@ -149,5 +150,23 @@ class OfferController extends Controller
             $offer->delete();
         }
         return redirect('/offers');
+    }
+
+    public function review(Offer $offer, Request $request)
+    {
+        if ($request->result == 'reject') {
+            $offer->status = 'Rejected';
+            $offer->reviewed_at = Carbon::now();
+            $offer->reviewed_by = auth()->id();
+            $offer->reject_reason = $request->reason;
+        } else {
+            $offer->status = 'Approved';
+            $offer->reviewed_at = Carbon::now();
+            $offer->reviewed_by = auth()->id();
+            $offer->reject_reason = '';
+        }
+        $offer->timestamps = false;
+        $offer->update();
+        return redirect()->back();
     }
 }

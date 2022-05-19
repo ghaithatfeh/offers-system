@@ -35,6 +35,7 @@ Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class
 
 Route::get('/cities/search', [CityController::class, 'search']);
 Route::get('/categories/search', [CategoryController::class, 'search']);
+Route::post('/offers/{offer}/review', [OfferController::class, 'review']);
 
 Route::resources([
     '/cities' => CityController::class,
@@ -44,4 +45,3 @@ Route::resources([
     '/offer_types' => OfferTypeController::class,
     '/offers' => OfferController::class,
 ]);
-

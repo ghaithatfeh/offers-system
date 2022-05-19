@@ -7,19 +7,61 @@
         }
 
     </style>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex">
         <h2>{{ __('Offer Details') }}</h2>
-        @if ($offer->user_id == auth()->id())
-            <div>
-                <a href="/offers/{{ $offer->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
-                <a class="btn btn-danger" href=""
+        <div class="ms-auto d-flex align-items-center">
+            @if ($offer->user_id == auth()->id())
+                <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
+                <a class="btn btn-danger mx-1" href=""
                     onclick="event.preventDefault();document.querySelector('#form-delete').submit();">{{ __('Delete') }}</a>
                 <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
                     @csrf
                     @method('DELETE')
                 </form>
+            @endif
+            <a id="btn-approve" class="btn btn-primary mx-1" href="">{{ __('Approve') }}</a>
+
+            <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
+                {{ __('Reject') }}
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ __('Reject Reason') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form id="form-review" action="/offers/{{ $offer->id }}/review" method="post">
+                            <div class="modal-body">
+                                @csrf
+                                <input type="hidden" name="result" value="reject">
+                                <textarea class="form-control" name="reason" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{{ __('Close') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        @endif
+
+            <script>
+                $('#btn-approve').click(function() {
+                    event.preventDefault();
+                    if (confirm('Are you sure you want to reject this offer? that will post it in mobile app.')) {
+                        $('input[name="result"]').val('approve')
+                        document.querySelector('#form-review').submit();
+                    }
+                });
+            </script>
+
+        </div>
     </div>
 
     <table class="table text-center mt-4">
@@ -52,6 +94,22 @@
                 <td>{{ __('Status') }}</td>
                 <td>{{ $offer->status }}</td>
             </tr>
+            @if ($offer->reject_reason)
+                <tr>
+                    <td>{{ __('Reject Reason') }}</td>
+                    <td>{{ $offer->reject_reason }}</td>
+                </tr>
+            @endif
+            @if ($offer->reviewed_by)
+                <tr>
+                    <td>{{ __('Reviewed At') }}</td>
+                    <td>{{ $offer->reviewed_at }}</td>
+                </tr>
+                <tr>
+                    <td>{{ __('Reviewed By') }}</td>
+                    <td>{{ $offer->user->name }}</td>
+                </tr>
+            @endif
             <tr>
                 <td>{{ __('Created At') }}</td>
                 <td>{{ $offer->created_at }}</td>
