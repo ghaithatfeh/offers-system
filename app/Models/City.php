@@ -19,6 +19,10 @@ class City extends Model
     {
         return $this->hasMany(Customer::class);
     }
+    public function Stores()
+    {
+        return $this->hasMany(Store::class);
+    }
     public function offers()
     {
         return $this->belongsToMany(Offer::class, 'target_areas');

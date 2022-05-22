@@ -78,7 +78,7 @@ class OfferController extends Controller
                 $file->move('uploaded_images', $fileName);
                 Image::create([
                     'name' => $fileName,
-                    'offer_id' => $offer->id,
+                    'offer_id' => $offer->id
                 ]);
             }
         }
@@ -142,6 +142,7 @@ class OfferController extends Controller
 
     public function destroy(Offer $offer)
     {
+        // return json_decode($offer->images);
         if ($offer->user->id == auth()->id()) {
             if (json_decode($offer->images))
                 foreach ($offer->images as $image)

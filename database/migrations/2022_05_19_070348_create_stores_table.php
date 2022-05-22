@@ -16,13 +16,15 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('logo');
-            $table->text('cover');
-            $table->boolean('status')->default(1);
+            $table->text('logo')->nullable();
+            $table->text('cover')->nullable();
+            $table->enum('status', ['Active', 'Inactive', 'Expired'])->default('active');
             $table->date('expiry_date');
-            $table->text('description');
-            $table->unsignedBigInteger('city_id');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

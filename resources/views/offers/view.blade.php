@@ -13,7 +13,7 @@
             @if ($offer->user_id == auth()->id())
                 <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
                 <a class="btn btn-danger mx-1" href=""
-                    onclick="event.preventDefault();document.querySelector('#form-delete').submit();">{{ __('Delete') }}</a>
+                    onclick="event.preventDefault();confirm('Are you sure you want to delete this offre?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
                 <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
                     @csrf
                     @method('DELETE')
@@ -147,12 +147,12 @@
                 </td>
             </tr>
             <tr>
-                <td>{{ __('Images') }}</td>
+                <td class="align-middle">{{ __('Images') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->images as $image)
                             <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2" alt=""
-                                width="300">
+                                width="200">
                         @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse

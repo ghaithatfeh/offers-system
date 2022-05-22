@@ -21,7 +21,7 @@
     <table class="table text-center mt-4">
         <thead>
             <th>{{ __('Id') }}</th>
-            <th>{{ __('User') }}</th>
+            <th>{{ __('Store Owner') }}</th>
             <th>{{ __('Title') }}</th>
             <th>{{ __('City') }}</th>
             <th>{{ __('Expiry Date') }}</th>
@@ -35,27 +35,23 @@
                     <td>{{ $store->user->name }}</td>
                     <td>{{ $store->title }}</td>
                     <td>{{ $store->city->name_en }}</td>
-                    <td>{{ $store->expiray_date }}</td>
+                    <td>{{ $store->expiry_date }}</td>
+                    <td>{{ $store->status }}</td>
                     <td>
-                        {{ $store->status ? 'Active' : 'Inactive' }}
-                        <a href="/stores/change-status/{{ $store->id }}" class="text-primary">
-                            {{ $store->status ? '(Deactivate)' : '(Activate)' }}
+                        <a href="/stores/{{ $store->id }}" title="View">
+                            <i class="fas fa-eye"></i>
                         </a>
-                    </td>
-                    <td>
                         <a href="/stores/{{ $store->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (!json_decode($store->children))
-                            <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this store?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        @endif
+                        <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                onclick="return confirm('Are you sure you want to delete this store?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

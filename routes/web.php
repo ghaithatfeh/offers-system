@@ -33,6 +33,8 @@ Route::get('/customer/change-status/{customer}', [CustomerController::class, 'ch
 Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
 Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
 Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
+Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
+Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
 
 Route::get('/cities/search', [CityController::class, 'search']);
 Route::get('/categories/search', [CategoryController::class, 'search']);
