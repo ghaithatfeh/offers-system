@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .select2-selection.select2-selection--multiple {
-            padding: 4px 2px 8px !important;
-            border: 1px solid #ced4da !important;
-        }
-
-    </style>
-
     <h2 class="text-center">{{ __('Edit Offer') }}</h2>
     <form action="/offers/{{$offer->id}}" method="post" class="mt-4 col-6 mx-auto">
         @csrf
@@ -99,7 +90,6 @@
         </div>
     </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('.select2-multiple').select2({
             placeholder: '',

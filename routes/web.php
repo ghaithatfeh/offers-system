@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferTypeController;
 use App\Http\Controllers\StoreController;
@@ -39,6 +40,7 @@ Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class,
 Route::get('/cities/search', [CityController::class, 'search']);
 Route::get('/categories/search', [CategoryController::class, 'search']);
 Route::post('/offers/{offer}/review', [OfferController::class, 'review']);
+Route::get('/notification/get-options', [NotificationController::class, 'getOptions']);
 
 Route::resources([
     '/cities' => CityController::class,
@@ -48,4 +50,5 @@ Route::resources([
     '/offer_types' => OfferTypeController::class,
     '/offers' => OfferController::class,
     '/stores' => StoreController::class,
+    '/notifications' => NotificationController::class,
 ]);

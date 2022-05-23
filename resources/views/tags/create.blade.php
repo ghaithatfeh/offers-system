@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- {{ Breadcrumbs::render('create_tag') }} --}}
     <h2 class="text-center">{{ __('Add Tag') }}</h2>
     <form action="/tags" method="post" class="mt-4 col-6 mx-auto">
         @csrf

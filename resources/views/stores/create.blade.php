@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .select2-selection.select2-selection--single {
-            padding: 4px 2px 8px !important;
-            border: 1px solid #ced4da !important;
-            height: 38px;
-        }
-
-    </style>
     <h2 class="text-center">{{ __('Add Store') }}</h2>
     <form action="/stores" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
         @csrf
@@ -96,7 +87,7 @@
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <script>
         $('.select2-single').select2({
             placeholder: '',

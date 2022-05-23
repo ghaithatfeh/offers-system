@@ -91,6 +91,7 @@ class StoreController extends Controller
         if (file_exists(public_path('uploaded_images/' . $file_name)))
             unlink(public_path('uploaded_images/' . $file_name));
     }
+
     public function upload_file($request, $file_name)
     {
         if ($request->hasFile($file_name)) {
@@ -105,10 +106,12 @@ class StoreController extends Controller
             return false;
         }
     }
+
     public function upload(Request $request, $image_type, Store $store)
     {
         return view('stores.upload_image', ['image_type' => $image_type, 'store' => $store]);
     }
+
     public function upload_store(Request $request, $image_type, Store $store)
     {
         $request->validate(['image' => 'image']);
