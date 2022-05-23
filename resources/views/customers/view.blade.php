@@ -60,6 +60,18 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>{{ __('Subscriptions') }}</td>
+                <td>
+                    <div class="mx-auto" style="width: 500px">
+                        @forelse ($customer->stores as $i => $store)
+                            {{ $store->title . ($i + 1 != count($customer->stores) ? ',' : '') }}
+                        @empty
+                            <em class="text-danger">Not Set</em>
+                        @endforelse
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 @endsection
