@@ -28,7 +28,7 @@
                 <option value="Broadcast">Broadcast</option>
                 <option value="Categories">Categories</option>
                 <option value="Cities">Cities</option>
-                <option value="Gendar">Gendar</option>
+                <option value="Gender">Gender</option>
             </select>
             <small class="text-danger">
                 @error('target_type')
@@ -47,7 +47,7 @@
             </small>
         </div>
         <div class="d-flex">
-            <button type="submit" class="btn btn-success mx-auto">{{ __('Send') }}</button>
+            <button type="submit" onclick="confirm('Are you sure you want to send this notification?')" class="btn btn-success mx-auto">{{ __('Send') }}</button>
         </div>
     </form>
 
@@ -58,14 +58,14 @@
                     $('#target_value').html('');
                     $('#target_value').parent().addClass('d-none')
                     break;
-                case "Gendar":
+                case "Gender":
                     var data = [{
                             id: "Male",
                             text: "Male"
                         },
                         {
-                            id: "Famale",
-                            text: "Famale"
+                            id: "Female",
+                            text: "Female"
                         },
                     ];
                     select2(data);
@@ -86,7 +86,8 @@
             $('#target_value').parent().removeClass('d-none')
             $('#target_value').select2({
                 data: data,
-                debug: true
+                debug: true,
+                closeOnSelect: false,
             });
         }
     </script>

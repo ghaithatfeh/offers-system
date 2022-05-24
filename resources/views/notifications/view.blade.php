@@ -25,10 +25,12 @@
                 <td>{{ __('Target Type') }}</td>
                 <td>{{ $notification->target_type }}</td>
             </tr>
-            <tr>
-                <td>{{ __('Target Value') }}</td>
-                <td>{{ $notification->target_value }}</td>
-            </tr>
+            @if ($notification->target_type != 'Broadcast')
+                <tr>
+                    <td>{{ __('Target Value') }}</td>
+                    <td>{{ $notification->target_value }}</td>
+                </tr>
+            @endif
             <tr>
                 <td>{{ __('Sent At') }}</td>
                 <td>{{ $notification->created_at }}</td>

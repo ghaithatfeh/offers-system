@@ -11,7 +11,7 @@
             <th>{{ __('Id') }}</th>
             <th>{{ __('Title') }}</th>
             <th>{{ __('Target Type') }}</th>
-            <th>{{ __('Target Value') }}</th>
+            <th>{{ __('Sent At') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
                     <td>{{ $notification->id }}</td>
                     <td>{{ $notification->title }}</td>
                     <td>{{ $notification->target_type }}</td>
-                    <td>{!! $notification->target_value ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                    <td>{{ $notification->created_at }}</td>
                     <td>
                         <a href="/notifications/{{ $notification->id }}" title="View">
                             <i class="fas fa-eye"></i>

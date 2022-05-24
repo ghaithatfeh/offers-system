@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $stores = Store::paginate(10);
@@ -107,7 +112,7 @@ class StoreController extends Controller
         }
     }
 
-    public function upload(Request $request, $image_type, Store $store)
+    public function upload($image_type, Store $store)
     {
         return view('stores.upload_image', ['image_type' => $image_type, 'store' => $store]);
     }
@@ -115,8 +120,8 @@ class StoreController extends Controller
     public function upload_store(Request $request, $image_type, Store $store)
     {
         $request->validate(['image' => 'image']);
-        $this->delete_file($store[$image_type]);
+        $store->$image_type ? $this->delete_file($store[$image_type]) : '';
         $store->update([$image_type => $this->upload_file($request, 'image')]);
-        return redirect('/stores');
+        return redirect('/stores/' . $store->id);
     }
 }

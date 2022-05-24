@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
-            $table->enum('target_type', ['Broadcast', 'Categories', 'Cities', 'Gendar', 'Stores Subscriptions']);
+            $table->enum('target_type', ['Broadcast', 'Categories', 'Cities', 'Gender', 'Stores Subscriptions']);
             $table->text('target_value')->nullable();
             $table->timestamps();
         });
