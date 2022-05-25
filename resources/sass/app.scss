@@ -1,0 +1,27 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import "~admin-lte/dist/css/adminlte.css";
+@import "~admin-lte/plugins/fontawesome-free/css/all.min.css";
+@import "~admin-lte/plugins/select2/css/select2.min.css";
+
+a {
+    text-decoration: none;
+}
+textarea {
+    resize: none;
+}
+.select2-selection__choice {
+    color: #000 !important;
+}
+.select2-selection.select2-selection--multiple {
+    border: 1px solid #ced4da !important;
+}
+.select2-selection.select2-selection--single {
+    border: 1px solid #ced4da !important;
+}

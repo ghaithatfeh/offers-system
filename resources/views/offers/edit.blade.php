@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Edit Offer') }}</h2>
-    <form action="/offers/{{$offer->id}}" method="post" class="mt-4 col-6 mx-auto">
+    <form action="/offers/{{ $offer->id }}" method="post" class="mt-4 col-6 mx-auto">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -89,14 +89,4 @@
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
-
-    <script>
-        $('.select2-multiple').select2({
-            placeholder: '',
-            allowClear: true,
-            closeOnSelect: false,
-            debug: true
-            // tags: true,
-        });
-    </script>
 @endsection

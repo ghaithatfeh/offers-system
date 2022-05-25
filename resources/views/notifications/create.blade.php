@@ -47,48 +47,8 @@
             </small>
         </div>
         <div class="d-flex">
-            <button type="submit" onclick="confirm('Are you sure you want to send this notification?')" class="btn btn-success mx-auto">{{ __('Send') }}</button>
+            <button type="submit" onclick="confirm('Are you sure you want to send this notification?')"
+                class="btn btn-success mx-auto">{{ __('Send') }}</button>
         </div>
     </form>
-
-    <script>
-        $('#target_type').change(function(e) {
-            switch ($(this).val()) {
-                case "Broadcast":
-                    $('#target_value').html('');
-                    $('#target_value').parent().addClass('d-none')
-                    break;
-                case "Gender":
-                    var data = [{
-                            id: "Male",
-                            text: "Male"
-                        },
-                        {
-                            id: "Female",
-                            text: "Female"
-                        },
-                    ];
-                    select2(data);
-                    break;
-                default:
-                    $.get("/notification/get-options", {
-                            type: $(this).val()
-                        },
-                        function(data) {
-                            console.log(data);
-                            select2(data);
-                        });
-            }
-        });
-
-        function select2(data = []) {
-            $('#target_value').html('');
-            $('#target_value').parent().removeClass('d-none')
-            $('#target_value').select2({
-                data: data,
-                debug: true,
-                closeOnSelect: false,
-            });
-        }
-    </script>
 @endsection

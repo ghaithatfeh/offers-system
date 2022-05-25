@@ -17,7 +17,7 @@
         </form>
     </div>
 
-    <table class="table text-center mt-4">
+    <table class="table table-borderd text-center mt-4">
         <thead>
             <th>{{ __('Id') }}</th>
             <th>{{ __('Titile') }}</th>
