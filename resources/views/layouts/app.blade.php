@@ -15,6 +15,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    {{-- fontawesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -268,49 +271,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                         <li class="nav-item">
                             <a href="/offers" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
                                 <p>Offers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/cities" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('Cities') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="/customers" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-users nav-icon"></i>
                                 <p>{{ __('Customers') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/stores" class="nav-link">
+                                <i class="fa-solid fa-store nav-icon"></i>
+                                <p>{{ __('Stores') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/cities" class="nav-link">
+                                <i class="fa-solid fa-city nav-icon"></i>
+                                <p>{{ __('Cities') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/categories" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-tags nav-icon"></i>
                                 <p>{{ __('Categories') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/tags" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-hashtag nav-icon"></i>
                                 <p>{{ __('Tags') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/offer_types" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-list-check nav-icon"></i>
                                 <p>{{ __('Offers Types') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/stores" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('Stores') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="/notifications" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-bell nav-icon"></i>
                                 <p>{{ __('Notifications') }}</p>
                             </a>
                         </li>
