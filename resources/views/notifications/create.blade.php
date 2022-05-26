@@ -38,6 +38,7 @@
         </div>
         <div class="mb-3 d-none">
             <label class="form-label" for="target_value">{{ __('Target Value') }}</label>
+            <img class="loading col-1" src="{{ asset('images/loading.gif') }}" alt="">
             <select id="target_value" name="target_value[]" class="form-control multiple" multiple="multiple">
             </select>
             <small class="text-danger">
@@ -47,7 +48,7 @@
             </small>
         </div>
         <div class="d-flex">
-            <button type="submit" onclick="confirm('Are you sure you want to send this notification?')"
+            <button type="submit" onclick="return confirm('Are you sure you want to send this notification?')"
                 class="btn btn-success mx-auto">{{ __('Send') }}</button>
         </div>
     </form>

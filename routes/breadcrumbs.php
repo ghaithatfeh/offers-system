@@ -19,3 +19,17 @@ Breadcrumbs::for('create_tag', function (BreadcrumbTrail $trail) {
     $trail->parent('tags');
     $trail->push('Create Tag', route('tags.create'));
 });
+
+Breadcrumbs::for('offers', function (BreadcrumbTrail $trail) {
+    $trail->push('Offers', route('offers.index'));
+});
+
+Breadcrumbs::for('create_offer', function (BreadcrumbTrail $trail) {
+    $trail->parent('offers');
+    $trail->push('Add Offer', route('offers.create'));
+});
+
+Breadcrumbs::for('view_offer', function (BreadcrumbTrail $trail, $title) {
+    $trail->parent('offers');
+    $trail->push($title, route('offers.create'));
+});

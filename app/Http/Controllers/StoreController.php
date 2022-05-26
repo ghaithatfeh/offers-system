@@ -32,7 +32,7 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|min:3',
+            'name' => 'required|string|min:3',
             'cover_image' => 'image',
             'logo_image' => 'image',
             'user_name' => 'required|string|max:255',
@@ -73,7 +73,7 @@ class StoreController extends Controller
     public function update(Request $request, Store $store)
     {
         $request->validate([
-            'title' => 'required|string|min:3',
+            'name' => 'required|string|min:3',
             'expiry_date' => 'after:yesterday',
             'cover' => 'image',
             'logo' => 'image',

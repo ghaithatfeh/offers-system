@@ -36,9 +36,9 @@
                     <td>{{ $offer_type->price }}</td>
                     <td>
                         {{ $offer_type->status ? 'Active' : 'Inactive' }}
-                        <a href="/offer_types/change-status/{{ $offer_type->id }}" class="text-primary">
+                        {{-- <a href="/offer_types/change-status/{{ $offer_type->id }}" class="text-primary">
                             {{ $offer_type->status ? '(Deactivate)' : '(Activate)' }}
-                        </a>
+                        </a> --}}
                     </td>
                     <td>
                         <a href="/offer_types/{{ $offer_type->id }}" title="View">

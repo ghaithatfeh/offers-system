@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="alert alert-warning mt-2" role="alert">
-        {{__('NOTE: Deactivating a customer will prevent him from accessing his account and hide all his offers.')}}
+        {{__('NOTE: Deactivating customers will prevent them from accessing their account and hide all their offers.')}}
     </div>
 
     <table class="table text-center mt-4">
@@ -38,7 +38,8 @@
                     <td>{{ $customer->email }}</td>
                     <td>
                         {{ $customer->status ? 'Active' : 'Inactive' }}
-                        <a href="/customer/change-status/{{ $customer->id }}" class="text-primary">
+                        <a href="/customer/change-status/{{ $customer->id }}" class="text-primary"
+                            onclick="return confirm('Are you sure you want to change this customer status?')">
                             {{ $customer->status ? '(Deactivate)' : '(Activate)' }}
                         </a>
                     </td>

@@ -120,14 +120,15 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td>{!! $offer->description !!}</td>
+                <td style="width: 80%" class="px-3">{!! $offer->description !!}
+                <td>
             </tr>
             <tr>
                 <td>{{ __('Tags') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->tags as $i => $tags)
-                            {{ $tags->name . ($i + 1 != count($offer->tags) ? ',' : '') }}
+                            {!! $tags->name . ($i + 1 != count($offer->tags) ? '<br>' : '') !!}
                         @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse
@@ -139,7 +140,7 @@
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($offer->targetAreas as $i => $target)
-                            {{ $target->name_en . ($i + 1 != count($offer->targetAreas) ? ',' : '') }}
+                            {!! $target->name_en . ($i + 1 != count($offer->targetAreas) ? '<br>' : '') !!}
                         @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse

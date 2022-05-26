@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{ __('Edit Store') . ': ' . $store->title }}</h2>
+    <h2 class="text-center">{{ __('Edit Store') . ': ' . $store->name }}</h2>
     <form action="/stores/{{ $store->id }}" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label class="form-label" for="title">{{ __('Store Title') }}</label>
-            <input id="title" name="title" class="form-control" type="text" value="{{ old('title') ?? $store->title }}">
+            <label class="form-label" for="name">{{ __('Store name') }}</label>
+            <input id="name" name="name" class="form-control" type="text" value="{{ old('name') ?? $store->name }}">
             <small class="text-danger">
-                @error('title')
+                @error('name')
                     {{ $message }}
                 @enderror
             </small>

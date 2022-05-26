@@ -7,8 +7,6 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 @import "~admin-lte/dist/css/adminlte.css";
-// @import "~admin-lte/plugins/fontawesome-free/css/all.min.css";
-@import "~https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css";
 @import "~admin-lte/plugins/select2/css/select2.min.css";
 
 a {
@@ -20,9 +18,11 @@ textarea {
 .select2-selection__choice {
     color: #000 !important;
 }
-.select2-selection.select2-selection--multiple {
-    border: 1px solid #ced4da !important;
-}
+.select2-selection.select2-selection--multiple,
 .select2-selection.select2-selection--single {
     border: 1px solid #ced4da !important;
+    background-color: #f8fafc !important;
+}
+td{
+    vertical-align: middle !important;
 }

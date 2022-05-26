@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Offers'),
+    'name' => env('APP_NAME', 'Offers Dashboard'),
 
     /*
     |--------------------------------------------------------------------------

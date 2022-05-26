@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td>{!! $store->description !!}</td>
+                <td style="width: 80%" class="px-3">{!! $store->description !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>
@@ -56,19 +56,21 @@
             </tr>
             <tr>
                 <td class="align-middle">{{ __('Logo Image') }}</td>
-                <td>
+                <td class="d-flex flex-column align-items-center">
                     @if ($store->logo)
                         <img class="my-2" width="100" src="{{ asset('uploaded_images/' . $store->logo) }}"
                             alt="">
                     @endif
-                    <a href="/stores/upload/logo/{{ $store->id }}">{{__('Upload Logo Image')}}</a>
+                    <a href="/stores/upload/logo/{{ $store->id }}" class="btn-sm btn-success">{{__('Upload New Logo')}}</a>
                 </td>
             </tr>
             <tr>
                 <td class="align-middle">{{ __('Cover Image') }}</td>
-                <td>
-                    <img class="my-2" width="100" src="{{ asset('uploaded_images/' . $store->cover) }}" alt="">
-                    <a href="/stores/upload/cover/{{ $store->id }}">{{__('Upload Cover Image')}}</a>
+                <td class="d-flex flex-column align-items-center">
+                    @if ($store->cover)
+                        <img class="my-2" width="100" src="{{ asset('uploaded_images/' . $store->cover) }}" alt="">
+                    @endif
+                    <a href="/stores/upload/cover/{{ $store->id }}" class="btn-sm btn-success">{{__('Upload New Cover')}}</a>
                 </td>
             </tr>
         </tbody>

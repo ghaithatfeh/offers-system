@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="">{{ __('Categories') }}</h2>
+    <h2 class="mb-3">{{ __('Categories') }}</h2>
     <div class="alert alert-warning">
-        {{__('NOTE: You can\'t delete a category if it has childern categories or offers releted with it, you can deactivate it.')}}<br>
+        {{__('NOTE: You can\'t delete a category if it has children categories or offers releted to it, you can deactivate it.')}}<br>
         {{__('Inactive category (and its children and offers) won’t be displayed in mobile application.')}}
     </div>
-    <div class="d-flex mt-4">
+    <div class="d-flex mt-1">
         <a href="/categories/create" class="btn btn-success">{{ __('Add Category') }}</a>
-
         <form action="/categories/search" method="GET" class="ms-auto">
             <div class="input-group">
                 <div class="form-outline">
@@ -42,7 +41,8 @@
                     <td>{!! $category->parent->name_en ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>
                         {{ $category->status ? 'Active' : 'Inactive' }}
-                        <a href="/categories/change-status/{{ $category->id }}" class="text-primary">
+                        <a href="/categories/change-status/{{ $category->id }}" class="text-primary"
+                            onclick="return confirm('Are you sure you want to change this category status?')">
                             {{ $category->status ? '(Deactivate)' : '(Activate)' }}
                         </a>
                     </td>

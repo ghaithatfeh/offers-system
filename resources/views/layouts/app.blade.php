@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Offers') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -18,6 +18,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     {{-- fontawesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <style>
+        .breadcrumb {
+            float: right;
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -74,8 +81,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
+                                {{-- <img src="dist/img/user1-128x128.jpg" alt="User Avatar" --}}
+                                class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Brad Diesel
@@ -92,8 +99,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
+                                {{-- <img src="dist/img/user8-128x128.jpg" alt="User Avatar" --}}
+                                class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         John Pierce
@@ -110,8 +117,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
+                                {{-- <img src="dist/img/user3-128x128.jpg" alt="User Avatar" --}}
+                                class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Nora Silvester
@@ -201,7 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="brand-link text-center">
-                <span class="brand-text font-weight-light">{{ config('app.name', 'Offers') }}</span>
+                <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
             </a>
 
             <!-- Sidebar -->
@@ -325,26 +332,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
+        <!-- Main content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            {{-- <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div> --}}
-            <!-- /.content-header -->
-
-            <!-- Main content -->
             <div class="content py-3">
                 <div class="container-fluid">
                     <div class="row">
@@ -369,7 +358,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+                {{ config('app.name') }}
             </div>
             <!-- Default to the left -->
             <strong>Copyright &copy; {{ Carbon\Carbon::now()->year }} <a href="https://www.flexsolution.biz/">Flex
@@ -383,15 +372,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $(function() {
-            var url = window.location;
+            var url = window.location.toString()
             // for single sidebar menu
             $('ul.nav-sidebar a').filter(function() {
-                return this.href == url;
+                return url.includes(this.href);
             }).addClass('active');
 
             // for sidebar menu and treeview
             $('ul.nav-treeview a').filter(function() {
-                    return this.href == url;
+                    return url.includes(this.href);
                 }).parentsUntil(".nav-sidebar > .nav-treeview")
                 .css({
                     'display': 'block'

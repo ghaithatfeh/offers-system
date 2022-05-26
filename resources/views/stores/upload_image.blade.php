@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{ __('Add Store') }}</h2>
+    <h2 class="text-center">{{ __('Upload New ' . ucwords($image_type)) }}</h2>
     <form action="/stores/upload_store/{{ $image_type }}/{{ $store->id }}" method="post" class="mt-4 col-6 mx-auto"
         enctype="multipart/form-data">
         @csrf

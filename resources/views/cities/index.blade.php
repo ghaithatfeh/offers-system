@@ -36,7 +36,8 @@
                     <td>{!! $city->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>
                         {{ $city->status ? 'Active' : 'Inactive' }}
-                        <a href="/cities/change-status/{{ $city->id }}" class="text-primary">
+                        <a href="/cities/change-status/{{ $city->id }}" class="text-primary"
+                            onclick="return confirm('Are you sure you want to change this city status?')">
                             {{ $city->status ? '(Deactivate)' : '(Activate)' }}
                         </a>
                     </td>

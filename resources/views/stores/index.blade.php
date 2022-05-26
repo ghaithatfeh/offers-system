@@ -22,7 +22,7 @@
         <thead>
             <th>{{ __('Id') }}</th>
             <th>{{ __('Store Owner') }}</th>
-            <th>{{ __('Title') }}</th>
+            <th>{{ __('Store Name') }}</th>
             <th>{{ __('City') }}</th>
             <th>{{ __('Expiry Date') }}</th>
             <th>{{ __('Status') }}</th>
@@ -33,7 +33,7 @@
                 <tr>
                     <td>{{ $store->id }}</td>
                     <td>{{ $store->user->name }}</td>
-                    <td>{{ $store->title }}</td>
+                    <td>{{ $store->name }}</td>
                     <td>{{ $store->city->name_en }}</td>
                     <td>{{ $store->expiry_date }}</td>
                     <td>{{ $store->status }}</td>

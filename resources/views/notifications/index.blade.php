@@ -2,6 +2,9 @@
 
 @section('content')
     <h2 class="">{{ __('Notifications') }}</h2>
+    @if (Session::has('notify-message'))
+        <div class="alert {{ session('notify-alert') }}">{{ session('notify-message') }}</div>
+    @endif
     <div class="d-flex mt-4">
         <a href="/notifications/create" class="btn btn-success">{{ __('Send New Notification') }}</a>
     </div>
@@ -25,14 +28,6 @@
                         <a href="/notifications/{{ $notification->id }}" title="View">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <form class="d-inline-block" method="POST" action="/notifications/{{ $notification->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
-                                onclick="return confirm('Are you sure you want to delete this notification?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

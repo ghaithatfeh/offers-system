@@ -45,8 +45,8 @@
                 <td>{{ $offer_type->updated_at }}</td>
             </tr>
             <tr>
-                <td class="mx-auto" style="width: 500px">{{ __('Description') }}</td>
-                <td>{{ $offer_type->description }}</td>
+                <td>{{ __('Description') }}</td>
+                <td style="width: 80%" class="px-3">{{ $offer_type->description }}</td>
             </tr>
         </tbody>
     </table>

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Notification;
 use App\Models\NotificationReceiver;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,18 +38,28 @@ class NotificationController extends Controller
         if ($request->target_value)
             $request['target_value'] = implode("|", $request->target_value);
         $notification = Notification::create($request->all());
-        $this->notificationReciever($notification);
+        if (!$this->notificationReciever($notification)) {
+            $notification->delete();
+            $request->session()->flash('notify-message', 'An error occurred, the notification was not sent.');
+            $request->session()->flash('notify-alert', 'alert-danger');
+        } else {
+            $request->session()->flash('notify-message', 'The notification has been sent successfully.');
+            $request->session()->flash('notify-alert', 'alert-success');
+        }
+
 
         return redirect('/notifications');
     }
 
     public function notificationReciever($notification)
     {
+        $target_value = explode('|', $notification->target_value);
+
         switch ($notification->target_type) {
             case 'Cities':
                 $customers_ids = DB::table('customers')
                     ->select(['id'])
-                    ->whereIn('city_id', explode('|', $notification->target_value))
+                    ->whereIn('city_id', $target_value)
                     ->get()
                     ->pluck('id')
                     ->toArray();
@@ -56,26 +67,36 @@ class NotificationController extends Controller
             case 'Categories':
                 $customers_ids = DB::table('customers_interests')
                     ->select(['customer_id'])
-                    ->whereIn('category_id', explode('|', $notification->target_value))
+                    ->whereIn('category_id', $target_value)
                     ->distinct()
                     ->get()
                     ->pluck('id')
-                    ->toArray();;
+                    ->toArray();
                 break;
             case 'Gender':
                 $customers_ids = DB::table('customers')
                     ->select(['id'])
-                    ->whereIn('gender', explode('|', $notification->target_value))
+                    ->whereIn('gender', $target_value)
                     ->get()
                     ->pluck('id')
-                    ->toArray();;
+                    ->toArray();
                 break;
+            case 'Broadcast':
+                $customers_ids = DB::table('customers')
+                    ->select(['id'])
+                    ->get()
+                    ->pluck('id')
+                    ->toArray();
         }
-        $data = [];
-        foreach ($customers_ids as $id) {
-            $data[] = ['customer_id' => $id, 'notification_id' => $notification->id];
-        }
-        NotificationReceiver::insert($data);
+        if ($customers_ids[0] != null) {
+            $data = [];
+            foreach ($customers_ids as $id) {
+                $data[] = ['customer_id' => $id, 'notification_id' => $notification->id];
+            }
+            NotificationReceiver::insert($data);
+            return true;
+        } else
+            return false;
     }
 
     public function getOptions(Request $request)
@@ -107,11 +128,5 @@ class NotificationController extends Controller
         $notification->target_value = implode(', ', $target_value);
 
         return view('notifications.view', ['notification' => $notification]);
-    }
-
-    public function destroy(Notification $notification)
-    {
-        $notification->delete();
-        return redirect('/notifications');
     }
 }

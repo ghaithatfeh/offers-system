@@ -5,7 +5,6 @@
         td:first-child {
             font-weight: bold;
         }
-
     </style>
     <h2 class="text-center">{{ __('Customer Details') }}</h2>
 
@@ -53,7 +52,7 @@
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($customer->customers_interests as $i => $interested_category)
-                            {{ $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? ',' : '') }}
+                            {!! $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? '<br>' : '') !!}
                         @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse
@@ -65,7 +64,7 @@
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($customer->stores as $i => $store)
-                            {{ $store->title . ($i + 1 != count($customer->stores) ? ',' : '') }}
+                            {!! $store->title . ($i + 1 != count($customer->stores) ? '<br>' : '') !!}
                         @empty
                             <em class="text-danger">Not Set</em>
                         @endforelse

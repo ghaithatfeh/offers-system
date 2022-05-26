@@ -14,6 +14,7 @@ $('.select2').select2({
 })
 
 $('#target_type').change(function (e) {
+    $('.loading').removeClass('d-none')
     switch ($(this).val()) {
         case "Broadcast":
             $('#target_value').html('');
@@ -32,6 +33,8 @@ $('#target_type').change(function (e) {
             select2(data);
             break;
         default:
+            $('#target_value').html('');
+            $('#target_value').parent().removeClass('d-none')
             $.get("/notification/get-options", {
                 type: $(this).val()
             },
@@ -43,8 +46,7 @@ $('#target_type').change(function (e) {
 });
 
 function select2(data = []) {
-    $('#target_value').html('');
-    $('#target_value').parent().removeClass('d-none')
+    $('.loading').addClass('d-none')
     $('#target_value').select2({
         data: data,
         debug: true,

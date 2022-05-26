@@ -5,10 +5,10 @@
     <form action="/stores" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="form-label" for="title">{{ __('Store Title') }}</label>
-            <input id="title" name="title" class="form-control" type="text" value="{{ old('title') }}">
+            <label class="form-label" for="name">{{ __('Store name') }}</label>
+            <input id="name" name="name" class="form-control" type="text" value="{{ old('name') }}">
             <small class="text-danger">
-                @error('title')
+                @error('name')
                     {{ $message }}
                 @enderror
             </small>
@@ -77,7 +77,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
+            <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
             <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date') }}">
             @error('expiry_date')
                 <small class="text-danger">{{ $message }}</small>
