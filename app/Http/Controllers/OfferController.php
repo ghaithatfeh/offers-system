@@ -15,11 +15,6 @@ use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $offers = Offer::paginate(10);

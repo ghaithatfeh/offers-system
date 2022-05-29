@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index()
     {
         $tags = Tag::paginate(10);

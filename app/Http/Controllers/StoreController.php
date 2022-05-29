@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class StoreController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $stores = Store::paginate(10);

@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class OfferTypeController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index()
     {
         return view('offer_types.index', ['offer_types' => OfferType::paginate(10)]);

@@ -358,7 +358,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                {{ config('app.name') }}
             </div>
             <!-- Default to the left -->
             <strong>Copyright &copy; {{ Carbon\Carbon::now()->year }} <a href="https://www.flexsolution.biz/">Flex
