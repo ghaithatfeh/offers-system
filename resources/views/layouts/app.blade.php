@@ -393,7 +393,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#target_type').change(targetTypeChange);
 
         function targetTypeChange() {
-            console.log($(this).val())
             $('.loading').removeClass('d-none')
             switch ($(this).val()) {
                 case "Broadcast":
