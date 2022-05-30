@@ -5,6 +5,7 @@
     @if (Session::has('notify-message'))
         <div class="alert {{ session('notify-alert') }}">{{ session('notify-message') }}</div>
     @endif
+
     <div class="d-flex mt-4">
         <a href="/notifications/create" class="btn btn-success">{{ __('Send New Notification') }}</a>
     </div>
@@ -34,4 +35,13 @@
         </tbody>
     </table>
     {{ $notifications->appends(Request::except('page'))->links() }}
+@endsection
+
+@section('script')
+    window.onload = function() {
+    setTimeout(function() {
+    $(".alert").fadeOut()
+    console.log('asd')
+    }, 3000)
+    }
 @endsection

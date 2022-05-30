@@ -25,10 +25,13 @@
         <div class="mb-3">
             <label class="form-label" for="target_type">{{ __('Target Type') }}</label>
             <select id="target_type" name="target_type" class="form-control">
-                <option value="Broadcast">Broadcast</option>
-                <option value="Categories">Categories</option>
-                <option value="Cities">Cities</option>
-                <option value="Gender">Gender</option>
+                @php
+                    $target_types = ['Broadcast', 'Categories', 'Cities', 'Gender'];
+                @endphp
+                @foreach ($target_types as $target_type)
+                    <option value="{{ $target_type }}" {{ $target_type == old('target_type') ? 'selected' : '' }}>
+                        {{ $target_type }}</option>
+                @endforeach
             </select>
             <small class="text-danger">
                 @error('target_type')

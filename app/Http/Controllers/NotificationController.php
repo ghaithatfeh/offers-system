@@ -9,6 +9,7 @@ use App\Models\NotificationReceiver;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class NotificationController extends Controller
 {
@@ -27,7 +28,10 @@ class NotificationController extends Controller
     {
         $request->validate([
             'title' => 'required|min:3|max:255',
-            'body' => 'required|min:50'
+            'body' => 'required|min:50',
+            'target_type' => 'required',
+            // 'target_value' => 'required_if:target_type,Broadcast'
+            'target_value' => Rule::requiredIf($request->target_type != 'Broadcast')
         ]);
         if ($request->target_value)
             $request['target_value'] = implode("|", $request->target_value);
@@ -64,7 +68,7 @@ class NotificationController extends Controller
                     ->whereIn('category_id', $target_value)
                     ->distinct()
                     ->get()
-                    ->pluck('id')
+                    ->pluck('customer_id')
                     ->toArray();
                 break;
             case 'Gender':
@@ -82,15 +86,15 @@ class NotificationController extends Controller
                     ->pluck('id')
                     ->toArray();
         }
-        if ($customers_ids[0] != null) {
+        if (isset($customers_ids[0])) {
             $data = [];
             foreach ($customers_ids as $id) {
                 $data[] = ['customer_id' => $id, 'notification_id' => $notification->id];
             }
             NotificationReceiver::insert($data);
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     public function getOptions(Request $request)
