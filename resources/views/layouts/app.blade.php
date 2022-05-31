@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @if (strpos(Route::currentRouteAction(), 'show'))
         <style>
             .btn {
-                width: 80px;
+                width: 84px;
             }
 
             .btn-sm {
