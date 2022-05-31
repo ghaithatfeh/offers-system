@@ -58,7 +58,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
-            <select class="select2-multiple form-control" name="cities[]" id="cities" multiple="multiple">
+            <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}"
                         {{ old('cities') != null ? (in_array($city->id, old('cities')) ? 'selected' : '') : (in_array($city->id, $offer->targetAreas->modelKeys()) ? 'selected' : '') }}>
@@ -68,7 +68,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="tags">{{ __('Tags') }}</label>
-            <select class="select2-multiple form-control" name="tags[]" id="tags" multiple="multiple">
+            <select class="select2 form-control" name="tags[]" id="tags" multiple="multiple">
                 @foreach ($tags as $tag)
                     <option value="{{ $tag->id }}"
                         {{ old('tags') != null ? (in_array($tag->id, old('tags')) ? 'selected' : '') : (in_array($tag->id, $offer->tags->modelKeys()) ? 'selected' : '') }}>
