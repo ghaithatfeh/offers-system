@@ -13,25 +13,24 @@ $('.select2').select2({
     debug: true
 })
 
-$(function () {
-    var url = window.location.toString()
-    // for single sidebar menu
-    $('ul.nav-sidebar a').filter(function () {
-        return url.includes(this.href);
-    }).addClass('active');
+var url = window.location.toString()
+// for single sidebar menu
+$('ul.nav-sidebar a').filter(function () {
+    return url.includes(this.href);
+}).addClass('active');
 
-    // for sidebar menu and treeview
-    $('ul.nav-treeview a').filter(function () {
-        return url.includes(this.href);
-    }).parentsUntil(".nav-sidebar > .nav-treeview")
-        .css({
-            'display': 'block'
-        })
-        .addClass('menu-open').prev('a')
-        .addClass('active');
-});
+// for sidebar menu and treeview
+$('ul.nav-treeview a').filter(function () {
+    return url.includes(this.href);
+}).parentsUntil(".nav-sidebar > .nav-treeview")
+    .css({
+        'display': 'block'
+    })
+    .addClass('menu-open').prev('a')
+    .addClass('active');
 
-targetTypeChange.apply($('#target_type'));
+if (url.includes('notifications/create'))
+    targetTypeChange.apply($('#target_type'));
 
 $('#target_type').change(targetTypeChange);
 

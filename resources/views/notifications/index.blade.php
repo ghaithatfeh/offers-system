@@ -41,7 +41,6 @@
     window.onload = function() {
     setTimeout(function() {
     $(".alert").fadeOut()
-    console.log('asd')
     }, 3000)
     }
 @endsection
