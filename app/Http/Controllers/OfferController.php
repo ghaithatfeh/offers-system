@@ -17,7 +17,7 @@ class OfferController extends Controller
 {
     public function index()
     {
-        $offers = Offer::paginate(10);
+        $offers = Offer::orderByDesc('id')->paginate(10);
         return view('offers.index', [
             'offers' => $offers,
         ]);

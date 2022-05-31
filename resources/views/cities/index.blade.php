@@ -2,6 +2,9 @@
 
 @section('content')
     <h2 class="">{{ __('Cities') }}</h2>
+    <div class="alert alert-warning">
+        {{__('NOTE: You can\'t delete a city if there offer releted to it, you can deactivate it. Inactive city and its offers won’t be displayed in mobile application.')}}
+    </div>
     <div class="d-flex mt-4">
         <a href="/cities/create" class="btn btn-success">{{ __('Add City') }}</a>
 

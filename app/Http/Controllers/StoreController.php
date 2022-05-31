@@ -12,7 +12,7 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $stores = Store::paginate(10);
+        $stores = Store::orderByDesc('id')->paginate(10);
         return view('stores.index', [
             'stores' => $stores,
         ]);
@@ -80,9 +80,11 @@ class StoreController extends Controller
 
     public function destroy(Store $store)
     {
-        $this->delete_file($store->logo);
-        $this->delete_file($store->cover);
-        $store->user->delete();
+        if (!$store->user->offers) {
+            $this->delete_file($store->logo);
+            $this->delete_file($store->cover);
+            $store->user->delete();
+        }
         return redirect('/stores');
     }
 

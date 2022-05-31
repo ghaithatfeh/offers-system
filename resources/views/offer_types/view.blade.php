@@ -30,11 +30,7 @@
             </tr>
             <tr>
                 <td>{{ __('Price') }}</td>
-                <td>{{ $offer_type->price }}</td>
-            </tr>
-            <tr>
-                <td>{{ __('Status') }}</td>
-                <td>{{ $offer_type->status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ $offer_type->price . ' ' . __('validation.currency')}}</td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>

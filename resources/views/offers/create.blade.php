@@ -86,6 +86,9 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+        <div class="alert alert-warning">
+            {{ __('A default image will be displayed for offer if images are not uploaded') }}.
+        </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>

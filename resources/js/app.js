@@ -14,20 +14,7 @@ $('.select2').select2({
 })
 
 var url = window.location.toString()
-// for single sidebar menu
-$('ul.nav-sidebar a').filter(function () {
-    return url.includes(this.href);
-}).addClass('active');
 
-// for sidebar menu and treeview
-$('ul.nav-treeview a').filter(function () {
-    return url.includes(this.href);
-}).parentsUntil(".nav-sidebar > .nav-treeview")
-    .css({
-        'display': 'block'
-    })
-    .addClass('menu-open').prev('a')
-    .addClass('active');
 
 if (url.includes('notifications/create'))
     targetTypeChange.apply($('#target_type'));

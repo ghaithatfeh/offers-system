@@ -170,4 +170,6 @@ return [
         'name_ar' => 'name arabic',
     ],
 
+    'currency' => '$'
+
 ];

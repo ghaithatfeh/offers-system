@@ -48,7 +48,7 @@
                 <td>{{ $customer->updated_at }}</td>
             </tr>
             <tr>
-                <td>{{ __('Interested Category') }}</td>
+                <td>{{ __('Interest Categories') }}</td>
                 <td>
                     <div class="mx-auto" style="width: 500px">
                         @forelse ($customer->customers_interests as $i => $interested_category)

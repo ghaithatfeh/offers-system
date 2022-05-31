@@ -23,7 +23,6 @@
             <th>{{ __('Name Portuguese') }}</th>
             <th>{{ __('Name Arabic') }}</th>
             <th>{{ __('Price') }}</th>
-            <th>{{ __('Status') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
@@ -33,13 +32,7 @@
                     <td>{{ $offer_type->name_en }}</td>
                     <td>{!! $offer_type->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>{!! $offer_type->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
-                    <td>{{ $offer_type->price }}</td>
-                    <td>
-                        {{ $offer_type->status ? 'Active' : 'Inactive' }}
-                        {{-- <a href="/offer_types/change-status/{{ $offer_type->id }}" class="text-primary">
-                            {{ $offer_type->status ? '(Deactivate)' : '(Activate)' }}
-                        </a> --}}
-                    </td>
+                    <td>{{ $offer_type->price . ' ' . __('validation.currency')}}</td>
                     <td>
                         <a href="/offer_types/{{ $offer_type->id }}" title="View">
                             <i class="fas fa-eye"></i>

@@ -15,7 +15,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Notification::paginate(10);
+        $notifications = Notification::orderByDesc('id')->paginate(10);
         return view('notifications.index', ['notifications' => $notifications]);
     }
 
@@ -123,7 +123,7 @@ class NotificationController extends Controller
                 ->pluck('name_en')
                 ->toArray();
 
-        $notification->target_value = implode(', ', $target_value);
+        $notification->target_value = implode('<br>', $target_value);
 
         return view('notifications.view', ['notification' => $notification]);
     }

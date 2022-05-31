@@ -10,21 +10,10 @@
     <div class="d-flex">
         <h2>{{ __('Offer Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
-            @if ($offer->user_id == auth()->id())
-                <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
-                <a class="btn btn-danger mx-1" href=""
-                    onclick="event.preventDefault();confirm('Are you sure you want to delete this offre?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
-                <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                </form>
-            @endif
-            <a id="btn-approve" class="btn btn-primary mx-1" href="">{{ __('Approve') }}</a>
-
-            <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
+            <a id="btn-approve" class="btn btn-success mx-1" href="">{{ __('Approve') }}</a>
+            <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
                 {{ __('Reject') }}
             </button>
-
             <!-- Modal -->
             <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -32,8 +21,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">{{ __('Reject Reason') }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="form-review" action="/offers/{{ $offer->id }}/review" method="post">
                             <div class="modal-body">
@@ -51,16 +39,15 @@
                 </div>
             </div>
 
-            <script>
-                $('#btn-approve').click(function() {
-                    event.preventDefault();
-                    if (confirm('Are you sure you want to reject this offer? that will post it in mobile app.')) {
-                        $('input[name="result"]').val('approve')
-                        document.querySelector('#form-review').submit();
-                    }
-                });
-            </script>
-
+            @if ($offer->user_id == auth()->id())
+                <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
+                <a class="btn btn-danger mx-1" href=""
+                    onclick="event.preventDefault();confirm('Are you sure you want to delete this offre?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
+                <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endif
         </div>
     </div>
 
@@ -76,7 +63,7 @@
             </tr>
             <tr>
                 <td>{{ __('Price') }}</td>
-                <td>{{ $offer->price }}</td>
+                <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
             </tr>
             <tr>
                 <td>{{ __('Offer Type') }}</td>
@@ -92,10 +79,19 @@
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
-                <td>{{ $offer->status }}</td>
+                <td>
+                    {{ $offer->status }}
+                    @if ($offer->status == 'On Hold')
+                        <i class="fa-solid fa-circle-question text-warning"></i>
+                    @elseif ($offer->status == 'Approved')
+                        <i class="fa-solid fa-circle-check text-success"></i>
+                    @else
+                        <i class="fa-solid fa-circle-xmark text-danger"></i>
+                    @endif
+                </td>
             </tr>
             @if ($offer->reject_reason)
-                <tr>
+                <tr class="text-danger">
                     <td>{{ __('Reject Reason') }}</td>
                     <td>{{ $offer->reject_reason }}</td>
                 </tr>
@@ -162,4 +158,14 @@
             </tr>
         </tbody>
     </table>
+@endsection
+
+@section('script')
+    $('#btn-approve').click(function() {
+    event.preventDefault();
+    if (confirm('Are you sure you want to approve this offer? that will post it in mobile app.')) {
+    $('input[name="result"]').val('approve')
+    document.querySelector('#form-review').submit();
+    }
+    });
 @endsection

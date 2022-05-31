@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name_en');
             $table->string('name_pt')->nullable();
             $table->string('name_ar')->nullable();
-            $table->boolean('status')->default(1);
             $table->float('price');
             $table->text('description');
             $table->timestamps();

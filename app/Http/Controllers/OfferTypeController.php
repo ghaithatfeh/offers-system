@@ -24,7 +24,6 @@ class OfferTypeController extends Controller
     
     public function update(Request $request, OfferType $offerType)
     {
-        $request['status'] = isset($request->status) ? 1 : 0;
         $request->validate([
             'name_en' => 'required|min:3',
             'name_pt' => 'required|min:3',
@@ -34,12 +33,5 @@ class OfferTypeController extends Controller
         ]);
         $offerType->update($request->all());
         return redirect('offer_types');
-    }
-    
-    public function changeStatus(OfferType $offerType)
-    {
-        $offerType->status = $offerType->status ? 0 : 1;
-        $offerType->update();
-        return redirect('/offer_types');
     }
 }

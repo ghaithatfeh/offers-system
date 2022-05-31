@@ -27,8 +27,8 @@
                 <td><a href="/users/{{ $store->user->id }}">{{ $store->user->name }}</a></td>
             </tr>
             <tr>
-                <td>{{ __('Titile') }}</td>
-                <td>{{ $store->title }}</td>
+                <td>{{ __('Store Name') }}</td>
+                <td>{{ $store->name }}</td>
             </tr>
             <tr>
                 <td>{{ __('City') }}</td>

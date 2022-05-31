@@ -32,8 +32,17 @@
                     <td>{{ $offer->id }}</td>
                     <td>{{ $offer->title }}</td>
                     <td>{{ $offer->expiry_date }}</td>
-                    <td>{{ $offer->price }}</td>
-                    <td>{{ $offer->status }}</td>
+                    <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
+                    <td>
+                        {{ $offer->status }}
+                        @if ($offer->status == 'On Hold')
+                            <i class="fa-solid fa-circle-question text-warning"></i>
+                        @elseif ($offer->status == 'Approved')
+                            <i class="fa-solid fa-circle-check text-success"></i>
+                        @else
+                            <i class="fa-solid fa-circle-xmark text-danger"></i>
+                        @endif
+                    </td>
                     <td>
                         <a href="/offers/{{ $offer->id }}" title="View">
                             <i class="fas fa-eye"></i>

@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="alert alert-warning mt-2" role="alert">
-        {{__('NOTE: Deactivating customers will prevent them from accessing their account and hide all their offers.')}}
+        {{__('NOTE: Deactivating customers will prevent them from accessing their accounts and hide all their offers.')}}
     </div>
 
     <table class="table text-center mt-4">

@@ -2,6 +2,9 @@
 
 @section('content')
     <h2 class="">{{ __('Stores') }}</h2>
+    <div class="alert alert-warning">
+        {{ __('NOTE: You can\'t delete a store if there offer releted to it, you can deactivate it. Inactive store and its offers won’t be displayed in mobile application.') }}
+    </div>
     <div class="d-flex mt-4">
         <a href="/stores/create" class="btn btn-success">{{ __('Add Store') }}</a>
 
@@ -44,14 +47,16 @@
                         <a href="/stores/{{ $store->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
-                                onclick="return confirm('Are you sure you want to delete this store?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        @if (!$store->user->offers)
+                            <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                    onclick="return confirm('Are you sure you want to delete this store?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach

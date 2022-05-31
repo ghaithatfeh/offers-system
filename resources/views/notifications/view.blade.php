@@ -28,7 +28,7 @@
             @if ($notification->target_type != 'Broadcast')
                 <tr>
                     <td>{{ __('Target Value') }}</td>
-                    <td>{{ $notification->target_value }}</td>
+                    <td>{!! $notification->target_value !!}</td>
                 </tr>
             @endif
             <tr>
