@@ -111,7 +111,7 @@ class StoreController extends Controller
 
     public function upload($image_type, Store $store)
     {
-        return view('stores.upload_image', ['image_type' => $image_type, 'store' => $store]);
+        return view('stores.image_upload', ['image_type' => $image_type, 'store' => $store]);
     }
 
     public function upload_store(Request $request, $image_type, Store $store)

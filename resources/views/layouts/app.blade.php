@@ -19,10 +19,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- fontawesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
+    @php
+        // return print_r(Route::currentRouteAction());
+    @endphp
     @if (strpos(Route::currentRouteAction(), 'show'))
         <style>
-            .btn {
-                width: 84px;
+            .btn:not(.btn-sidebar) {
+                width: 69px;
             }
 
             .btn-sm {

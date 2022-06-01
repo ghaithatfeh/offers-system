@@ -6,38 +6,47 @@
             font-weight: bold;
         }
 
+        .btn:not(.btn-sidebar) {
+            width: 84px;
+        }
+
     </style>
     <div class="d-flex">
         <h2>{{ __('Offer Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
-            <a id="btn-approve" class="btn btn-success mx-1" href="">{{ __('Approve') }}</a>
-            <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
-                {{ __('Reject') }}
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">{{ __('Reject Reason') }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            @if ($offer->status != 'Rejected')
+                @if ($offer->status != 'Approved')
+                    <a id="btn-approve" class="btn btn-success mx-1" href="">{{ __('Approve') }}</a>
+                @endif
+                <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
+                    {{ __('Reject') }}
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">{{ __('Reject Reason') }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="form-review" action="/offers/{{ $offer->id }}/review" method="post">
+                                <div class="modal-body">
+                                    @csrf
+                                    <input type="hidden" name="result" value="reject">
+                                    <textarea class="form-control" name="reason" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">{{ __('Close') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                                </div>
+                            </form>
                         </div>
-                        <form id="form-review" action="/offers/{{ $offer->id }}/review" method="post">
-                            <div class="modal-body">
-                                @csrf
-                                <input type="hidden" name="result" value="reject">
-                                <textarea class="form-control" name="reason" cols="30" rows="10"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">{{ __('Close') }}</button>
-                                <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+            @endif
 
             @if ($offer->user_id == auth()->id())
                 <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
@@ -146,13 +155,16 @@
             <tr>
                 <td class="align-middle">{{ __('Images') }}</td>
                 <td>
-                    <div class="mx-auto" style="width: 500px">
-                        @forelse ($offer->images as $image)
-                            <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2" alt=""
-                                width="200">
-                        @empty
-                            <em class="text-danger">Not Set</em>
-                        @endforelse
+                    {{-- d-flex flex-column align-items-center --}}
+                    <div class="row mx-auto" style="width: 500px">
+                        @foreach ($offer->images as $image)
+                            <div class="col-6">
+                                <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2 img-fluid"
+                                    alt="" width="">
+                            </div>
+                        @endforeach
+                        <a href="/offers/upload/{{ $offer->id }}"
+                            class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
                     </div>
                 </td>
             </tr>

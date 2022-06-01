@@ -38,8 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
     Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
     Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
+    
     Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
     Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+
+    Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
+    Route::put('/offers/upload_store/{offer}', [OfferController::class, 'upload_store']);
+    Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
 
     Route::get('/cities/search', [CityController::class, 'search']);
     Route::get('/categories/search', [CategoryController::class, 'search']);
@@ -56,4 +61,5 @@ Route::middleware('auth')->group(function () {
         '/stores' => StoreController::class,
         '/notifications' => NotificationController::class,
     ]);
+
 });

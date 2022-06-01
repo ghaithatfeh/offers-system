@@ -58,7 +58,7 @@
                 <td class="align-middle">{{ __('Logo Image') }}</td>
                 <td class="d-flex flex-column align-items-center">
                     @if ($store->logo)
-                        <img class="my-2" width="100" src="{{ asset('uploaded_images/' . $store->logo) }}"
+                        <img class="my-2" width="150" src="{{ asset('uploaded_images/' . $store->logo) }}"
                             alt="">
                     @endif
                     <a href="/stores/upload/logo/{{ $store->id }}" class="btn-sm btn-success">{{__('Upload New Logo')}}</a>

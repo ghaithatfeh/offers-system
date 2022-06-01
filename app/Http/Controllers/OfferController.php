@@ -137,7 +137,6 @@ class OfferController extends Controller
 
     public function destroy(Offer $offer)
     {
-        // return json_decode($offer->images);
         if ($offer->user->id == auth()->id()) {
             if (json_decode($offer->images))
                 foreach ($offer->images as $image)
@@ -150,12 +149,12 @@ class OfferController extends Controller
 
     public function review(Offer $offer, Request $request)
     {
-        if ($request->result == 'reject') {
+        if ($request->result == 'reject' && $offer->status != 'Rejected') {
             $offer->status = 'Rejected';
             $offer->reviewed_at = Carbon::now();
             $offer->reviewed_by = auth()->id();
             $offer->reject_reason = $request->reason;
-        } else {
+        } elseif ($request->result == 'approve' && $offer->status == 'On Hold') {
             $offer->status = 'Approved';
             $offer->reviewed_at = Carbon::now();
             $offer->reviewed_by = auth()->id();
@@ -164,5 +163,45 @@ class OfferController extends Controller
         $offer->timestamps = false;
         $offer->update();
         return redirect()->back();
+    }
+
+    public function upload(Offer $offer)
+    {
+        if ($offer->user->id != auth()->id())
+            return abort(403);
+        return view('offers.images_upload', ['offer' => $offer]);
+    }
+
+    public function upload_store(Request $request, Offer $offer)
+    {
+        if ($offer->user->id != auth()->id())
+            return abort(403);
+        $request->validate([
+            'images' => 'required',
+            'images.*' => 'image'
+        ]);
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                $image_name = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploaded_images'), $image_name);
+                Image::create([
+                    'name' => $image_name,
+                    'offer_id' => $offer->id
+                ]);
+            }
+        }
+        return back();
+    }
+
+    public function delete_image(Image $image)
+    {
+        if ($image->offer->user->id != auth()->id())
+            return abort(403);
+        if (file_exists(public_path('uploaded_images/' . $image->name)))
+            unlink(public_path('uploaded_images/' . $image->name));
+        $image->delete();
+        return abort(403);
+        return back();
     }
 }
