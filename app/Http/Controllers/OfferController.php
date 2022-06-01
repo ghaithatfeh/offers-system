@@ -201,7 +201,6 @@ class OfferController extends Controller
         if (file_exists(public_path('uploaded_images/' . $image->name)))
             unlink(public_path('uploaded_images/' . $image->name));
         $image->delete();
-        return abort(403);
         return back();
     }
 }
