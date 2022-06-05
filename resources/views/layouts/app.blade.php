@@ -91,7 +91,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{{ asset('images/user_profile.png') }}" class="img-circle elevation-2">
-                        
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -114,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @php
-                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'], ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'], ['link' => '/stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store'], ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'], ['link' => '/categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'], ['link' => '/tags', 'lable' => __('Tags'), 'icon' => 'fa-solid fa-hashtag'], ['link' => '/offer_types', 'lable' => __('Offer Types'), 'icon' => 'fa-solid fa-list-check'], ['link' => '/notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell']];
+                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'], ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'], ['link' => '/stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store'], ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'], ['link' => '/categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'], ['link' => '/tags', 'lable' => __('Tags'), 'icon' => 'fa-solid fa-hashtag'], ['link' => '/offer_types', 'lable' => __('Offer Types'), 'icon' => 'fa-solid fa-list-check'], ['link' => '/notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell'], ['link' => '/users', 'lable' => __('Users'), 'icon' => 'fa-solid fa-user-gear']];
                             // $nav_items = [
                             //     ['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'],
                             //     ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'],

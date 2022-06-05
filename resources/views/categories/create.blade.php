@@ -40,8 +40,9 @@
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
-            <input id="status" name="status" class="form-check-input" type="checkbox" checked>
+        <div class="mb-3 form-check">
+            <input type="hidden" name="status" value="0">
+            <input id="status" name="status" class="form-check-input" type="checkbox" value="1" checked>
             <label class="form-label" for="status" title="{{ __('Deactivating category will hide it from mobile app.') }}">{{ __('Active') }}</label>
         </div>
         <div class="d-flex">

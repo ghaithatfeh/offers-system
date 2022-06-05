@@ -20,7 +20,6 @@ class CityController extends Controller
 
     public function store(Request $request)
     {
-        $request['status'] = isset($request->status) ? 1 : 0;
         $request->validate([
             'name_en' => ['required', 'min:3'],
             'name_pt' => ['required', 'min:3'],
@@ -42,7 +41,6 @@ class CityController extends Controller
 
     public function update(Request $request, City $city)
     {
-        $request['status'] = isset($request->status) ? 1 : 0;
         $request->validate([
             'name_en' => ['required', 'min:3'],
             'name_pt' => ['required', 'min:3'],
@@ -54,8 +52,8 @@ class CityController extends Controller
 
     public function destroy(City $city)
     {
-        if(!json_decode($city->offers))
-        $city->delete();
+        if (!json_decode($city->offers))
+            $city->delete();
         return redirect('cities');
     }
 
