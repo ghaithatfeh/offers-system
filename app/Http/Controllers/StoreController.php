@@ -41,6 +41,7 @@ class StoreController extends Controller
         $user = User::create([
             'email' => $request->email,
             'name' => $request->user_name,
+            'role' => 'Store Owner',
             'password' => Hash::make($request->password),
         ]);
 
@@ -80,7 +81,7 @@ class StoreController extends Controller
 
     public function destroy(Store $store)
     {
-        if (!$store->user->offers) {
+        if (!$store->user->offers->count()) {
             $this->delete_file($store->logo);
             $this->delete_file($store->cover);
             $store->user->delete();
@@ -90,7 +91,7 @@ class StoreController extends Controller
 
     public function delete_file($file_name)
     {
-        if (file_exists(public_path('uploaded_images/' . $file_name)))
+        if ($file_name != null && file_exists(public_path('uploaded_images/' . $file_name)))
             unlink(public_path('uploaded_images/' . $file_name));
     }
 

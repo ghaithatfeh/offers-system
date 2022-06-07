@@ -5,17 +5,20 @@
         td:first-child {
             font-weight: bold;
         }
+
     </style>
     <div class="d-flex">
         <h2>{{ __('User Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
             <a class="btn btn-primary mx-1" href="/users/{{ $user->id }}/edit">{{ __('Edit') }}</a>
-            <a class="btn btn-danger mx-1" href=""
-                onclick="event.preventDefault();confirm('Are you sure you want to delete this user and his owner account?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
-            <form id="form-delete" action="/users/{{ $user->id }}" method="post">
-                @csrf
-                @method('DELETE')
-            </form>
+            @if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
+                <a class="btn btn-danger mx-1" href=""
+                    onclick="event.preventDefault();confirm('Are you sure you want to delete this user and his owner account?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
+                <form id="form-delete" action="/users/{{ $user->id }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endif
         </div>
     </div>
 

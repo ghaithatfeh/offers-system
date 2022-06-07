@@ -12,12 +12,17 @@ use App\Models\Tag;
 use App\Models\TargetArea;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OfferController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $offers = Offer::orderByDesc('id')->paginate(10);
+        if (auth()->user()->role != 'Store Owner')
+            $offers = Offer::orderByDesc('id')->paginate(10);
+        else
+            $offers = Offer::where('user_id', '=', auth()->id())->orderByDesc('id')->paginate(10);
+
         return view('offers.index', [
             'offers' => $offers,
         ]);
@@ -40,10 +45,12 @@ class OfferController extends Controller
             'expiry_date' => 'after:yesterday',
             'price' => 'numeric|min:1',
             'category_id' => 'required',
-            'offer_type_id' => 'required',
             'description' => 'min:20',
             'images.*' => 'image',
         ]);
+        if (auth()->user()->role == 'Store Owner')
+            $request['offer_type_id'] = 1;
+
         $request['user_id'] = auth()->id();
         $offer = Offer::create($request->all());
 
@@ -88,7 +95,7 @@ class OfferController extends Controller
 
     public function edit(Offer $offer)
     {
-        if ($offer->user->id != auth()->id())
+        if ($offer->user_id != auth()->id())
             return abort('403');
 
         return view('offers.edit', [
@@ -102,7 +109,7 @@ class OfferController extends Controller
 
     public function update(Request $request, Offer $offer)
     {
-        if ($offer->user->id != auth()->id())
+        if ($offer->user_id != auth()->id())
             return abort('403');
         $request->validate([
             'title' => 'required',
@@ -137,18 +144,22 @@ class OfferController extends Controller
 
     public function destroy(Offer $offer)
     {
-        if ($offer->user->id == auth()->id()) {
-            if (json_decode($offer->images))
-                foreach ($offer->images as $image)
-                    if (file_exists(public_path('uploaded_images/' . $image->name)))
-                        unlink(public_path('uploaded_images/' . $image->name));
-            $offer->delete();
-        }
+        if ($offer->user_id != auth()->id())
+            return abort('403');
+
+        if (json_decode($offer->images))
+            foreach ($offer->images as $image)
+                if (file_exists(public_path('uploaded_images/' . $image->name)))
+                    unlink(public_path('uploaded_images/' . $image->name));
+        $offer->delete();
         return redirect('/offers');
     }
 
     public function review(Offer $offer, Request $request)
     {
+        if (auth()->user()->role == 'Store Owner')
+            return abort(403);
+
         if ($request->result == 'reject' && $offer->status != 'Rejected') {
             $offer->status = 'Rejected';
             $offer->reviewed_at = Carbon::now();
@@ -167,14 +178,14 @@ class OfferController extends Controller
 
     public function upload(Offer $offer)
     {
-        if ($offer->user->id != auth()->id())
+        if ($offer->user_id != auth()->id())
             return abort(403);
         return view('offers.images_upload', ['offer' => $offer]);
     }
 
     public function upload_store(Request $request, Offer $offer)
     {
-        if ($offer->user->id != auth()->id())
+        if ($offer->user_id != auth()->id())
             return abort(403);
         $request->validate([
             'images' => 'required',
@@ -196,7 +207,7 @@ class OfferController extends Controller
 
     public function delete_image(Image $image)
     {
-        if ($image->offer->user->id != auth()->id())
+        if ($image->offer->user_id != auth()->id())
             return abort(403);
         if (file_exists(public_path('uploaded_images/' . $image->name)))
             unlink(public_path('uploaded_images/' . $image->name));

@@ -38,20 +38,22 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
-            <select class="form-control" name="offer_type_id" id="offer_type">
-                <option value=""></option>
-                @foreach ($offer_types as $offer_type)
-                    <option value="{{ $offer_type->id }}"
-                        {{ $offer_type->id == old('offer_type_id') ? 'selected' : '' }}>
-                        {{ $offer_type->name_en }}</option>
-                @endforeach
-            </select>
-            @error('offer_type_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
+        @if (auth()->user()->role != 'Store Owner')
+            <div class="mb-3">
+                <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
+                <select class="form-control" name="offer_type_id" id="offer_type">
+                    <option value=""></option>
+                    @foreach ($offer_types as $offer_type)
+                        <option value="{{ $offer_type->id }}"
+                            {{ $offer_type->id == old('offer_type_id') ? 'selected' : '' }}>
+                            {{ $offer_type->name_en }}</option>
+                    @endforeach
+                </select>
+                @error('offer_type_id')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        @endif
         <div class="mb-3">
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
             <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">

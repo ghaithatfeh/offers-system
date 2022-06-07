@@ -11,11 +11,14 @@
         <h2>{{ __('City Details') }}</h2>
         <div>
             <a href="/cities/{{ $city->id }}/edit" class="btn btn-primary">{{ __('Edit') }}</a>
-            <form class="d-inline-block" action="/cities/{{ $city->id }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to delete this city?')">{{ __('Delete') }}</button>
-            </form>
+            @if (!$city->offers->count())
+                <form class="d-inline-block" action="/cities/{{ $city->id }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit"
+                        onclick="return confirm('Are you sure you want to delete this city?')">{{ __('Delete') }}</button>
+                </form>
+            @endif
         </div>
     </div>
 

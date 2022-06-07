@@ -29,39 +29,45 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-
-
-Route::middleware('auth')->group(function () {
-
+Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/customer/change-status/{customer}', [CustomerController::class, 'changeStatus']);
-    Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
-    Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
-    Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
-    
-    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
-    Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    Route::get('/change-password', [UserController::class, 'changePassword']);
+    Route::post('/change-password/{user}', [UserController::class, 'changePasswordStore']);
 
+    Route::resource('/offers', OfferController::class);
     Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
     Route::put('/offers/upload_store/{offer}', [OfferController::class, 'upload_store']);
     Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
+});
+
+Route::middleware('role:Admin,Supervisor')->group(function () {
+    Route::get('/customer/change-status/{customer}', [CustomerController::class, 'changeStatus']);
+    Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
+    Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
 
     Route::get('/cities/search', [CityController::class, 'search']);
     Route::get('/categories/search', [CategoryController::class, 'search']);
     Route::post('/offers/{offer}/review', [OfferController::class, 'review']);
     Route::get('/notification/get-options', [NotificationController::class, 'getOptions']);
 
-    return Route::resources([
+    Route::resources([
         '/cities' => CityController::class,
         '/customers' => CustomerController::class,
         '/categories' => CategoryController::class,
         '/tags' => TagController::class,
-        '/offer_types' => OfferTypeController::class,
-        '/offers' => OfferController::class,
-        '/stores' => StoreController::class,
         '/notifications' => NotificationController::class,
+    ]);
+});
+
+Route::middleware('role:Admin')->group(function () {
+    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
+    Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    // Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
+
+    Route::resources([
+        '/stores' => StoreController::class,
+        '/offer_types' => OfferTypeController::class,
         '/users' => UserController::class
     ]);
-
 });

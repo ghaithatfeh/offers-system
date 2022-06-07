@@ -48,7 +48,7 @@
                         <a href="/users/{{ $user->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (!json_decode($user->children))
+                        @if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
                             <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')

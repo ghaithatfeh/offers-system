@@ -47,7 +47,7 @@
                         <a href="/stores/{{ $store->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (!$store->user->offers)
+                        @if (!$store->user->offers->count())
                             <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
                                 @csrf
                                 @method('DELETE')

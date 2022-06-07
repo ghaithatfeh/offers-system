@@ -11,12 +11,14 @@
         <h2>{{ __('Store Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
             <a class="btn btn-primary mx-1" href="/stores/{{ $store->id }}/edit">{{ __('Edit') }}</a>
-            <a class="btn btn-danger mx-1" href=""
-                onclick="event.preventDefault();confirm('Are you sure you want to delete this store and his owner account?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
-            <form id="form-delete" action="/stores/{{ $store->id }}" method="post">
-                @csrf
-                @method('DELETE')
-            </form>
+            @if (!$store->user->offers->count())
+                <a class="btn btn-danger mx-1" href=""
+                    onclick="event.preventDefault();confirm('Are you sure you want to delete this store and his owner account?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
+                <form id="form-delete" action="/stores/{{ $store->id }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endif
         </div>
     </div>
 
@@ -61,16 +63,19 @@
                         <img class="my-2" width="150" src="{{ asset('uploaded_images/' . $store->logo) }}"
                             alt="">
                     @endif
-                    <a href="/stores/upload/logo/{{ $store->id }}" class="btn-sm btn-success">{{__('Upload New Logo')}}</a>
+                    <a href="/stores/upload/logo/{{ $store->id }}"
+                        class="btn-sm btn-success">{{ __('Upload New Logo') }}</a>
                 </td>
             </tr>
             <tr>
                 <td class="align-middle">{{ __('Cover Image') }}</td>
                 <td class="d-flex flex-column align-items-center">
                     @if ($store->cover)
-                        <img class="my-2" width="100" src="{{ asset('uploaded_images/' . $store->cover) }}" alt="">
+                        <img class="my-2" width="150" src="{{ asset('uploaded_images/' . $store->cover) }}"
+                            alt="">
                     @endif
-                    <a href="/stores/upload/cover/{{ $store->id }}" class="btn-sm btn-success">{{__('Upload New Cover')}}</a>
+                    <a href="/stores/upload/cover/{{ $store->id }}"
+                        class="btn-sm btn-success">{{ __('Upload New Cover') }}</a>
                 </td>
             </tr>
         </tbody>

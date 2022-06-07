@@ -34,7 +34,8 @@ class UserController extends Controller
             'role' => ['required'],
             'status' => ['required']
         ]);
-        $request->password = Hash::make($request->password);
+        $request['password'] = Hash::make($request->password);
+        // return $request->all();
         User::create($request->all());
         return redirect('/users');
     }
@@ -58,9 +59,24 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        // return !json_encode($user->offers || $user->store || $user->reviewedOffers);
-        if (!($user->offers || $user->store || $user->reviewedOffers))
+        if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
             $user->delete();
         return redirect('/users');
+    }
+
+    public function changePassword()
+    {
+        return view('auth.passwords.change');
+    }
+
+    public function changePasswordStore(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+        return back()->with('success', __('Password has changed successfuly.'));
     }
 }

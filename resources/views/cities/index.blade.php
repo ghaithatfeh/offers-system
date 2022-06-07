@@ -51,7 +51,7 @@
                         <a href="/cities/{{ $city->id }}/edit" title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        @if (json_decode($city->offers))
+                        @if (!json_decode($city->offers))
                             <form class="d-inline-block" method="POST" action="/cities/{{ $city->id }}">
                                 @csrf
                                 @method('DELETE')

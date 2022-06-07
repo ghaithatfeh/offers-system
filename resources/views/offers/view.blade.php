@@ -14,7 +14,7 @@
     <div class="d-flex">
         <h2>{{ __('Offer Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
-            @if ($offer->status != 'Rejected')
+            @if ($offer->status != 'Rejected' && auth()->user()->role != 'Store Owner')
                 @if ($offer->status != 'Approved')
                     <a id="btn-approve" class="btn btn-success mx-1" href="">{{ __('Approve') }}</a>
                 @endif
@@ -125,7 +125,8 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td style="width: 80%" class="px-3">{!! $offer->description !!}
+                <td style="width: 80%" class="px-3 text-break">
+                    {!! $offer->description !!}
                 <td>
             </tr>
             <tr>
@@ -155,7 +156,6 @@
             <tr>
                 <td class="align-middle">{{ __('Images') }}</td>
                 <td>
-                    {{-- d-flex flex-column align-items-center --}}
                     <div class="row mx-auto" style="width: 500px">
                         @foreach ($offer->images as $image)
                             <div class="col-6">
@@ -163,8 +163,10 @@
                                     alt="" width="">
                             </div>
                         @endforeach
-                        <a href="/offers/upload/{{ $offer->id }}"
-                            class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
+                        @if (auth()->id() == $offer->user_id)
+                            <a href="/offers/upload/{{ $offer->id }}"
+                                class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
+                        @endif
                     </div>
                 </td>
             </tr>
