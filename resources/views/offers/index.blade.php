@@ -4,6 +4,7 @@
     <h2 class="">{{ __('Offers') }}</h2>
     <div class="d-flex mt-4">
         <a href="/offers/create" class="btn btn-success">{{ __('Add Offer') }}</a>
+        <a href="/offers/import-from-excel" class="btn btn-primary ms-2">{{__('Import From Excel')}}</a>
         <form action="/offer/search" method="GET" class="ms-auto">
             <div class="input-group">
                 <div class="form-outline">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\OffersImport;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Image;
@@ -13,6 +14,7 @@ use App\Models\TargetArea;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OfferController extends Controller
 {
@@ -213,5 +215,18 @@ class OfferController extends Controller
             unlink(public_path('uploaded_images/' . $image->name));
         $image->delete();
         return back();
+    }
+
+    public function importFromExcel(Request $request)
+    {
+        if ($request->isMethod('get'))
+            return view('offers.import');
+        elseif ($request->isMethod('post')) {
+            $request->validate([
+                'file' => 'required|mimes:xlsx, csv|max:2048'
+            ]);
+            Excel::import(new OffersImport, $request->file('file'));
+            return redirect('/offers');
+        }
     }
 }
