@@ -54,9 +54,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Offer::class);
     }
-    
+
     public function store()
     {
         return $this->hasMany(Store::class);
+    }
+
+    public function excelFiles()
+    {
+        return $this->hasMany(ExcelFile::class);
     }
 }

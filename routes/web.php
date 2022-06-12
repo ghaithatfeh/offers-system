@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExcelFileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
@@ -37,9 +38,12 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
     Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
     Route::put('/offers/upload_store/{offer}', [OfferController::class, 'upload_store']);
     Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
-    Route::get('/offers/import-from-excel', [OfferController::class, 'importFromExcel']);
-    Route::post('/offers/import-from-excel', [OfferController::class, 'importFromExcel']);
-    Route::resource('/offers', OfferController::class);
+    Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
+    Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
+    Route::resources([
+        '/offers' => OfferController::class,
+        '/bulk-offers' => ExcelFileController::class
+    ]);
 });
 
 Route::middleware('role:Admin,Supervisor')->group(function () {

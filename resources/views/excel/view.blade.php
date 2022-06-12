@@ -1,22 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="">{{ __('Offers') }}</h2>
-    <div class="d-flex mt-4">
-        <a href="/offers/create" class="btn btn-success">{{ __('Add Offer') }}</a>
-        <a href="/bulk-offers/import-from-excel" class="btn btn-primary ms-2">{{__('Import From Excel')}}</a>
-        <form action="/offer/search" method="GET" class="ms-auto">
-            <div class="input-group">
-                <div class="form-outline">
-                    <input name="search" type="search" id="form1" class="form-control"
-                        placeholder="{{ __('Search here') }}.." value="{{ $_GET['search'] ?? '' }}" />
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </form>
+    <div class="d-flex justify-content-between align-items-end">
+        <h2 class="">{{ __('Offers By Excel File: ') . $excel_file->name }}</h2>
+        <a href="" class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</a>
     </div>
+    <h5>{{ __('Uploaded At: ') . $excel_file->created_at }}</h5>
 
     <table class="table table-borderd text-center mt-4">
         <thead>

@@ -154,7 +154,7 @@ class OfferController extends Controller
                 if (file_exists(public_path('uploaded_images/' . $image->name)))
                     unlink(public_path('uploaded_images/' . $image->name));
         $offer->delete();
-        return redirect('/offers');
+        return back();
     }
 
     public function review(Offer $offer, Request $request)
@@ -215,18 +215,5 @@ class OfferController extends Controller
             unlink(public_path('uploaded_images/' . $image->name));
         $image->delete();
         return back();
-    }
-
-    public function importFromExcel(Request $request)
-    {
-        if ($request->isMethod('get'))
-            return view('offers.import');
-        elseif ($request->isMethod('post')) {
-            $request->validate([
-                'file' => 'required|mimes:xlsx, csv|max:2048'
-            ]);
-            Excel::import(new OffersImport, $request->file('file'));
-            return redirect('/offers');
-        }
     }
 }

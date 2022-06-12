@@ -19,6 +19,7 @@ class Offer extends Model
         'category_id',
         'customer_id',
         'user_id',
+        'excel_id',
         'reviewed_at',
         'reviewed_by',
     ];
@@ -53,5 +54,9 @@ class Offer extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+    public function excel()
+    {
+        return $this->belongsTo(ExcelFile::class, 'excel_id');
     }
 }

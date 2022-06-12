@@ -113,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @php
-                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down']];
+                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'], ['link' => '/bulk-offers', 'lable' => __('Bulk Offers'), 'icon' => 'fa-solid fa-boxes-packing']];
                             if (auth()->user()->role != 'Store Owner') {
                                 $nav_items[] = ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'];
                                 $nav_items[] = ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'];
