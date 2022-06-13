@@ -36,10 +36,10 @@
                     <td>{{ $user->role }}</td>
                     <td>
                         {{ $user->status ? 'Active' : 'Inactive' }}
-                        <a href="/user/change-status/{{ $user->id }}" class="text-primary"
+                        {{-- <a href="/user/change-status/{{ $user->id }}" class="text-primary"
                             onclick="return confirm('Are you sure you want to change this user status?')">
                             {{ $user->status ? '(Deactivate)' : '(Activate)' }}
-                        </a>
+                        </a> --}}
                     </td>
                     <td>
                         <a href="/users/{{ $user->id }}" title="Edit">

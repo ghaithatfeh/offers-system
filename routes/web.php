@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -34,14 +35,18 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 
     Route::get('/change-password', [UserController::class, 'changePassword']);
     Route::post('/change-password/{user}', [UserController::class, 'changePasswordStore']);
-
     Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
     Route::put('/offers/upload_store/{offer}', [OfferController::class, 'upload_store']);
     Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
+    Route::resources([
+        '/offers' => OfferController::class,
+    ]);
+});
+
+Route::middleware('role:Store Owner')->group(function () {
     Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::resources([
-        '/offers' => OfferController::class,
         '/bulk-offers' => ExcelFileController::class
     ]);
 });

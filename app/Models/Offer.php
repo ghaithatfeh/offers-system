@@ -41,7 +41,7 @@ class Offer extends Model
     }
     public function reviewedBy()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'reviewed_by');
     }
     public function targetAreas()
     {

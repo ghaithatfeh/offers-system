@@ -159,22 +159,18 @@ class OfferController extends Controller
 
     public function review(Offer $offer, Request $request)
     {
-        if (auth()->user()->role == 'Store Owner')
-            return abort(403);
-
         if ($request->result == 'reject' && $offer->status != 'Rejected') {
             $offer->status = 'Rejected';
-            $offer->reviewed_at = Carbon::now();
-            $offer->reviewed_by = auth()->id();
             $offer->reject_reason = $request->reason;
         } elseif ($request->result == 'approve' && $offer->status == 'On Hold') {
             $offer->status = 'Approved';
-            $offer->reviewed_at = Carbon::now();
-            $offer->reviewed_by = auth()->id();
             $offer->reject_reason = '';
         }
+        $offer->reviewed_at = Carbon::now();
+        $offer->reviewed_by = auth()->id();
         $offer->timestamps = false;
         $offer->update();
+        dd($offer->reviewed_by);
         return redirect()->back();
     }
 

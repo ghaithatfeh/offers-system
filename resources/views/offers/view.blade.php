@@ -112,7 +112,7 @@
                 </tr>
                 <tr>
                     <td>{{ __('Reviewed By') }}</td>
-                    <td>{{ $offer->user->name }}</td>
+                    <td>{{ $offer->reviewedBy->name }}</td>
                 </tr>
             @endif
             <tr>

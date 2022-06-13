@@ -31,7 +31,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             .btn-sm {
                 width: 124px;
             }
-
         </style>
     @endif
 
@@ -113,18 +112,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @php
-                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'], ['link' => '/bulk-offers', 'lable' => __('Bulk Offers'), 'icon' => 'fa-solid fa-boxes-packing']];
+                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down']];
                             if (auth()->user()->role != 'Store Owner') {
                                 $nav_items[] = ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'];
                                 $nav_items[] = ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'];
                                 $nav_items[] = ['link' => '/categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'];
                                 $nav_items[] = ['link' => '/tags', 'lable' => __('Tags'), 'icon' => 'fa-solid fa-hashtag'];
                                 $nav_items[] = ['link' => '/notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell'];
-                                if (auth()->user()->role == 'Admin'){
+                                if (auth()->user()->role == 'Admin') {
                                     array_splice($nav_items, 2, 0, [['link' => '/stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store']]);
                                     array_splice($nav_items, 6, 0, [['link' => '/offer_types', 'lable' => __('Offer Types'), 'icon' => 'fa-solid fa-list-check']]);
                                     $nav_items[] = ['link' => '/users', 'lable' => __('Users'), 'icon' => 'fa-solid fa-user-gear'];
                                 }
+                            } else {
+                                $nav_items[] = ['link' => '/bulk-offers', 'lable' => __('Bulk Offers'), 'icon' => 'fa-solid fa-boxes-packing'];
                             }
                             $nav_items[] = ['link' => '/change-password', 'lable' => __('Change Password'), 'icon' => 'fa-solid fa-key'];
                         @endphp

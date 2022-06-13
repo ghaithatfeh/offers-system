@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         City::factory(5)->create();
         Category::factory(5)->create();
         Customer::factory(15)->create();
-        CustomerInterest::factory(3)->create();
+        CustomerInterest::factory(5)->create();
         Tag::factory(5)->create();
         OfferType::factory(3)->create();
     }

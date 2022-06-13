@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function reviewedOffers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->hasMany(Offer::class, 'reviewed_by');
     }
 
     public function store()
