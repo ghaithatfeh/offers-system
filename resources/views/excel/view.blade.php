@@ -1,9 +1,14 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div class="d-flex justify-content-between align-items-end">
         <h2 class="">{{ __('Offers By Excel File: ') . $excel_file->name }}</h2>
-        <a href="" class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</a>
+        <button onclick="if(confirm('Are you sure you want to delete this file and all its offers?')) document.getElementById('delete-form').submit()" class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</button>
+        <form method="POST" action="/bulk-offers/{{$excel_file->id}}" id="delete-form" class="d-none">
+            @csrf
+            @method('delete')
+        </form>
     </div>
     <h5>{{ __('Uploaded At: ') . $excel_file->created_at }}</h5>
 

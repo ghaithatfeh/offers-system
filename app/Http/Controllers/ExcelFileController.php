@@ -7,6 +7,7 @@ use App\Models\ExcelFile;
 use App\Models\Offer;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
@@ -19,16 +20,15 @@ class ExcelFileController extends Controller
         return view('excel.index', ['files' => $files]);
     }
 
-    public function show($excel_file_id)
+    public function show(ExcelFile $bulk_offer)
     {
-        $excel_file = ExcelFile::find($excel_file_id);
-        if ($excel_file->user->id != auth()->id())
+        if ($bulk_offer->user->id != auth()->id())
             return abort(403);
 
-        $offers = Offer::where('excel_id', $excel_file_id)->paginate(10);
+        $offers = DB::table('offers')->where('excel_id', $bulk_offer->id)->paginate(10);
         return view('excel.view', [
             'offers' => $offers,
-            'excel_file' => $excel_file
+            'excel_file' => $bulk_offer
         ]);
     }
 
@@ -59,5 +59,13 @@ class ExcelFileController extends Controller
 
             return redirect('/bulk-offers');
         }
+    }
+
+    public function destroy(ExcelFile $bulk_offer)
+    {
+        if (file_exists('uploaded_images/excel_files/' . $bulk_offer->name))
+            if (unlink('uploaded_images/excel_files/' . $bulk_offer->name))
+                $bulk_offer->delete();
+        return redirect('/bulk-offers');
     }
 }

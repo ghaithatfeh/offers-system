@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('offers', function (Blueprint $table) {
             $table->unsignedBigInteger('excel_id')->nullable();
-            $table->foreign('excel_id')->references('id')->on('excel_files');
+            $table->foreign('excel_id')->references('id')->on('excel_files')->onDelete('cascade');
         });
     }
 
