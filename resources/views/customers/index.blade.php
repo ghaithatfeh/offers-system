@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> --}}
 @section('content')
     <div class="d-flex">
         <h2 class="">{{ __('Customers') }}</h2>
@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="alert alert-warning mt-2" role="alert">
-        {{__('NOTE: Deactivating customers will prevent them from accessing their accounts and hide all their offers.')}}
+        {{ __('NOTE: Deactivating customers will prevent them from accessing their accounts and hide all their offers.') }}
     </div>
 
     <table class="table text-center mt-4">
@@ -37,11 +37,10 @@
                     <td>{{ $customer->last_name }}</td>
                     <td>{{ $customer->email }}</td>
                     <td>
-                        {{ $customer->status ? 'Active' : 'Inactive' }}
-                        <a href="/customer/change-status/{{ $customer->id }}" class="text-primary"
-                            onclick="return confirm('Are you sure you want to change this customer status?')">
-                            {{ $customer->status ? '(Deactivate)' : '(Activate)' }}
-                        </a>
+                        <div class="form-check form-switch">
+                            <input onchange="window.location.href = '/customers/change-status/{{ $customer->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$customer->id}}" {{ $customer->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$customer->id}}">{{ $customer->status ? 'Active' : 'Inactive' }}</label>
+                        </div>
                     </td>
                     <td>
                         <a href="/customers/{{ $customer->id }}" title="View">
@@ -53,4 +52,8 @@
         </tbody>
     </table>
     {{ $customers->appends(Request::except('page'))->links() }}
+@endsection
+
+@section('script')
+    {{-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> --}}
 @endsection

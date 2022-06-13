@@ -164,9 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-        @yield('script')
-    </script>
+    @yield('script')
 </body>
 
 </html>

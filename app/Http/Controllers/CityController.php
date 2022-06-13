@@ -65,8 +65,7 @@ class CityController extends Controller
 
     public function changeStatus(City $city)
     {
-        $city->status = $city->status ? 0 : 1;
-        $city->update();
+        $city->update(['status' => !$city->status]);
         return redirect('/cities');
     }
 }

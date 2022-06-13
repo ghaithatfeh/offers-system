@@ -40,11 +40,10 @@
                     <td>{!! $category->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>{!! $category->parent->name_en ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>
-                        {{ $category->status ? 'Active' : 'Inactive' }}
-                        <a href="/categories/change-status/{{ $category->id }}" class="text-primary"
-                            onclick="return confirm('Are you sure you want to change this category status?')">
-                            {{ $category->status ? '(Deactivate)' : '(Activate)' }}
-                        </a>
+                        <div class="form-check form-switch">
+                            <input onchange="window.location.href = '/categories/change-status/{{ $category->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$category->id}}" {{ $category->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$category->id}}">{{ $category->status ? 'Active' : 'Inactive' }}</label>
+                        </div>
                     </td>
                     <td>
                         <a href="/categories/{{ $category->id }}" title="View">

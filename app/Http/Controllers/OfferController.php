@@ -174,33 +174,38 @@ class OfferController extends Controller
         return redirect()->back();
     }
 
-    public function upload(Offer $offer)
+    public function upload(Request $request, Offer $offer)
     {
         if ($offer->user_id != auth()->id())
             return abort(403);
-        return view('offers.images_upload', ['offer' => $offer]);
+
+        if ($request->isMethod('get'))
+            return view('offers.images_upload', ['offer' => $offer]);
+
+        elseif ($request->isMethod('put')) {
+            $request->validate([
+                'images' => 'required',
+                'images.*' => 'image'
+            ]);
+            if ($request->hasFile('images')) {
+                $images = $request->file('images');
+                foreach ($images as $image) {
+                    $image_name = time() . '_' . $image->getClientOriginalName();
+                    $image->move(public_path('uploaded_images'), $image_name);
+                    Image::create([
+                        'name' => $image_name,
+                        'offer_id' => $offer->id
+                    ]);
+                }
+            }
+            return back();
+        }
     }
 
     public function upload_store(Request $request, Offer $offer)
     {
         if ($offer->user_id != auth()->id())
             return abort(403);
-        $request->validate([
-            'images' => 'required',
-            'images.*' => 'image'
-        ]);
-        if ($request->hasFile('images')) {
-            $images = $request->file('images');
-            foreach ($images as $image) {
-                $image_name = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('uploaded_images'), $image_name);
-                Image::create([
-                    'name' => $image_name,
-                    'offer_id' => $offer->id
-                ]);
-            }
-        }
-        return back();
     }
 
     public function delete_image(Image $image)

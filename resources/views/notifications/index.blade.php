@@ -38,9 +38,11 @@
 @endsection
 
 @section('script')
-    window.onload = function() {
-    setTimeout(function() {
-    $(".alert").fadeOut()
-    }, 3000)
-    }
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                $(".alert").fadeOut()
+            }, 3000)
+        }
+    </script>
 @endsection

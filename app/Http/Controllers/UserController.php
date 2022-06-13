@@ -79,4 +79,10 @@ class UserController extends Controller
         ]);
         return back()->with('success', __('Password has changed successfuly.'));
     }
+
+    public function changeStatus(User $user)
+    {
+        $user->update(['status' => !$user->status]);
+        return redirect('/users');
+    }
 }

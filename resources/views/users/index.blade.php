@@ -35,11 +35,10 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        {{ $user->status ? 'Active' : 'Inactive' }}
-                        {{-- <a href="/user/change-status/{{ $user->id }}" class="text-primary"
-                            onclick="return confirm('Are you sure you want to change this user status?')">
-                            {{ $user->status ? '(Deactivate)' : '(Activate)' }}
-                        </a> --}}
+                        <div class="form-check form-switch">
+                            <input onchange="window.location.href = '/users/change-status/{{ $user->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$user->id}}" {{ $user->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$user->id}}">{{ $user->status ? 'Active' : 'Inactive' }}</label>
+                        </div>
                     </td>
                     <td>
                         <a href="/users/{{ $user->id }}" title="Edit">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="text-center">{{ $offer->title . ': ' . __('Images') }}</h2>
-    <form class="mt-5 col-12 col-md-7 mx-auto row" action="/offers/upload_store/{{ $offer->id }}" method="post"
+    <form class="mt-5 col-12 col-md-7 mx-auto row" action="/offers/upload/{{ $offer->id }}" method="post"
         enctype="multipart/form-data">
         @method('put')
         @csrf

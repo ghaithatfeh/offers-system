@@ -79,8 +79,7 @@ class CategoryController extends Controller
 
     public function changeStatus(Category $category)
     {
-        $category->status = $category->status ? 0 : 1;
-        $category->update();
+        $category->update(['status' => !$category->status]);
         return redirect('/categories');
     }
 

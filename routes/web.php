@@ -36,7 +36,7 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
     Route::get('/change-password', [UserController::class, 'changePassword']);
     Route::post('/change-password/{user}', [UserController::class, 'changePasswordStore']);
     Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
-    Route::put('/offers/upload_store/{offer}', [OfferController::class, 'upload_store']);
+    Route::put('/offers/upload/{offer}', [OfferController::class, 'upload']);
     Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
     Route::resources([
         '/offers' => OfferController::class,
@@ -52,7 +52,7 @@ Route::middleware('role:Store Owner')->group(function () {
 });
 
 Route::middleware('role:Admin,Supervisor')->group(function () {
-    Route::get('/customer/change-status/{customer}', [CustomerController::class, 'changeStatus']);
+    Route::get('/customers/change-status/{customer}', [CustomerController::class, 'changeStatus']);
     Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
     Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
 
@@ -73,6 +73,7 @@ Route::middleware('role:Admin,Supervisor')->group(function () {
 Route::middleware('role:Admin')->group(function () {
     Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
     Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    Route::get('/users/change-status/{user}', [UserController::class, 'changeStatus']);
     // Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
 
     Route::resources([

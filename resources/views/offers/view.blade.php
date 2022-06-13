@@ -9,7 +9,6 @@
         .btn:not(.btn-sidebar) {
             width: 84px;
         }
-
     </style>
     <div class="d-flex">
         <h2>{{ __('Offer Details') }}</h2>
@@ -158,16 +157,16 @@
                 <td>
                     <div class="row mx-auto" style="width: 500px">
                         @foreach ($offer->images as $image)
-                            <div class="col-6">
+                            <div class="col-6 mx-auto">
                                 <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2 img-fluid"
                                     alt="" width="">
                             </div>
                         @endforeach
-                        @if (auth()->id() == $offer->user_id)
-                            <a href="/offers/upload/{{ $offer->id }}"
-                                class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
-                        @endif
                     </div>
+                    @if (auth()->id() == $offer->user_id)
+                        <a href="/offers/upload/{{ $offer->id }}"
+                            class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
+                    @endif
                 </td>
             </tr>
         </tbody>
@@ -175,11 +174,13 @@
 @endsection
 
 @section('script')
-    $('#btn-approve').click(function() {
-    event.preventDefault();
-    if (confirm('Are you sure you want to approve this offer? that will post it in mobile app.')) {
-    $('input[name="result"]').val('approve')
-    document.querySelector('#form-review').submit();
-    }
-    });
+    <script>
+        $('#btn-approve').click(function() {
+            event.preventDefault();
+            if (confirm('Are you sure you want to approve this offer? that will post it in mobile app.')) {
+                $('input[name="result"]').val('approve')
+                document.querySelector('#form-review').submit();
+            }
+        });
+    </script>
 @endsection

@@ -38,11 +38,10 @@
                     <td>{!! $city->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>{!! $city->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
                     <td>
-                        {{ $city->status ? 'Active' : 'Inactive' }}
-                        <a href="/cities/change-status/{{ $city->id }}" class="text-primary"
-                            onclick="return confirm('Are you sure you want to change this city status?')">
-                            {{ $city->status ? '(Deactivate)' : '(Activate)' }}
-                        </a>
+                        <div class="form-check form-switch">
+                            <input onchange="window.location.href = '/cities/change-status/{{ $city->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$city->id}}" {{ $city->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$city->id}}">{{ $city->status ? 'Active' : 'Inactive' }}</label>
+                        </div>
                     </td>
                     <td>
                         <a href="/cities/{{ $city->id }}" title="View">
