@@ -21,6 +21,6 @@ class CustomerController extends Controller
     public function changeStatus(Customer $customer)
     {
         $customer->update(['status' => !$customer->status]);
-        return redirect('/customers');
+        return back();
     }
 }

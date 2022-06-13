@@ -83,6 +83,6 @@ class UserController extends Controller
     public function changeStatus(User $user)
     {
         $user->update(['status' => !$user->status]);
-        return redirect('/users');
+        return back();
     }
 }

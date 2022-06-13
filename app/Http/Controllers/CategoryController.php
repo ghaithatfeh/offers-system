@@ -80,14 +80,14 @@ class CategoryController extends Controller
     public function changeStatus(Category $category)
     {
         $category->update(['status' => !$category->status]);
-        return redirect('/categories');
+        return back();
     }
 
     public function search(Request $request)
     {
         $categories = Category::where('name_en', 'Like', '%' . $request->search . '%')
             ->orWhere('name_ar', 'Like', '%' . $request->search . '%')
-            ->paginate(3);
+            ->paginate(10);
         return view('categories.index', ['categories' => $categories]);
     }
 }

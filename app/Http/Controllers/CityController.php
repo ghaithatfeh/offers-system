@@ -59,13 +59,13 @@ class CityController extends Controller
 
     public function search(Request $request)
     {
-        $cities = City::where('name_en', 'Like', '%' . $request->name_en . '%')->paginate(3);
+        $cities = City::where('name_en', 'Like', '%' . $request->name_en . '%')->paginate(10);
         return view('cities.index', ['cities' => $cities]);
     }
 
     public function changeStatus(City $city)
     {
         $city->update(['status' => !$city->status]);
-        return redirect('/cities');
+        return back();
     }
 }
