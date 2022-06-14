@@ -36,7 +36,7 @@
                         <a href="{{ asset('uploaded_images/excel_files/' . $file->name) }}" title="Download">
                             <i class="fas fa-download"></i>
                         </a>
-                        <a href="/bulk-offers/{{ $file->id }}" title="View">
+                        <a href="/bulk-offers/{{ $file->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
                     </td>

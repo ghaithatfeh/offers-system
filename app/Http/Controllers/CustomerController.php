@@ -20,7 +20,8 @@ class CustomerController extends Controller
 
     public function changeStatus(Customer $customer)
     {
-        $customer->update(['status' => !$customer->status]);
+        $customer->status = !$customer->status;
+        $customer->update();
         return back();
     }
 }

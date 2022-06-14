@@ -39,17 +39,17 @@
                         @endif
                     </td>
                     <td>
-                        <a href="/offers/{{ $offer->id }}" title="View">
+                        <a href="/offers/{{ $offer->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
                         @if ($offer->user_id == auth()->id())
-                            <a href="/offers/{{ $offer->id }}/edit" title="Edit">
+                            <a href="/offers/{{ $offer->id }}/edit" title="{{ __('Edit') }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
                                     onclick="return confirm('Are you sure you want to delete this offer type?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

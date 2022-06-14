@@ -30,19 +30,19 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{!! $category->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                <td>{!! $category->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{!! $category->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                <td>{!! $category->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Parent Category') }}</td>
-                <td>{!! $category->parent->name_en ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                <td>{!! $category->parent->name_en ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
-                <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ $category->status ? __('Active') : __('Inactive') }}</td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>

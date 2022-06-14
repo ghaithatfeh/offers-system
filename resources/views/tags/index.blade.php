@@ -31,14 +31,14 @@
                     <td>{{ $tag->id }}</td>
                     <td>{{ $tag->name }}</td>
                     <td>
-                        <a href="/tags/{{ $tag->id }}/edit" title="Edit">
+                        <a href="/tags/{{ $tag->id }}/edit" title="{{ __('Edit') }}">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         @if (!json_decode($tag->children))
                             <form class="d-inline-block" method="POST" action="/tags/{{ $tag->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
                                     onclick="return confirm('Are you sure you want to delete this tag?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

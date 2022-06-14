@@ -39,19 +39,19 @@
                     <td>{{ $store->name }}</td>
                     <td>{{ $store->city->name_en }}</td>
                     <td>{{ $store->expiry_date }}</td>
-                    <td>{{ $store->status }}</td>
+                    <td>{{ __($store->status) }}</td>
                     <td>
-                        <a href="/stores/{{ $store->id }}" title="View">
+                        <a href="/stores/{{ $store->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="/stores/{{ $store->id }}/edit" title="Edit">
+                        <a href="/stores/{{ $store->id }}/edit" title="{{ __('Edit') }}">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         @if (!$store->user->offers->count())
                             <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
                                     onclick="return confirm('Are you sure you want to delete this store?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

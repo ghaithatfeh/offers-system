@@ -34,18 +34,18 @@
             </tr>
             <tr>
                 <td>{{ __('Role') }}</td>
-                <td>{{ $user->role }}</td>
+                <td>{{ __($user->role) }}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
-                <td>{{ $user->status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ $user->status ? __('Active') : __('Inactive') }}</td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>
                 <td>{{ $user->created_at }}</td>
             </tr>
             <tr>
-                <td>{{ __('Update At') }}</td>
+                <td>{{ __('Updated At') }}</td>
                 <td>{{ $user->updated_at }}</td>
             </tr>
         </tbody>

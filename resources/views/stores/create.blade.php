@@ -5,7 +5,7 @@
     <form action="/stores" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="form-label" for="name">{{ __('Store name') }}</label>
+            <label class="form-label" for="name">{{ __('Store Name') }}</label>
             <input id="name" name="name" class="form-control" type="text" value="{{ old('name') }}">
             <small class="text-danger">
                 @error('name')
@@ -49,7 +49,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label" for="user_name">{{ __('User Name') }}</label>
+            <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
             <input type="text" name="user_name" class="form-control" value="{{ old('user_name') }}">
             @error('user_name')
                 <small class="text-danger">{{ $message }}</small>
@@ -84,7 +84,7 @@
             @enderror
         </div>
         <div class="alert alert-warning">
-            {{ __('A default image will be displayed for logo and cover if images are not uploaded') }}.
+            {{ __('A default image will be displayed for logo and cover if images are not uploaded.') }}
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>

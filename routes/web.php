@@ -11,8 +11,10 @@ use App\Http\Controllers\OfferTypeController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Localization Route
+Route::get('lang/{locale}', function ($locale) {
+    App::setLocale($locale);
+    Session::put("locale", $locale);
+    return redirect()->back();
+})->name('lang');
+// Localization Route
 
 Route::get('/', function () {
     return redirect('/login');

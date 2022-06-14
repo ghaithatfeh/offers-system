@@ -23,10 +23,10 @@
                 <tr>
                     <td>{{ $notification->id }}</td>
                     <td>{{ $notification->title }}</td>
-                    <td>{{ $notification->target_type }}</td>
+                    <td>{{ __($notification->target_type) }}</td>
                     <td>{{ $notification->created_at }}</td>
                     <td>
-                        <a href="/notifications/{{ $notification->id }}" title="View">
+                        <a href="/notifications/{{ $notification->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
                     </td>

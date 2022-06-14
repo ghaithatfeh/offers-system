@@ -14,7 +14,7 @@
             </small>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="body">{{ __('Notification body') }}</label>
+            <label class="form-label" for="body">{{ __('Notification Message') }}</label>
             <textarea id="body" name="body" class="form-control" cols="30" rows="10">{{ old('body') }}</textarea>
             <small class="text-danger">
                 @error('body')
@@ -26,11 +26,28 @@
             <label class="form-label" for="target_type">{{ __('Target Type') }}</label>
             <select id="target_type" name="target_type" class="form-control">
                 @php
-                    $target_types = ['Broadcast', 'Categories', 'Cities', 'Gender'];
+                    $target_types = [
+                        [
+                            'name' => __('Broadcast'),
+                            'value' => 'Broadcast'
+                        ],
+                        [
+                            'name' => __('Categories'),
+                            'value' => 'Categories'
+                        ],
+                        [
+                            'name' => __('Cities'),
+                            'value' => 'Cities'
+                        ],
+                        [
+                            'name' => __('Gender'),
+                            'value' => 'Gender'
+                        ]
+                    ];
                 @endphp
                 @foreach ($target_types as $target_type)
-                    <option value="{{ $target_type }}" {{ $target_type == old('target_type') ? 'selected' : '' }}>
-                        {{ $target_type }}</option>
+                    <option value="{{ $target_type['value'] }}" {{ $target_type['value'] == old('target_type') ? 'selected' : '' }}>
+                        {{ $target_type['name'] }}</option>
                 @endforeach
             </select>
             <small class="text-danger">

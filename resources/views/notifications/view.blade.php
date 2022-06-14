@@ -18,12 +18,12 @@
                 <td>{{ $notification->title }}</td>
             </tr>
             <tr>
-                <td>{{ __('body') }}</td>
+                <td>{{ __('Message') }}</td>
                 <td style="width: 80%" class="px-3">{{ $notification->body }}</td>
             </tr>
             <tr>
                 <td>{{ __('Target Type') }}</td>
-                <td>{{ $notification->target_type }}</td>
+                <td>{{ __($notification->target_type) }}</td>
             </tr>
             @if ($notification->target_type != 'Broadcast')
                 <tr>

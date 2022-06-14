@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{ __('Create Category') }}</h2>
+    <h2 class="text-center">{{ __('Add Category') }}</h2>
     <form action="/categories" method="post" class="mt-4 col-6 mx-auto">
         @csrf
         <div class="mb-3">

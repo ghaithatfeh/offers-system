@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="en">
+
+<html lang="{{ Lang::locale() }}" dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8">
@@ -14,14 +11,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @if (Lang::locale() == 'ar')
+        <link rel="stylesheet" href="{{ asset('css/app.rtl.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
+
+    {{-- google fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     {{-- fontawesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
-    @php
-        // return print_r(Route::currentRouteAction());
-    @endphp
     @if (strpos(Route::currentRouteAction(), 'show'))
         <style>
             .btn:not(.btn-sidebar) {
@@ -33,6 +38,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         </style>
     @endif
+    <style>
+        html[lang='ar'] body {
+            font-family: 'Noto Kufi Arabic', sans-serif !important;
+        }
+    </style>
 
 </head>
 
@@ -47,10 +57,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item mr-2">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-bold mr-2" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-globe"></i> {{ __('Lang') }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item {{ Lang::locale() == 'en' ? 'active' : '' }}"
+                                href="{{ route('lang', ['locale' => 'en']) }}">{{ __('English') }}</a></li>
+                        <li><a class="dropdown-item {{ Lang::locale() == 'ar' ? 'active' : '' }}"
+                                href="{{ route('lang', ['locale' => 'ar']) }}">{{ __('Arabic') }}</a></li>
+                    </ul>
                 </li>
                 @guest
                     @if (Route::has('login'))
@@ -67,8 +89,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <li class="nav-item">
                         <a class="nav-link text-danger text-bold" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
                             <i class="fa-solid fa-right-from-bracket"></i>
+                            {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
@@ -98,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                        <input class="form-control form-control-sidebar" type="search" placeholder="{{__("Search")}}"
                             aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
@@ -121,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 $nav_items[] = ['link' => '/notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell'];
                                 if (auth()->user()->role == 'Admin') {
                                     array_splice($nav_items, 2, 0, [['link' => '/stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store']]);
-                                    array_splice($nav_items, 6, 0, [['link' => '/offer_types', 'lable' => __('Offer Types'), 'icon' => 'fa-solid fa-list-check']]);
+                                    array_splice($nav_items, 6, 0, [['link' => '/offer_types', 'lable' => __('Offers Types'), 'icon' => 'fa-solid fa-list-check']]);
                                     $nav_items[] = ['link' => '/users', 'lable' => __('Users'), 'icon' => 'fa-solid fa-user-gear'];
                                 }
                             } else {
@@ -156,9 +178,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ Carbon\Carbon::now()->year }}
-                <a href="https://www.flexsolution.biz/">Flex Solutions</a>.
-            </strong> All rights reserved.
+            <strong>{{ __('Copyright') }} &copy; {{ Carbon\Carbon::now()->year }}
+                <a href="https://www.flexsolution.biz/">{{ __('Flex Solutions') }}</a>.
+            </strong> {{ __('All rights reserved') }}.
         </footer>
     </div>
 

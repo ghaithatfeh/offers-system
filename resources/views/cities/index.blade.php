@@ -35,26 +35,31 @@
                 <tr>
                     <td>{{ $city->id }}</td>
                     <td>{{ $city->name_en }}</td>
-                    <td>{!! $city->name_pt ?? '<em class="text-danger">Not Set</em>' !!}</td>
-                    <td>{!! $city->name_ar ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                    <td>{!! $city->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                    <td>{!! $city->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input onchange="window.location.href = '/cities/change-status/{{ $city->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$city->id}}" {{ $city->status ? 'checked' : '' }}>
-                            <label class="form-check-label" for="toggle-{{$city->id}}">{{ $city->status ? 'Active' : 'Inactive' }}</label>
+                            <input onchange="
+                                if (confirm('Are you sure you want to change this status?'))
+                                    window.location.href = '/cities/change-status/{{ $city->id }}'
+                                else
+                                    this.checked = !this.checked
+                                " class="form-check-input" type="checkbox" id="toggle-{{$city->id}}" {{ $city->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$city->id}}">{{ $city->status ? __('Active') : __('Inactive') }}</label>
                         </div>
                     </td>
                     <td>
-                        <a href="/cities/{{ $city->id }}" title="View">
+                        <a href="/cities/{{ $city->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="/cities/{{ $city->id }}/edit" title="Edit">
+                        <a href="/cities/{{ $city->id }}/edit" title="{{ __('Edit') }}">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         @if (!json_decode($city->offers))
                             <form class="d-inline-block" method="POST" action="/cities/{{ $city->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 text-danger bg-transparent px-0" title="Delete" type="submit"
+                                <button class="border-0 text-danger bg-transparent px-0" title="{{ __('Delete') }}" type="submit"
                                     onclick="return confirm('Are you sure you want to delete this city?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

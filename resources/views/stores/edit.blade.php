@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label class="form-label" for="name">{{ __('Store name') }}</label>
+            <label class="form-label" for="name">{{ __('Store Name') }}</label>
             <input id="name" name="name" class="form-control" type="text" value="{{ old('name') ?? $store->name }}">
             <small class="text-danger">
                 @error('name')
@@ -37,7 +37,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
+            <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
             <input type="date" name="expiry_date" class="form-control"
                 value="{{ old('expiry_date') ?? $store->expiry_date }}">
             @error('expiry_date')

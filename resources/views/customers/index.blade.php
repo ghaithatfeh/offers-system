@@ -1,5 +1,4 @@
 @extends('layouts.app')
-{{-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> --}}
 @section('content')
     <div class="d-flex">
         <h2 class="">{{ __('Customers') }}</h2>
@@ -38,12 +37,19 @@
                     <td>{{ $customer->email }}</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input onchange="window.location.href = '/customers/change-status/{{ $customer->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$customer->id}}" {{ $customer->status ? 'checked' : '' }}>
-                            <label class="form-check-label" for="toggle-{{$customer->id}}">{{ $customer->status ? 'Active' : 'Inactive' }}</label>
+                            <input onchange="
+                                if (confirm('Are you sure you want to change this status?'))
+                                    window.location.href = '/customers/change-status/{{ $customer->id }}'
+                                else
+                                    this.checked = !this.checked
+                                " class="form-check-input" type="checkbox"
+                                id="toggle-{{ $customer->id }}" {{ $customer->status ? 'checked' : '' }}>
+                            <label class="form-check-label"
+                                for="toggle-{{ $customer->id }}">{{ $customer->status ? __('Active') : __('Inactive') }}</label>
                         </div>
                     </td>
                     <td>
-                        <a href="/customers/{{ $customer->id }}" title="View">
+                        <a href="/customers/{{ $customer->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
                     </td>
@@ -52,8 +58,4 @@
         </tbody>
     </table>
     {{ $customers->appends(Request::except('page'))->links() }}
-@endsection
-
-@section('script')
-    {{-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> --}}
 @endsection

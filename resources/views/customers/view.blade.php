@@ -20,12 +20,12 @@
             </tr>
             <tr>
                 <td>{{ __('Gender') }}</td>
-                <td>{{ $customer->gender }}</td>
+                <td>{{ __($customer->gender) }}</td>
             </tr>
             </tr>
             <tr>
                 <td>{{ __('Phone Number') }}</td>
-                <td>{!! $customer->phone ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                <td>{!! $customer->phone ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Email') }}</td>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
-                <td>{{ $customer->status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ $customer->status ? __('Active') : __('Inactive') }}</td>
             </tr>
             <tr>
                 <td>{{ __('City') }}</td>

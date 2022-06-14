@@ -170,7 +170,6 @@ class OfferController extends Controller
         $offer->reviewed_by = auth()->id();
         $offer->timestamps = false;
         $offer->update();
-        dd($offer->reviewed_by);
         return redirect()->back();
     }
 

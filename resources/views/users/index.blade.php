@@ -33,25 +33,30 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
+                    <td>{{ __($user->role) }}</td>
                     <td>
                         <div class="form-check form-switch">
-                            <input onchange="window.location.href = '/users/change-status/{{ $user->id }}'" class="form-check-input" type="checkbox" id="toggle-{{$user->id}}" {{ $user->status ? 'checked' : '' }}>
-                            <label class="form-check-label" for="toggle-{{$user->id}}">{{ $user->status ? 'Active' : 'Inactive' }}</label>
+                            <input onchange="
+                                if (confirm('{{__('Are you sure you want to change this status?')}}'))
+                                    window.location.href = '/users/change-status/{{ $user->id }}'
+                                else
+                                    this.checked = !this.checked"
+                            class="form-check-input" type="checkbox" id="toggle-{{$user->id}}" {{ $user->status ? 'checked' : '' }}>
+                            <label class="form-check-label" for="toggle-{{$user->id}}">{{ $user->status ? __('Active') : __('Inactive') }}</label>
                         </div>
                     </td>
                     <td>
-                        <a href="/users/{{ $user->id }}" title="Edit">
+                        <a href="/users/{{ $user->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="/users/{{ $user->id }}/edit" title="Edit">
+                        <a href="/users/{{ $user->id }}/edit" title="{{ __('Edit') }}">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         @if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
                             <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="Delete" type="submit"
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
                                     onclick="return confirm('Are you sure you want to delete this user?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

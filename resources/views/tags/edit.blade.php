@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{ __('Add tag') }}</h2>
+    <h2 class="text-center">{{ __('Edit Tag') }}</h2>
     <form action="/tags/{{ $tag->id }}" method="POST" class="mt-4 col-6 mx-auto">
         @csrf
         @method('PUT')

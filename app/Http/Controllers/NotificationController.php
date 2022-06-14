@@ -38,10 +38,10 @@ class NotificationController extends Controller
         $notification = Notification::create($request->all());
         if (!$this->notificationReciever($notification)) {
             $notification->delete();
-            $request->session()->flash('notify-message', 'An error occurred, the notification was not sent.');
+            $request->session()->flash('notify-message', __('An error occurred, the notification was not sent.'));
             $request->session()->flash('notify-alert', 'alert-danger');
         } else {
-            $request->session()->flash('notify-message', 'The notification has been sent successfully.');
+            $request->session()->flash('notify-message', __('The notification has been sent successfully.'));
             $request->session()->flash('notify-alert', 'alert-success');
         }
 

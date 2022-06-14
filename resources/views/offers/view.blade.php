@@ -83,12 +83,12 @@
             </tr>
             <tr>
                 <td>{{ __('User') }}</td>
-                <td>{!! $offer->user->name ?? '<em class="text-danger">Not Set</em>' !!}</td>
+                <td>{!! $offer->user->name ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
                 <td>
-                    {{ $offer->status }}
+                    {{ __($offer->status) }}
                     @if ($offer->status == 'On Hold')
                         <i class="fa-solid fa-circle-question text-warning"></i>
                     @elseif ($offer->status == 'Approved')
