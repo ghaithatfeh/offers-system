@@ -23,7 +23,7 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Name English') }}</th>
             <th>{{ __('Name Portuguese') }}</th>
             <th>{{ __('Name Arabic') }}</th>
@@ -32,9 +32,9 @@
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($categories as $category)
+            @foreach ($categories as $i => $category)
                 <tr>
-                    <td>{{ $category->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $category->name_en }}</td>
                     <td>{!! $category->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                     <td>{!! $category->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
@@ -42,7 +42,7 @@
                     <td>
                         <div class="form-check form-switch">
                             <input onchange="
-                                if (confirm('Are you sure you want to change this status?'))
+                                if (confirm('{{ __('Are you sure you want to change this status?') }}'))
                                     window.location.href = '/categories/change-status/{{ $category->id }}'
                                 else
                                     this.checked = !this.checked"
@@ -65,7 +65,7 @@
                                 @method('DELETE')
                                 <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
                                     type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this category?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('category')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

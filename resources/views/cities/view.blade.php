@@ -16,7 +16,7 @@
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit"
-                        onclick="return confirm('Are you sure you want to delete this city?')">{{ __('Delete') }}</button>
+                        onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('city')]) }}')">{{ __('Delete') }}</button>
                 </form>
             @endif
         </div>

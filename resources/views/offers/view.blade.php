@@ -50,7 +50,7 @@
             @if ($offer->user_id == auth()->id())
                 <a class="btn btn-primary mx-1" href="/offers/{{ $offer->id }}/edit">{{ __('Edit') }}</a>
                 <a class="btn btn-danger mx-1" href=""
-                    onclick="event.preventDefault();confirm('Are you sure you want to delete this offre?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
+                    onclick="event.preventDefault();confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('offer')]) }}') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
                 <form id="form-delete" action="/offers/{{ $offer->id }}" method="post">
                     @csrf
                     @method('DELETE')
@@ -66,8 +66,17 @@
                 <td>{{ $offer->title }}</td>
             </tr>
             <tr>
+                <th>{{ __('Offer Owner') }}</th>
+                <td>
+                    <a
+                        href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
+                        {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
                 <td>{{ __('Expiry Date') }}</td>
-                <td>{{ $offer->expiry_date }}</td>
+                <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Price') }}</td>
@@ -135,7 +144,7 @@
                         @forelse ($offer->tags as $i => $tags)
                             {!! $tags->name . ($i + 1 != count($offer->tags) ? '<br>' : '') !!}
                         @empty
-                            <em class="text-danger">Not Set</em>
+                            <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
                     </div>
                 </td>
@@ -147,7 +156,7 @@
                         @forelse ($offer->targetAreas as $i => $target)
                             {!! $target->name_en . ($i + 1 != count($offer->targetAreas) ? '<br>' : '') !!}
                         @empty
-                            <em class="text-danger">Not Set</em>
+                            <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
                     </div>
                 </td>
@@ -165,7 +174,10 @@
                     </div>
                     @if (auth()->id() == $offer->user_id)
                         <a href="/offers/upload/{{ $offer->id }}"
-                            class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}</a>
+                            class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}
+                        </a>
+                    @else
+                        <em class="text-danger">{{ __('Not Set') }}</em>
                     @endif
                 </td>
             </tr>
@@ -177,7 +189,7 @@
     <script>
         $('#btn-approve').click(function() {
             event.preventDefault();
-            if (confirm('Are you sure you want to approve this offer? that will post it in mobile app.')) {
+            if (confirm('{{ __("Are you sure you want to approve this offer? that will post it in mobile app.") }}')) {
                 $('input[name="result"]').val('approve')
                 document.querySelector('#form-review').submit();
             }

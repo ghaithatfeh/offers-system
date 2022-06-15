@@ -23,7 +23,7 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Store Owner') }}</th>
             <th>{{ __('Store Name') }}</th>
             <th>{{ __('City') }}</th>
@@ -32,9 +32,9 @@
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($stores as $store)
+            @foreach ($stores as $i => $store)
                 <tr>
-                    <td>{{ $store->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $store->user->name }}</td>
                     <td>{{ $store->name }}</td>
                     <td>{{ $store->city->name_en }}</td>
@@ -51,8 +51,9 @@
                             <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this store?')">
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
+                                    type="submit"
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('store')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

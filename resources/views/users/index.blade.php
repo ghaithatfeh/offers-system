@@ -20,7 +20,7 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Name') }}</th>
             <th>{{ __('Email') }}</th>
             <th>{{ __('Role') }}</th>
@@ -28,9 +28,9 @@
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($users as $i => $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ __($user->role) }}</td>
@@ -57,7 +57,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this user?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item'=> __('user')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

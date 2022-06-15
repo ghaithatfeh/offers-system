@@ -13,7 +13,7 @@
             <a class="btn btn-primary mx-1" href="/users/{{ $user->id }}/edit">{{ __('Edit') }}</a>
             @if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
                 <a class="btn btn-danger mx-1" href=""
-                    onclick="event.preventDefault();confirm('Are you sure you want to delete this user and his owner account?') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
+                    onclick="event.preventDefault();confirm('{{ __('Are you sure you want to delete this :item?', ['item'=> __('user')]) }}') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
                 <form id="form-delete" action="/users/{{ $user->id }}" method="post">
                     @csrf
                     @method('DELETE')

@@ -64,8 +64,8 @@ class ExcelFileController extends Controller
     public function destroy(ExcelFile $bulk_offer)
     {
         if (file_exists('uploaded_images/excel_files/' . $bulk_offer->name))
-            if (unlink('uploaded_images/excel_files/' . $bulk_offer->name))
-                $bulk_offer->delete();
+            unlink('uploaded_images/excel_files/' . $bulk_offer->name);
+        $bulk_offer->delete();
         return redirect('/bulk-offers');
     }
 }

@@ -21,14 +21,14 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Name') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($tags as $tag)
+            @foreach ($tags as $i => $tag)
                 <tr>
-                    <td>{{ $tag->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $tag->name }}</td>
                     <td>
                         <a href="/tags/{{ $tag->id }}/edit" title="{{ __('Edit') }}">
@@ -39,7 +39,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this tag?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('tag')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

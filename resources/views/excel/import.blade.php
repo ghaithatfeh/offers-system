@@ -4,10 +4,8 @@
     <form class="mt-4 col-12 col-md-8 col-xl-6 mx-auto" action="/bulk-offers/import-from-excel" method="POST"
         enctype="multipart/form-data">
         <div class="alert alert-warning">
-            {!! __('The excel file must contain columns with the following headers:<br>
-            Title(required), Price(required), Expiry Date(optional), Description(optional).<br>
-            You can download and fill out the template file from ') !!}
-            <a class="text-primary" href="/uploaded_images/excel_files/offer.xlsx">{{__('here')}}</a>.
+            {!! __('The excel file must contain columns with the following headers:<br>Title(required), Price(required), Expiry Date(optional), Description(optional).<br>You can download and fill out the template file from ') !!}
+            <a class="text-primary" href="/uploaded_images/excel_files/offer.xlsx">{{ __('here') }}</a>.
         </div>
         @csrf
         <div class="mb-3">

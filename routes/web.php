@@ -16,16 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 // Localization Route
 Route::get('lang/{locale}', function ($locale) {
     App::setLocale($locale);
@@ -34,10 +24,11 @@ Route::get('lang/{locale}', function ($locale) {
 })->name('lang');
 // Localization Route
 
+Auth::routes();
+
 Route::get('/', function () {
     return redirect('/login');
 });
-Auth::routes();
 
 Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');

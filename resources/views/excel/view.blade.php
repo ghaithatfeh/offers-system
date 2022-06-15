@@ -16,6 +16,7 @@
         <thead>
             <th>{{ __('Id') }}</th>
             <th>{{ __('Titile') }}</th>
+            <th>{{ __('Offer Owner') }}</th>
             <th>{{ __('Expiry Date') }}</th>
             <th>{{ __('Price') }}</th>
             <th>{{ __('Status') }}</th>
@@ -26,7 +27,13 @@
                 <tr>
                     <td>{{ $offer->id }}</td>
                     <td>{{ $offer->title }}</td>
-                    <td>{{ $offer->expiry_date }}</td>
+                    <td>
+                        <a
+                            href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
+                            {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
+                        </a>
+                    </td>
+                    <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                     <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
                     <td>
                         {{ $offer->status }}

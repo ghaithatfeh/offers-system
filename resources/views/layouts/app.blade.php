@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="{{ Lang::locale() }}" dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
 
 <head>
@@ -42,8 +41,17 @@
         html[lang='ar'] body {
             font-family: 'Noto Kufi Arabic', sans-serif !important;
         }
-    </style>
 
+        html[lang='ar'] .select2-container--open .select2-dropdown {
+            left: 0;
+            right: unset;
+        }
+
+        .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice,
+        .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline {
+            float: right;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -120,8 +128,8 @@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="{{__("Search")}}"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search"
+                            placeholder="{{ __('Search') }}" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -184,6 +192,10 @@
         </footer>
     </div>
 
+    <script>
+        const male = "{{__('Male')}}"
+        const female = "{{__('Female')}}"
+    </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')

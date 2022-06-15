@@ -35,7 +35,6 @@ class UserController extends Controller
             'status' => ['required']
         ]);
         $request['password'] = Hash::make($request->password);
-        // return $request->all();
         User::create($request->all());
         return redirect('/users');
     }

@@ -33,15 +33,16 @@
             @enderror
         </div>
         @php
-            $roles = [__('Admin'), __('Supervisor'), __('Store Owner')];
+            $roles = ['Admin', 'Supervisor', 'Store Owner'];
         @endphp
         <div class="mb-3">
             <div class="form-group">
                 <label for="role">{{ __('Role') }}</label>
                 <select class="form-control" name="role" id="role">
                     @foreach ($roles as $role)
-                        <option {{ old('role') == $role ? 'selected' : '' }} vlaue="{{ $role }}">
-                            {{ $role }}</option>
+                        <option {{ old('role') == $role ? 'selected' : '' }} value="{{ $role }}">
+                            {{ __($role) }}
+                        </option>
                     @endforeach
                 </select>
             </div>

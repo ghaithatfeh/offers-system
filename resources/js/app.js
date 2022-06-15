@@ -5,6 +5,7 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import 'admin-lte/plugins/select2/js/select2.full.min.js';
+import { female, male } from 'fontawesome';
 
 $('.select2').select2({
     placeholder: '',
@@ -14,7 +15,6 @@ $('.select2').select2({
 })
 
 var url = window.location.toString()
-
 
 if (url.includes('notifications/create'))
     targetTypeChange.apply($('#target_type'));
@@ -32,11 +32,11 @@ function targetTypeChange() {
             $('#target_value').html('');
             $('#target_value').parent().removeClass('d-none')
             var data = [{
-                id: "Male",
+                id: male,
                 text: "Male"
             },
             {
-                id: "Female",
+                id: female,
                 text: "Female"
             },
             ];

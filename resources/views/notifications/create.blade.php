@@ -26,28 +26,11 @@
             <label class="form-label" for="target_type">{{ __('Target Type') }}</label>
             <select id="target_type" name="target_type" class="form-control">
                 @php
-                    $target_types = [
-                        [
-                            'name' => __('Broadcast'),
-                            'value' => 'Broadcast'
-                        ],
-                        [
-                            'name' => __('Categories'),
-                            'value' => 'Categories'
-                        ],
-                        [
-                            'name' => __('Cities'),
-                            'value' => 'Cities'
-                        ],
-                        [
-                            'name' => __('Gender'),
-                            'value' => 'Gender'
-                        ]
-                    ];
+                    $target_types = ['Broadcast', 'Categories', 'Cities', 'Gender'];
                 @endphp
                 @foreach ($target_types as $target_type)
-                    <option value="{{ $target_type['value'] }}" {{ $target_type['value'] == old('target_type') ? 'selected' : '' }}>
-                        {{ $target_type['name'] }}</option>
+                    <option value="{{ $target_type }}" {{ $target_type == old('target_type') ? 'selected' : '' }}>
+                        {{ __($target_type) }}</option>
                 @endforeach
             </select>
             <small class="text-danger">
@@ -68,7 +51,8 @@
             </small>
         </div>
         <div class="d-flex">
-            <button type="submit" onclick="return confirm('Are you sure you want to send this notification?')"
+            <button type="submit"
+                onclick="return confirm('{{ __('Are you sure you want to send this notification?') }}')"
                 class="btn btn-success mx-auto">{{ __('Send') }}</button>
         </div>
     </form>

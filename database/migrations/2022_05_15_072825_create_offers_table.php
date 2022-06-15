@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->date('expiry_date');
+            $table->date('expiry_date')->nullable();
             $table->float('price');
             $table->enum('status', ['On Hold', 'Approved', 'Rejected'])->default('On Hold');
             $table->text('description');

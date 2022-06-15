@@ -19,21 +19,21 @@
 
     <table class="table table-borderd text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('File Name') }}</th>
             <th>{{ __('Number Of Offers') }}</th>
             <th>{{ __('Uploaded At') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($files as $file)
+            @foreach ($files as $i => $file)
                 <tr>
-                    <td>{{ $file->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td class="">{{ $file->name }}</td>
                     <td>{{ count($file->offers) }}</td>
                     <td>{{ $file->created_at }}</td>
                     <td>
-                        <a href="{{ asset('uploaded_images/excel_files/' . $file->name) }}" title="Download">
+                        <a href="{{ asset('uploaded_images/excel_files/' . $file->name) }}" title="{{__('Download')}}">
                             <i class="fas fa-download"></i>
                         </a>
                         <a href="/bulk-offers/{{ $file->id }}" title="{{ __('View') }}">

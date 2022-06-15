@@ -21,7 +21,7 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('First Name') }}</th>
             <th>{{ __('Last Name') }}</th>
             <th>{{ __('Email') }}</th>
@@ -29,21 +29,21 @@
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($customers as $customer)
+            @foreach ($customers as $i => $customer)
                 <tr>
-                    <td>{{ $customer->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $customer->first_name }}</td>
                     <td>{{ $customer->last_name }}</td>
                     <td>{{ $customer->email }}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input onchange="
-                                if (confirm('Are you sure you want to change this status?'))
-                                    window.location.href = '/customers/change-status/{{ $customer->id }}'
-                                else
-                                    this.checked = !this.checked
-                                " class="form-check-input" type="checkbox"
-                                id="toggle-{{ $customer->id }}" {{ $customer->status ? 'checked' : '' }}>
+                                    if (confirm('{{ __('Are you sure you want to change this status?') }}'))
+                                        window.location.href = '/customers/change-status/{{ $customer->id }}'
+                                    else
+                                        this.checked = !this.checked
+                                    " class="form-check-input" type="checkbox" id="toggle-{{ $customer->id }}"
+                                {{ $customer->status ? 'checked' : '' }}>
                             <label class="form-check-label"
                                 for="toggle-{{ $customer->id }}">{{ $customer->status ? __('Active') : __('Inactive') }}</label>
                         </div>

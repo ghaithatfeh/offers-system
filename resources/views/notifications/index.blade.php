@@ -12,16 +12,16 @@
 
     <table class="table text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Title') }}</th>
             <th>{{ __('Target Type') }}</th>
             <th>{{ __('Sent At') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($notifications as $notification)
+            @foreach ($notifications as $i => $notification)
                 <tr>
-                    <td>{{ $notification->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $notification->title }}</td>
                     <td>{{ __($notification->target_type) }}</td>
                     <td>{{ $notification->created_at }}</td>

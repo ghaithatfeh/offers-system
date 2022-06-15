@@ -22,19 +22,26 @@
 
     <table class="table table-borderd text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Titile') }}</th>
+            <th>{{ __('Offer Owner') }}</th>
             <th>{{ __('Expiry Date') }}</th>
             <th>{{ __('Price') }}</th>
             <th>{{ __('Status') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($offers as $offer)
+            @foreach ($offers as $i => $offer)
                 <tr>
-                    <td>{{ $offer->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $offer->title }}</td>
-                    <td>{{ $offer->expiry_date }}</td>
+                    <td>
+                        <a
+                            href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
+                            {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
+                        </a>
+                    </td>
+                    <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                     <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
                     <td>
                         {{ __($offer->status) }}
@@ -47,18 +54,19 @@
                         @endif
                     </td>
                     <td>
-                        <a href="/offers/{{ $offer->id }}" title="{{__('View')}}">
+                        <a href="/offers/{{ $offer->id }}" title="{{ __('View') }}">
                             <i class="fas fa-eye"></i>
                         </a>
                         @if ($offer->user_id == auth()->id())
-                            <a href="/offers/{{ $offer->id }}/edit" title="{{__('Edit')}}">
+                            <a href="/offers/{{ $offer->id }}/edit" title="{{ __('Edit') }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="{{__('Delete')}}" type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this offer type?')">
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
+                                    type="submit"
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('offer')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
