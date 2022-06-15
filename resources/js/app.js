@@ -5,7 +5,6 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import 'admin-lte/plugins/select2/js/select2.full.min.js';
-import { female, male } from 'fontawesome';
 
 $('.select2').select2({
     placeholder: '',
@@ -32,12 +31,12 @@ function targetTypeChange() {
             $('#target_value').html('');
             $('#target_value').parent().removeClass('d-none')
             var data = [{
-                id: male,
-                text: "Male"
+                id: "Male",
+                text: male
             },
             {
-                id: female,
-                text: "Female"
+                id: "Female",
+                text: female
             },
             ];
             select2(data);
