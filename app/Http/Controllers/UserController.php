@@ -11,12 +11,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::where('role', '!=', 'Store Owner')->paginate(10);
         return view('users.index', ['users' => $users]);
     }
 
     public function show(User $user)
     {
+        if ($user->role == 'Store Owner')
+            return abort(404);
         return view('users.view', ['user' => $user]);
     }
 
@@ -31,7 +33,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required'],
+            'role' => ['required', 'in:Admin,Supervisor'],
             'status' => ['required']
         ]);
         $request['password'] = Hash::make($request->password);
@@ -41,11 +43,15 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if ($user->role == 'Store Owner')
+            return abort(404);
         return view('users.edit', ['user' => $user]);
     }
 
     public function update(Request $request, User $user)
     {
+        if ($user->role == 'Store Owner')
+            return abort(404);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
@@ -58,6 +64,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->role == 'Store Owner')
+            return abort(404);
         if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
             $user->delete();
         return redirect('/users');
@@ -81,6 +89,8 @@ class UserController extends Controller
 
     public function changeStatus(User $user)
     {
+        if ($user->role == 'Store Owner')
+            return abort(404);
         $user->update(['status' => !$user->status]);
         return back();
     }

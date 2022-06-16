@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Add Offer') }}</h2>
-    <form action="/offers" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
+    <form action="/offers" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>

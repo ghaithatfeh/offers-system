@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td style="width: 80%" class="px-3">{{ $offer_type->description }}</td>
+                <td class="pr-4 text-break w-50">{{ $offer_type->description }}</td>
             </tr>
         </tbody>
     </table>

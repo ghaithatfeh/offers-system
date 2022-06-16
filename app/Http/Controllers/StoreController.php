@@ -70,22 +70,28 @@ class StoreController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3',
+            'user_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'expiry_date' => 'after:yesterday',
             'cover' => 'image',
             'logo' => 'image',
             'expiry_date' => 'required|date',
         ]);
         $store->update($request->all());
+        $store->user->update([
+            'name' => $request->user_name,
+            'email' => $request->email
+        ]);
         return redirect('/stores');
     }
 
     public function destroy(Store $store)
     {
-        if (!$store->user->offers->count()) {
-            $this->delete_file($store->logo);
-            $this->delete_file($store->cover);
-            $store->user->delete();
-        }
+        if ($store->user->offers->count())
+            return abort(403);
+        $this->delete_file($store->logo);
+        $this->delete_file($store->cover);
+        $store->user->delete();
         return redirect('/stores');
     }
 

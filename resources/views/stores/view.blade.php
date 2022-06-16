@@ -26,7 +26,11 @@
         <tbody>
             <tr>
                 <td>{{ __('Store Owner') }}</td>
-                <td><a href="/users/{{ $store->user->id }}">{{ $store->user->name }}</a></td>
+                <td>{{ $store->user->name }}</td>
+            </tr>
+            <tr>
+                <td>{{ __('Email') }}</td>
+                <td>{{ $store->user->email }}</td>
             </tr>
             <tr>
                 <td>{{ __('Store Name') }}</td>
@@ -42,11 +46,11 @@
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
-                <td>{{ $store->status }}</td>
+                <td>{{ __($store->status) }}</td>
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td style="width: 80%" class="px-3">{!! $store->description !!}</td>
+                <td class="pr-4 text-break w-50">{!! $store->description !!}</td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>

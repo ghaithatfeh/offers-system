@@ -6,10 +6,10 @@
         {{ __('NOTE: You can\'t delete a store if there offer releted to it, you can deactivate it. Inactive store and its offers won’t be displayed in mobile application.') }}
     </div>
     <div class="d-flex mt-4">
-        <a href="/stores/create" class="btn btn-success">{{ __('Add Store') }}</a>
+        <a href="/stores/create" class="btn btn-success text-nowrap me-3">{{ __('Add Store') }}</a>
 
         <form action="/stores/search" method="GET" class="ms-auto">
-            <div class="input-group">
+            <div class="input-group d-flex flex-nowrap">
                 <div class="form-outline">
                     <input name="search" type="search" id="form1" class="form-control"
                         placeholder="{{ __('Search here') }}.." value="{{ $_GET['search'] ?? '' }}" />
@@ -21,6 +21,7 @@
         </form>
     </div>
 
+    <div class="table-responsive">
     <table class="table text-center mt-4">
         <thead>
             <th>{{ __('#') }}</th>
@@ -63,5 +64,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     {{ $stores->appends(Request::except('page'))->links() }}
 @endsection

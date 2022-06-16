@@ -50,7 +50,7 @@
             <tr>
                 <td>{{ __('Interest Categories') }}</td>
                 <td>
-                    <div class="mx-auto" style="width: 500px">
+                    <div class="mx-auto">
                         @forelse ($customer->customers_interests as $i => $interested_category)
                             {!! $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? '<br>' : '') !!}
                         @empty
@@ -62,7 +62,7 @@
             <tr>
                 <td>{{ __('Subscriptions') }}</td>
                 <td>
-                    <div class="mx-auto" style="width: 500px">
+                    <div class="mx-auto">
                         @forelse ($customer->stores as $i => $store)
                             {!! $store->title . ($i + 1 != count($customer->stores) ? '<br>' : '') !!}
                         @empty

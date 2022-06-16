@@ -38,6 +38,9 @@
         </style>
     @endif
     <style>
+        th, td{
+            white-space: nowrap;
+        }
         html[lang='ar'] body {
             font-family: 'Noto Kufi Arabic', sans-serif !important;
         }

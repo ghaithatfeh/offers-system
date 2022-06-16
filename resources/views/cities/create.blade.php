@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Add City') }}</h2>
-    <form action="/cities" method="post" class="mt-4 col-6 mx-auto">
+    <form action="/cities" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto">
         @csrf
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>

@@ -5,7 +5,7 @@
     <div class="d-flex mt-4">
         <a href="/bulk-offers/import-from-excel" class="btn btn-primary ms-2">{{ __('Import From Excel') }}</a>
         <form action="/offer/search" method="GET" class="ms-auto">
-            <div class="input-group">
+            <div class="input-group d-flex flex-nowrap">
                 <div class="form-outline">
                     <input name="search" type="search" id="form1" class="form-control"
                         placeholder="{{ __('Search here') }}.." value="{{ $_GET['search'] ?? '' }}" />
@@ -16,7 +16,7 @@
             </div>
         </form>
     </div>
-
+    <div class="table-responsive">
     <table class="table table-borderd text-center mt-4">
         <thead>
             <th>{{ __('#') }}</th>
@@ -44,5 +44,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     {{ $files->appends(Request::except('page'))->links() }}
 @endsection

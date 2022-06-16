@@ -2,9 +2,23 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Edit Store') . ': ' . $store->name }}</h2>
-    <form action="/stores/{{ $store->id }}" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
+    <form action="/stores/{{ $store->id }}" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <div class="mb-3">
+            <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
+            <input type="text" name="user_name" class="form-control" value="{{ old('user_name') ?? $store->user->name }}">
+            @error('user_name')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="email">{{ __('Email') }}</label>
+            <input type="email" name="email" class="form-control" value="{{ old('email') ?? $store->user->email }}">
+            @error('email')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
         <div class="mb-3">
             <label class="form-label" for="name">{{ __('Store Name') }}</label>
             <input id="name" name="name" class="form-control" type="text" value="{{ old('name') ?? $store->name }}">

@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Add User') }}</h2>
-    <form action="/users" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
+    <form action="/users" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label class="form-label" for="name">{{ __('Name') }}</label>
@@ -33,7 +33,7 @@
             @enderror
         </div>
         @php
-            $roles = ['Admin', 'Supervisor', 'Store Owner'];
+            $roles = ['Admin', 'Supervisor'];
         @endphp
         <div class="mb-3">
             <div class="form-group">

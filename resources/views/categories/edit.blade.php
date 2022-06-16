@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Edit Category') }}</h2>
-    <form action="/categories/{{ $category->id }}" method="post" class="mt-4 col-6 mx-auto">
+    <form action="/categories/{{ $category->id }}" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto">
         @method('put')
         @csrf
         <div class="mb-3">

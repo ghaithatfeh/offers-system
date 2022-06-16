@@ -44,7 +44,7 @@ class OfferController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'expiry_date' => 'after:yesterday',
+            'expiry_date' => 'nullable|after:yesterday',
             'price' => 'numeric|min:1',
             'category_id' => 'required',
             'description' => 'min:20',
@@ -115,7 +115,7 @@ class OfferController extends Controller
             return abort('403');
         $request->validate([
             'title' => 'required',
-            'expiry_date' => 'after:yesterday',
+            'expiry_date' => 'nullable:after:yesterday',
             'price' => 'numeric|min:1',
             'category_id' => 'required',
             'offer_type_id' => 'required',

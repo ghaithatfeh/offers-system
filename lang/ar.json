@@ -10,7 +10,7 @@
     "Logout": "تسجيل الخروج",
     "Offers": "العروض",
     "Offer Owner": "صاحب العرض",
-    "Customers": "الزبائن",
+    "Customers": "العملاء",
     "Stores": "المتاجر",
     "Cities": "المدن",
     "Categories": "الأصناف",
@@ -31,7 +31,7 @@
     "View": "عرض",
     "Edit": "تعديل",
     "Delete": "حذف",
-    "On Hold": "على الإنتظار",
+    "On Hold": "قيد الإنتظار",
     "Approved": "مقبول",
     "Rejected": "مرفوض",
     "Offer Details": "تفاصيل العرض",
@@ -50,7 +50,7 @@
     "Reject Reason": "سبب الرفض",
     "Close": "إغلاق",
     "Submit": "تقديم",
-    "Customer Details": "تفاصيل الزبون",
+    "Customer Details": "تفاصيل العميل",
     "NOTE: Deactivating customers will prevent them from accessing their accounts and hide all their offers.": "ملاحظة: سيؤدي إلغاء تنشيط العملاء إلى منعهم من الوصول إلى حساباتهم وإخفاء جميع عروضهم.",
     "First Name": "الاسم الأول",
     "Last Name": "الاسم الأخير",
@@ -151,5 +151,9 @@
     "city": "مدينة",
     "category": "صنف",
     "tag": "وسم",
-    "user": "مستخدم"
+    "user": "مستخدم",
+    "Edit Store": "تعديل المتجر",
+    "Edit User": "تعديل المستخدم",
+    "Edit Offer Type": "تعديل نوع العرض",
+    "Edit City": "تعديل المدينة"
 }

@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>{{ __('Message') }}</td>
-                <td style="width: 80%" class="px-3">{{ $notification->body }}</td>
+                <td class="pr-4 text-break w-50">{{ $notification->body }}</td>
             </tr>
             <tr>
                 <td>{{ __('Target Type') }}</td>

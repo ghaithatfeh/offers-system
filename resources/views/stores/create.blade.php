@@ -2,8 +2,36 @@
 
 @section('content')
     <h2 class="text-center">{{ __('Add Store') }}</h2>
-    <form action="/stores" method="post" class="mt-4 col-6 mx-auto" enctype="multipart/form-data">
+    <form action="/stores" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
+        <div class="mb-3">
+            <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
+            <input type="text" name="user_name" class="form-control" value="{{ old('user_name') }}">
+            @error('user_name')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="email">{{ __('Email') }}</label>
+            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+            @error('email')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="password">{{ __('Password') }}</label>
+            <input type="password" name="password" class="form-control">
+            @error('password')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <input type="password" name="password_confirmation" class="form-control">
+            @error('password_confirmation')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
         <div class="mb-3">
             <label class="form-label" for="name">{{ __('Store Name') }}</label>
             <input id="name" name="name" class="form-control" type="text" value="{{ old('name') }}">
@@ -48,34 +76,7 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
-            <input type="text" name="user_name" class="form-control" value="{{ old('user_name') }}">
-            @error('user_name')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="email">{{ __('Email') }}</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
-            @error('email')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="password">{{ __('Password') }}</label>
-            <input type="password" name="password" class="form-control">
-            @error('password')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
-            <input type="password" name="password_confirmation" class="form-control">
-            @error('password_confirmation')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
+        
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
             <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date') }}">

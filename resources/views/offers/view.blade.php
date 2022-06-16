@@ -133,14 +133,14 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td style="width: 80%" class="px-3 text-break">
+                <td class="pr-4 text-break w-50">
                     {!! $offer->description !!}
-                <td>
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Tags') }}</td>
                 <td>
-                    <div class="mx-auto" style="width: 500px">
+                    <div class="mx-auto">
                         @forelse ($offer->tags as $i => $tags)
                             {!! $tags->name . ($i + 1 != count($offer->tags) ? '<br>' : '') !!}
                         @empty
@@ -152,7 +152,7 @@
             <tr>
                 <td>{{ __('Target Areas') }}</td>
                 <td>
-                    <div class="mx-auto" style="width: 500px">
+                    <div class="mx-auto" >
                         @forelse ($offer->targetAreas as $i => $target)
                             {!! $target->name_en . ($i + 1 != count($offer->targetAreas) ? '<br>' : '') !!}
                         @empty
@@ -164,7 +164,7 @@
             <tr>
                 <td class="align-middle">{{ __('Images') }}</td>
                 <td>
-                    <div class="row mx-auto" style="width: 500px">
+                    <div class="row mx-auto">
                         @foreach ($offer->images as $image)
                             <div class="col-6 mx-auto">
                                 <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2 img-fluid"

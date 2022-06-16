@@ -4,7 +4,7 @@
 <div class="d-flex mt-4">
         <h2 class="">{{ __('Offers Types') }}</h2>
         <form action="/offer_types/search" method="GET" class="ms-auto">
-            <div class="input-group">
+            <div class="input-group d-flex flex-nowrap">
                 <div class="form-outline">
                     <input name="search" type="search" id="form1" class="form-control"
                         placeholder="{{ __('Search here') }}.." value="{{ $_GET['search'] ?? '' }}" />
@@ -15,7 +15,7 @@
             </div>
         </form>
     </div>
-
+    <div class="table-responsive">
     <table class="table text-center mt-4">
         <thead>
             <th>{{ __('#') }}</th>
@@ -45,5 +45,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     {{ $offer_types->appends(Request::except('page'))->links() }}
 @endsection

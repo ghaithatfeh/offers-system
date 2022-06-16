@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{ __('Add City') }}</h2>
-    <form action="/cities/{{ $city->id }}" method="POST" class="mt-4 col-6 mx-auto">
+    <h2 class="text-center">{{ __('Edit City') }}</h2>
+    <form action="/cities/{{ $city->id }}" method="POST" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto">
         @csrf
         @method('PUT')
         <div class="mb-3">

@@ -2,7 +2,7 @@
 
 @section('content')
     <h2 class="text-center">{{$store->name . ': ' . __('Upload New ' . ucwords($image_type)) }}</h2>
-    <form action="/stores/upload_store/{{ $image_type }}/{{ $store->id }}" method="post" class="mt-4 col-6 mx-auto"
+    <form action="/stores/upload_store/{{ $image_type }}/{{ $store->id }}" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto"
         enctype="multipart/form-data">
         @csrf
         @method('PUT')
