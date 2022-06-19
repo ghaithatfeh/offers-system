@@ -38,9 +38,11 @@
         </style>
     @endif
     <style>
-        th, td{
+        th,
+        td {
             white-space: nowrap;
         }
+
         html[lang='ar'] body {
             font-family: 'Noto Kufi Arabic', sans-serif !important;
         }
@@ -74,8 +76,8 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-bold mr-2" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-bold mr-2" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-globe"></i> {{ __('Lang') }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -145,8 +147,13 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @php
-                            $nav_items = [['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down']];
+                            $nav_items = [];
+                            if (auth()->user()->role == 'Store Owner') {
+                                $nav_items[] = ['link' => '/my-store', 'lable' => __('My Store'), 'icon' => 'fa-solid fa-cart-arrow-down'];
+                                $nav_items[] = ['link' => '/offers', 'lable' => __('My Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
+                            }
                             if (auth()->user()->role != 'Store Owner') {
+                                $nav_items[] = ['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
                                 $nav_items[] = ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'];
                                 $nav_items[] = ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'];
                                 $nav_items[] = ['link' => '/categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'];
@@ -196,8 +203,8 @@
     </div>
 
     <script>
-        const male = "{{__('Male')}}"
-        const female = "{{__('Female')}}"
+        const male = "{{ __('Male') }}"
+        const female = "{{ __('Female') }}"
     </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

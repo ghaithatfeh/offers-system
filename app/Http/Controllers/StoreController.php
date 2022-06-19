@@ -57,6 +57,12 @@ class StoreController extends Controller
             'store' => $store,
         ]);
     }
+    public function myStore()
+    {
+        return view('stores.view', [
+            'store' => Store::where('user_id', auth()->id())->first(),
+        ]);
+    }
 
     public function edit(Store $store)
     {

@@ -44,6 +44,7 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 });
 
 Route::middleware('role:Store Owner')->group(function () {
+    Route::get('/my-store', [StoreController::class, 'myStore']);
     Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::resources([

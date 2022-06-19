@@ -4,8 +4,10 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-end">
         <h2 class="">{{ __('Offers By Excel File: ') . $excel_file->name }}</h2>
-        <button onclick="if(confirm('Are you sure you want to delete this file and all its offers?')) document.getElementById('delete-form').submit()" class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</button>
-        <form method="POST" action="/bulk-offers/{{$excel_file->id}}" id="delete-form" class="d-none">
+        <button
+            onclick="if(confirm('Are you sure you want to delete this file and all its offers?')) document.getElementById('delete-form').submit()"
+            class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</button>
+        <form method="POST" action="/bulk-offers/{{ $excel_file->id }}" id="delete-form" class="d-none">
             @csrf
             @method('delete')
         </form>
@@ -16,23 +18,16 @@
         <thead>
             <th>{{ __('Id') }}</th>
             <th>{{ __('Titile') }}</th>
-            <th>{{ __('Offer Owner') }}</th>
             <th>{{ __('Expiry Date') }}</th>
             <th>{{ __('Price') }}</th>
             <th>{{ __('Status') }}</th>
             <th>{{ __('Actions') }}</th>
         </thead>
         <tbody>
-            @foreach ($offers as $offer)
+            @foreach ($offers as $i => $offer)
                 <tr>
-                    <td>{{ $offer->id }}</td>
+                    <td>{{ ++$i }}</td>
                     <td>{{ $offer->title }}</td>
-                    <td>
-                        <a
-                            href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
-                            {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
-                        </a>
-                    </td>
                     <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                     <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
                     <td>
@@ -56,7 +51,8 @@
                             <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}" type="submit"
+                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
+                                    type="submit"
                                     onclick="return confirm('Are you sure you want to delete this offer type?')">
                                     <i class="fas fa-trash"></i>
                                 </button>

@@ -11,7 +11,7 @@
         <h2>{{ __('Store Details') }}</h2>
         <div class="ms-auto d-flex align-items-center">
             <a class="btn btn-primary mx-1" href="/stores/{{ $store->id }}/edit">{{ __('Edit') }}</a>
-            @if (!$store->user->offers->count())
+            @if (!$store->user->offers->count() && auth()->user()->role != 'Store Owner')
                 <a class="btn btn-danger mx-1" href=""
                     onclick="event.preventDefault();confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('store')]) }}') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>
                 <form id="form-delete" action="/stores/{{ $store->id }}" method="post">
@@ -51,6 +51,12 @@
             <tr>
                 <td>{{ __('Description') }}</td>
                 <td class="pr-4 text-break w-50">{!! $store->description !!}</td>
+            </tr>
+            <tr>
+                <td>{{ __('Subscriptions') }}</td>
+                <td>
+                    {{ $store->customers->count() }}
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Created At') }}</td>

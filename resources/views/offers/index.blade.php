@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="">{{ __('Offers') }}</h2>
+    @if (auth()->user()->role != 'Store Owner')
+        <h2 class="">{{ __('Offers') }}</h2>
+    @else
+        <h2 class="">{{ __('My Offers') }}</h2>
+    @endif
     <div class="d-flex mt-4">
-        <a href="/offers/create" class="btn btn-success text-nowrap me-3">{{ __('Add Offer') }}</a>
+        <a href="/offers/create" class="btn btn-success text-nowrap">{{ __('Add Offer') }}</a>
         @if (auth()->user()->role == 'Store Owner')
             <a href="/bulk-offers/import-from-excel" class="btn btn-primary ms-2">{{ __('Import From Excel') }}</a>
         @endif
@@ -24,7 +28,9 @@
             <thead>
                 <th>{{ __('#') }}</th>
                 <th>{{ __('Titile') }}</th>
-                <th>{{ __('Offer Owner') }}</th>
+                @if (auth()->user()->role != 'Store Owner')
+                    <th>{{ __('Offer Owner') }}</th>
+                @endif
                 <th>{{ __('Expiry Date') }}</th>
                 <th>{{ __('Price') }}</th>
                 <th>{{ __('Status') }}</th>
@@ -35,12 +41,14 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $offer->title }}</td>
-                        <td>
-                            <a
-                                href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
-                                {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
-                            </a>
-                        </td>
+                        @if (auth()->user()->role != 'Store Owner')
+                            <td>
+                                <a
+                                    href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
+                                    {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
+                                </a>
+                            </td>
+                        @endif
                         <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                         <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
                         <td>

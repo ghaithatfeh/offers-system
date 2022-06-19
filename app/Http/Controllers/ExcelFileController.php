@@ -39,7 +39,7 @@ class ExcelFileController extends Controller
 
         elseif ($request->isMethod('post')) {
             $request->validate([
-                'file' => 'required|mimes:xlsx|max:2048'
+                // 'file' => 'required|mimes:xlsx|max:2048'
             ]);
             $file = $request->file('file');
             $file_name = time() . '_' . $file->getClientOriginalName();
