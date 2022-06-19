@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"
+        integrity="sha512-rxThY3LYIfYsVCWPCW9dB0k+e3RZB39f23ylUYTEuZMDrN/vRqLdaCBo/FbvVT6uC2r0ObfPzotsfKF9Qc5W5g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html[lang="ar"] .datepicker {
+            direction: rtl;
+        }
+    </style>
+    
     <h2 class="text-center">{{ __('Add Offer') }}</h2>
     <form action="/offers" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
@@ -11,9 +21,15 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <div class="mb-3">
+        <div class="mb-3 date">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
-            <input id="expiry_date" name="expiry_date" class="form-control" type="date" value="{{ old('expiry_date') }}">
+            <div class="input-group">
+                <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly
+                    value="{{ old('expiry_date') }}">
+                <div class="input-group-text">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+            </div>
             @error('expiry_date')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -75,8 +91,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
-            <textarea id="description" name="description" class="form-control" cols="30"
-                rows="5">{{ old('description') }}</textarea>
+            <textarea id="description" name="description" class="form-control" cols="30" rows="5">{{ old('description') }}</textarea>
             @error('description')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -95,4 +110,23 @@
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: 'd',
+            autoclose: true,
+            clearBtn: true,
+            todayBtn: true,
+            todayHighlight: true,
+            @if (Lang::locale() == 'ar')
+                rtl: true
+            @endif
+        });
+    </script>
 @endsection
