@@ -18,8 +18,8 @@
             {{ __('Submit') }}
         </button>
     </form>
-    <div class="row mt-4">
-        @foreach ($offer->images as $image)
+    <div class="row mt-4 mx-auto justify-content-center">
+        @forelse ($offer->images as $image)
             <div class="col-6 col-md-4 mt-4 d-flex flex-column justify-content-end">
                 <img class="img-fluid rounded-top" src="{{ asset('uploaded_images/' . $image->name) }}">
                 <form action="/offers/delete_image/{{ $image->id }}" method="post">
@@ -32,6 +32,10 @@
                     </button>
                 </form>
             </div>
-        @endforeach
+        @empty
+            <div class="col-12 col-md-7">
+                <div class="alert alert-warning">{{ __('No photos have been uploaded yet.') }}</div>
+            </div>
+        @endforelse
     </div>
 @endsection

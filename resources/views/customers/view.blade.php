@@ -54,7 +54,7 @@
                         @forelse ($customer->customers_interests as $i => $interested_category)
                             {!! $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? '<br>' : '') !!}
                         @empty
-                            <em class="text-danger">Not Set</em>
+                            <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
                     </div>
                 </td>
@@ -66,7 +66,7 @@
                         @forelse ($customer->stores as $i => $store)
                             {!! $store->title . ($i + 1 != count($customer->stores) ? '<br>' : '') !!}
                         @empty
-                            <em class="text-danger">Not Set</em>
+                            <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
                     </div>
                 </td>

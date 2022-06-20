@@ -89,10 +89,10 @@
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
             <div class="input-group">
-                <input readonly name="expiry_date" class="form-control datepicker" value="{{ old('expiry_date') }}">
-                <div class="input-group-text">
+                <input readonly name="expiry_date" id="expiry_date" class="form-control datepicker" value="{{ old('expiry_date') }}">
+                <label for="expiry_date" class="input-group-text">
                     <i class="fa-solid fa-calendar-days"></i>
-                </div>
+                </label>
             </div>
             @error('expiry_date')
                 <small class="text-danger">{{ $message }}</small>
@@ -125,7 +125,6 @@
             format: 'yyyy-mm-dd',
             startDate: 'd',
             autoclose: true,
-            clearBtn: true,
             todayBtn: true,
             todayHighlight: true,
             @if (Lang::locale() == 'ar')

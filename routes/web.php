@@ -45,6 +45,9 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 
 Route::middleware('role:Store Owner')->group(function () {
     Route::get('/my-store', [StoreController::class, 'myStore']);
+    Route::get('/my-store/edit', function(){
+        return App::call('App\Http\Controllers\StoreController@edit', ['store_id' => auth()->id()]);
+    });
     Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::resources([
@@ -72,8 +75,9 @@ Route::middleware('role:Admin,Supervisor')->group(function () {
 });
 
 Route::middleware('role:Admin')->group(function () {
-    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
-    Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    // Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
+    // Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    // Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
     Route::get('/users/change-status/{user}', [UserController::class, 'changeStatus']);
     // Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
 
@@ -82,4 +86,11 @@ Route::middleware('role:Admin')->group(function () {
         '/offer_types' => OfferTypeController::class,
         '/users' => UserController::class
     ]);
+});
+
+Route::middleware('role:Admin,Store Owner')->group(function () {
+    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
+    Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
+    Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
+    Route::put('/my-store-update', [StoreController::class, 'myStoreUpdate']);
 });

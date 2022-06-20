@@ -31,6 +31,7 @@
     "View": "عرض",
     "Edit": "تعديل",
     "Delete": "حذف",
+    "Delete image": "حذف الصورة",
     "On Hold": "قيد الإنتظار",
     "Approved": "مقبول",
     "Rejected": "مرفوض",
@@ -52,6 +53,7 @@
     "Submit": "تقديم",
     "Customer Details": "تفاصيل العميل",
     "NOTE: Deactivating customers will prevent them from accessing their accounts and hide all their offers.": "ملاحظة: سيؤدي إلغاء تنشيط العملاء إلى منعهم من الوصول إلى حساباتهم وإخفاء جميع عروضهم.",
+    "NOTE: You can't delete a user if there offer or review releted to it, you can deactivate it.": "ملاحظة: لايمكنك حذف مستخدم قد قام بإنشاء عروض من قبل، لكن يمكنك إلغاء تفعيل حسابه.",
     "First Name": "الاسم الأول",
     "Last Name": "الاسم الأخير",
     "Email": "البريد اللإلكتروني",
@@ -77,7 +79,7 @@
     "Upload New Cover": "رفع غلاف جديد",
     "Store Logo": "شعار المتجر",
     "Store Cover": "غلاف المتجر",
-    "NOTE: You can't delete a store if there offer releted to it, you can deactivate it. Inactive store and its offers won’t be displayed in mobile application.": "ملاحظة: لا يمكنك حذف متجر إذا كان هناك عرض متعلق به، يمكنك إلغاء تنشيطه. المتجر غير النشط وعروضه لن تظهر في تطبيق الهاتف.",
+    "NOTE: You can't delete a store if there offer releted to it, you can deactivate it. Inactive store and its offers won’t be displayed in mobile application.": "ملاحظة: لا يمكنك حذف متجر إذا كان هناك عرض متعلق به، يمكنك إلغاء تنشيطه. المتجر الغير نشط وعروضه لن تظهر في تطبيق الهاتف.",
     "Title": "العنوان",
     "Upload Images": "رفع صور",
     "A default image will be displayed for offer if images are not uploaded.": "سيتم عرض الصورة الافتراضية للعرض إذا لم يتم تحميل الصور.",
@@ -157,5 +159,8 @@
     "Edit Offer Type": "تعديل نوع العرض",
     "Edit City": "تعديل المدينة",
     "My Store": "متجري",
-    "My Offers": "عروضي"
+    "My Offers": "عروضي",
+    "No photos have been uploaded yet.": "لم يتم تحميل أي صور حتى الآن.",
+    "Store Offers": "عروض المتجر",
+    "Your Account is suspended, please contact Admin.": "حسابك موقف حالياً، الرجاء التواصل مع المسؤول."
 }

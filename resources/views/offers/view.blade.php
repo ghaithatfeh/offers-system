@@ -21,8 +21,8 @@
                     {{ __('Reject') }}
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -152,7 +152,7 @@
             <tr>
                 <td>{{ __('Target Areas') }}</td>
                 <td>
-                    <div class="mx-auto" >
+                    <div class="mx-auto">
                         @forelse ($offer->targetAreas as $i => $target)
                             {!! $target->name_en . ($i + 1 != count($offer->targetAreas) ? '<br>' : '') !!}
                         @empty
@@ -165,19 +165,19 @@
                 <td class="align-middle">{{ __('Images') }}</td>
                 <td>
                     <div class="row mx-auto">
-                        @foreach ($offer->images as $image)
+                        @forelse ($offer->images as $image)
                             <div class="col-6 mx-auto">
                                 <img src="{{ asset('uploaded_images') . '/' . $image->name }}" class="my-2 img-fluid"
                                     alt="" width="">
                             </div>
-                        @endforeach
+                        @empty
+                            <em class="text-danger my-2">{{ __('Not Set') }}</em>
+                        @endforelse
                     </div>
                     @if (auth()->id() == $offer->user_id)
                         <a href="/offers/upload/{{ $offer->id }}"
                             class="btn-sm btn-success mx-auto mt-2">{{ __('Upload Images') }}
                         </a>
-                    @else
-                        <em class="text-danger">{{ __('Not Set') }}</em>
                     @endif
                 </td>
             </tr>
@@ -189,7 +189,9 @@
     <script>
         $('#btn-approve').click(function() {
             event.preventDefault();
-            if (confirm('{{ __("Are you sure you want to approve this offer? that will post it in mobile app.") }}')) {
+            if (confirm(
+                    '{{ __('Are you sure you want to approve this offer? that will post it in mobile app.') }}'
+                )) {
                 $('input[name="result"]').val('approve')
                 document.querySelector('#form-review').submit();
             }

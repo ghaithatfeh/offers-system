@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'معلومات تسجيل الدخول غير صحيحة.',
+    'failed' => 'بيانات تسجيل الدخول غير صحيحة.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 

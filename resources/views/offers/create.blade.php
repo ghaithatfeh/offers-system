@@ -26,9 +26,9 @@
             <div class="input-group">
                 <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly
                     value="{{ old('expiry_date') }}">
-                <div class="input-group-text">
+                <label for="expiry_date" class="input-group-text">
                     <i class="fa-solid fa-calendar-days"></i>
-                </div>
+                </label>
             </div>
             @error('expiry_date')
                 <small class="text-danger">{{ $message }}</small>

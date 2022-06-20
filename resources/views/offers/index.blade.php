@@ -44,8 +44,8 @@
                         @if (auth()->user()->role != 'Store Owner')
                             <td>
                                 <a
-                                    href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
-                                    {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
+                                    href="/{{ isset($offer->user) ? ($offer->user->store ? 'stores/' . $offer->user->store->id : 'users/' . $offer->user->id) : 'customers/' . $offer->customer->id }}">
+                                    {{ isset($offer->user) ? ($offer->user->store ? $offer->user->store->name : $offer->user->name) : $offer->customer->first_name . $offer->customer->last_name }}
                                 </a>
                             </td>
                         @endif

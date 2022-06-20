@@ -12,8 +12,8 @@
     </style>
 
     <h2 class="text-center">{{ __('Edit Store') . ': ' . $store->name }}</h2>
-    <form action="/stores/{{ $store->id }}" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto"
-        enctype="multipart/form-data">
+    <form action="{{ auth()->user()->role == 'Store Owner' ? '/my-store-update' : '/stores/' . $store->id }}" method="post"
+        class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -62,19 +62,21 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
-            <div class="input-group">
-                <input name="expiry_date" class="form-control datepicker" readonly
-                    value="{{ old('expiry_date') ?? $store->expiry_date }}">
-                <div class="input-group-text">
-                    <i class="fa-solid fa-calendar-days"></i>
+        @if (auth()->user()->role != 'Store Owner')
+            <div class="mb-3">
+                <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
+                <div class="input-group">
+                    <input name="expiry_date" id="expiry_date" class="form-control datepicker" readonly
+                        value="{{ old('expiry_date') ?? $store->expiry_date }}">
+                    <label for="expiry_date" class="input-group-text">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </label>
                 </div>
+                @error('expiry_date')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
-            @error('expiry_date')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
+        @endif
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
@@ -98,7 +100,6 @@
             format: 'yyyy-mm-dd',
             startDate: 'd',
             autoclose: true,
-            clearBtn: true,
             todayBtn: true,
             todayHighlight: true,
             @if (Lang::locale() == 'ar')

@@ -2,6 +2,9 @@
 
 @section('content')
     <h2 class="">{{ __('Users') }}</h2>
+    <div class="alert alert-warning">
+        {{ __('NOTE: You can\'t delete a user if there offer or review releted to it, you can deactivate it.') }}
+    </div>
     <div class="d-flex mt-4">
         <a href="/users/create" class="btn btn-success text-nowrap me-3">{{ __('Add User') }}</a>
 
@@ -37,12 +40,14 @@
                         <td>{{ __($user->role) }}</td>
                         <td>
                             <div class="form-check form-switch">
-                                <input onchange="
+                                <input
+                                    onchange="
                                             if (confirm('{{ __('Are you sure you want to change this status?') }}'))
                                                 window.location.href = '/users/change-status/{{ $user->id }}'
                                             else
-                                                this.checked = !this.checked" class="form-check-input" type="checkbox"
-                                    id="toggle-{{ $user->id }}" {{ $user->status ? 'checked' : '' }}>
+                                                this.checked = !this.checked"
+                                    class="form-check-input" type="checkbox" id="toggle-{{ $user->id }}"
+                                    {{ $user->status ? 'checked' : '' }}>
                                 <label class="form-check-label"
                                     for="toggle-{{ $user->id }}">{{ $user->status ? __('Active') : __('Inactive') }}</label>
                             </div>
@@ -54,7 +59,7 @@
                             <a href="/users/{{ $user->id }}/edit" title="{{ __('Edit') }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            @if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
+                            @if (!($user->offers->count() || $user->reviewedOffers->count()))
                                 <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}">
                                     @csrf
                                     @method('DELETE')

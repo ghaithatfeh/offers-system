@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="text-center">{{$store->name . ': ' . __('Upload New ' . ucwords($image_type)) }}</h2>
+    <h2 class="text-center">{{__('Upload New ' . ucwords($image_type)) . ': ' . $store->name }}</h2>
     <form action="/stores/upload_store/{{ $image_type }}/{{ $store->id }}" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto"
         enctype="multipart/form-data">
         @csrf
@@ -9,7 +9,7 @@
         <div class="mb-3">
             <label class="form-label"
                 for="image">{{ $image_type == 'logo' ? __('Store Logo') : __('Store Cover') }}</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" required class="form-control @error('image') is-invalid @enderror">
             @error('image')
                 <small class="text-danger">{{ $message }}</small>
             @enderror

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Offer;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class StoreController extends Controller
             'cover_image' => 'image',
             'logo_image' => 'image',
             'user_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'expiry_date' => 'required|date|after:yesterday',
         ]);
@@ -55,6 +56,7 @@ class StoreController extends Controller
     {
         return view('stores.view', [
             'store' => $store,
+            'offers' => Offer::where('user_id', $store->user_id)->paginate(10)
         ]);
     }
     public function myStore()
@@ -64,12 +66,32 @@ class StoreController extends Controller
         ]);
     }
 
-    public function edit(Store $store)
+    public function edit(Store $store, $store_id = 0)
     {
+        if ($store_id != 0)
+            $store = Store::where('user_id', $store_id)->first();
         return view('stores.edit', [
             'store' => $store,
             'cities' => City::all(),
         ]);
+    }
+
+    public function myStoreUpdate(Request $request)
+    {
+        $store = Store::where('user_id', auth()->id())->first();
+        $request->validate([
+            'name' => 'required|string|min:3',
+            'city_id' => 'numeric',
+            'description' => 'string',
+            'user_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
+        $store->update($request->all(['name', 'city_id', 'description']));
+        $store->user->update([
+            'name' => $request->user_name,
+            'email' => $request->email
+        ]);
+        return redirect('/my-store');
     }
 
     public function update(Request $request, Store $store)
@@ -78,12 +100,9 @@ class StoreController extends Controller
             'name' => 'required|string|min:3',
             'user_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'expiry_date' => 'after:yesterday',
-            'cover' => 'image',
-            'logo' => 'image',
-            'expiry_date' => 'required|date',
+            'expiry_date' => 'required|date|after:yesterday'
         ]);
-        $store->update($request->all());
+        $store->update($request->validate());
         $store->user->update([
             'name' => $request->user_name,
             'email' => $request->email
@@ -124,14 +143,29 @@ class StoreController extends Controller
 
     public function upload($image_type, Store $store)
     {
+        if (auth()->user()->role == 'Store Owner' &&  $store->user_id != auth()->id())
+            return abort(403);
         return view('stores.image_upload', ['image_type' => $image_type, 'store' => $store]);
     }
 
     public function upload_store(Request $request, $image_type, Store $store)
     {
-        $request->validate(['image' => 'image']);
+        if (auth()->user()->role == 'Store Owner' &&  $store->user_id != auth()->id())
+            return abort(403);
+        $request->validate(['image' => 'image|required']);
         $store->$image_type ? $this->delete_file($store[$image_type]) : '';
         $store->update([$image_type => $this->upload_file($request, 'image')]);
+        if (auth()->user()->role == 'Store Owner')
+            return redirect('/my-store');
         return redirect('/stores/' . $store->id);
+    }
+
+    public function delete_image($image_type, Store $store)
+    {
+        if (auth()->user()->role == 'Store Owner' &&  $store->user_id != auth()->id())
+            return abort(403);
+        $store->$image_type ? $this->delete_file($store[$image_type]) : '';
+        $store->update([$image_type => null]);
+        return back();
     }
 }

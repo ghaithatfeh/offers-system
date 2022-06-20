@@ -34,9 +34,9 @@ class OfferController extends Controller
     {
         return view('offers.create', [
             'offer_types' => OfferType::all(),
-            'categories' => Category::all(),
+            'categories' => Category::where('status', 1)->get(),
+            'cities' => City::where('status', 1)->get(),
             'tags' => Tag::all(),
-            'cities' => City::all(),
         ]);
     }
 
@@ -103,9 +103,9 @@ class OfferController extends Controller
         return view('offers.edit', [
             'offer' => $offer,
             'offer_types' => OfferType::all(),
-            'categories' => Category::all(),
+            'categories' => Category::where('status', 1)->get(),
+            'cities' => City::where('status', 1)->get(),
             'tags' => Tag::all(),
-            'cities' => City::all(),
         ]);
     }
 

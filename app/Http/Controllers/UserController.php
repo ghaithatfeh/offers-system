@@ -54,7 +54,7 @@ class UserController extends Controller
             return abort(404);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'role' => ['required'],
             'status' => ['required']
         ]);
@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         if ($user->role == 'Store Owner')
             return abort(404);
-        if (!($user->offers->count() || $user->store->count() || $user->reviewedOffers->count()))
+        if (!($user->offers->count() || $user->reviewedOffers->count()))
             $user->delete();
         return redirect('/users');
     }

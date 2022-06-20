@@ -30,7 +30,8 @@
         html[lang='ar'] body {
             font-family: 'Noto Kufi Arabic', sans-serif !important;
         }
-        html[lang='ar'] input{
+
+        html[lang='ar'] input {
             direction: rtl;
         }
     </style>
@@ -43,7 +44,10 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">{{__('Sign in to start your session')}}</p>
+                @if (session('message'))
+                    <div class="alert alert-danger">{{ session('message') }}</div>
+                @endif
+                <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
@@ -75,19 +79,19 @@
                                 <input type="checkbox" id="remember" name="remember"
                                     {{ old('remember') ? 'checked' : '' }}>
                                 <label for="remember">
-                                    {{__('Remember Me')}}
+                                    {{ __('Remember Me') }}
                                 </label>
                             </div>
                             <p class="mb-1 d-block ms-auto">
-                                <a href="forgot-password.html">{{__('I forgot my password')}}</a>
+                                <a href="forgot-password.html">{{ __('I forgot my password') }}</a>
                             </p>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary btn-block">{{__('Sign In')}}</button>
+                            <button type="submit" class="btn btn-primary btn-block">{{ __('Sign In') }}</button>
                         </div>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>

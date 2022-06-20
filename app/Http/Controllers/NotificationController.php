@@ -100,9 +100,9 @@ class NotificationController extends Controller
     public function getOptions(Request $request)
     {
         if ($request->type == 'Categories') {
-            $resulte = Category::select(['id', 'name_en as text'])->get();
+            $resulte = Category::select(['id', 'name_en as text'])->where('status', 1)->get();
         } elseif ($request->type == 'Cities') {
-            $resulte = City::select(['id', 'name_en as text'])->get();
+            $resulte = City::select(['id', 'name_en as text'])->where('status', 1)->get();
         }
         return $resulte;
     }

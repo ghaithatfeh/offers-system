@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $allCategories = Category::all();
+        $allCategories = Category::where('status', 1)->get();
         $parentsCategories = [];
         foreach ($allCategories as $category) {
             if (!isset($category->parent->parent))
