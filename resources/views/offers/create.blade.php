@@ -10,7 +10,7 @@
             direction: rtl;
         }
     </style>
-    
+
     <h2 class="text-center">{{ __('Add Offer') }}</h2>
     <form action="/offers" method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
@@ -46,8 +46,9 @@
             <select class="form-control" name="category_id" id="category">
                 <option value=""></option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" {{ $category->id == old('category_id') ? 'selected' : '' }}>
-                        {{ $category->name_en }}</option>
+                    <option value="{{ $category['id'] }}"
+                        {{ $category['id'] == old('category_id') ? 'selected' : '' }}>
+                        {{ $category['name_en'] }}</option>
                 @endforeach
             </select>
             @error('category_id')

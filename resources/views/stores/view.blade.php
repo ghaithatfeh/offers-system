@@ -111,58 +111,59 @@
         </tbody>
     </table>
 
-    <h2 class="mt-3">{{ __('Store Offers') }}</h2>
-    <div class="table-responsive">
-        <table class="table table-borderd text-center mt-4">
-            <thead>
-                <th>{{ __('#') }}</th>
-                <th>{{ __('Titile') }}</th>
-                <th>{{ __('Expiry Date') }}</th>
-                <th>{{ __('Price') }}</th>
-                <th>{{ __('Status') }}</th>
-                <th>{{ __('Actions') }}</th>
-            </thead>
-            <tbody>
-                @foreach ($offers as $i => $offer)
-                    <tr>
-                        <td>{{ ++$i }}</td>
-                        <td>{{ $offer->title }}</td>
-                        <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
-                        <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
-                        <td>
-                            {{ __($offer->status) }}
-                            @if ($offer->status == 'On Hold')
-                                <i class="fa-solid fa-circle-question text-warning"></i>
-                            @elseif ($offer->status == 'Approved')
-                                <i class="fa-solid fa-circle-check text-success"></i>
-                            @else
-                                <i class="fa-solid fa-circle-xmark text-danger"></i>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="/offers/{{ $offer->id }}" title="{{ __('View') }}">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            @if ($offer->user_id == auth()->id())
-                                <a href="/offers/{{ $offer->id }}/edit" title="{{ __('Edit') }}">
-                                    <i class="fas fa-pencil-alt"></i>
+    @if (auth()->user()->role != 'Store Owner')
+        <h2 class="mt-3">{{ __('Store Offers') }}</h2>
+        <div class="table-responsive">
+            <table class="table table-borderd text-center mt-4">
+                <thead>
+                    <th>{{ __('#') }}</th>
+                    <th>{{ __('Titile') }}</th>
+                    <th>{{ __('Expiry Date') }}</th>
+                    <th>{{ __('Price') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Actions') }}</th>
+                </thead>
+                <tbody>
+                    @foreach ($offers as $i => $offer)
+                        <tr>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $offer->title }}</td>
+                            <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                            <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
+                            <td>
+                                {{ __($offer->status) }}
+                                @if ($offer->status == 'On Hold')
+                                    <i class="fa-solid fa-circle-question text-warning"></i>
+                                @elseif ($offer->status == 'Approved')
+                                    <i class="fa-solid fa-circle-check text-success"></i>
+                                @else
+                                    <i class="fa-solid fa-circle-xmark text-danger"></i>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="/offers/{{ $offer->id }}" title="{{ __('View') }}">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-                                <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
-                                        type="submit"
-                                        onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('offer')]) }}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    {{ $offers->appends(Request::except('page'))->links() }}
+                                @if ($offer->user_id == auth()->id())
+                                    <a href="/offers/{{ $offer->id }}/edit" title="{{ __('Edit') }}">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <form class="d-inline-block" method="POST" action="/offers/{{ $offer->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="border-0 bg-transparent text-danger px-0"
+                                            title="{{ __('Delete') }}" type="submit"
+                                            onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('offer')]) }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{ $offers->appends(Request::except('page'))->links() }}
+    @endif
 @endsection

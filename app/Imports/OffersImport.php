@@ -12,15 +12,11 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class OffersImport implements ToModel, WithHeadingRow, WithValidation, WithBatchInserts
 {
-    public function __construct($excel_id)
+    public function __construct($excel_id = null)
     {
         $this->excel_id = $excel_id;
     }
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+
     public function model(array $row)
     {
         return new Offer([
@@ -28,7 +24,7 @@ class OffersImport implements ToModel, WithHeadingRow, WithValidation, WithBatch
             'price' => $row['price'],
             'expiry_date' => $row['expiry_date'],
             'description' => $row['description'] ?? ($row['title'] ?? 'Offer Description'),
-            'category_id' => 1,
+            'category_id' => request()->category_id,
             'offer_type_id' => 1,
             'user_id' => auth()->id(),
             'excel_id' => $this->excel_id

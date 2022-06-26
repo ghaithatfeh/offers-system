@@ -19,9 +19,7 @@ class CheckStatus
     {
         if (auth()->check() && (auth()->user()->status == 0)) {
             auth()->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            $message = 'Your account has been suspended. Please contact administrator.';
+            $message = __('Your account has been suspended. Please contact administrator.');
             return redirect()->route('login')->withMessage($message);
         }
 

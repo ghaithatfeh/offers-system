@@ -55,7 +55,7 @@ class StoreController extends Controller
     public function show(Store $store)
     {
         return view('stores.view', [
-            'store' => $store,
+            'store' =>  $store,
             'offers' => Offer::where('user_id', $store->user_id)->paginate(10)
         ]);
     }

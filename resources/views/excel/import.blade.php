@@ -9,12 +9,50 @@
         </div>
         @csrf
         <div class="mb-3">
+            <label class="form-label" for="category">{{ __('Category') }}</label>
+            <select class="form-control" name="category_id" id="category">
+                <option value=""></option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category['id'] }}" {{ $category['id'] == old('category_id') ? 'selected' : '' }}>
+                        {{ $category['name_en'] }}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
+            <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">
+                @foreach ($cities as $city)
+                    <option value="{{ $city->id }}" {{ in_array($city->id, old('cities') ?? []) ? 'selected' : '' }}>
+                        {{ $city->name_en }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="tags">{{ __('Tags') }}</label>
+            <select class="select2 form-control" name="tags[]" id="tags" multiple="multiple">
+                @foreach ($tags as $tag)
+                    <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? []) ? 'selected' : '' }}>
+                        {{ $tag->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
             <label class="form-label" for="file">{{ __('Choase File') }}</label>
-            <input class="form-control @if ($errors->any()) is-invalid @endif" type="file" name="file" id="file"
+            <input class="form-control @error('file') is-invalid @enderror" type="file" name="file" id="file"
                 required>
-            <div class="invalid-feedback alert alert-danger mt-2 fs-6">
-                {!! implode('', $errors->all(':message<br>')) !!}
-            </div>
+            @error('file')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+            @if (session()->has('file'))
+                @foreach (session()->get('file') as $row_errors)
+                    @foreach ($row_errors as $field_error)
+                        <small class="text-danger d-block my-2">{{ $field_error }}</small>
+                    @endforeach
+                @endforeach
+            @endif
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>

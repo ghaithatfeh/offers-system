@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class CategoryFactory extends Factory
             'name_en' => $name,
             'name_pt' => $name,
             'name_ar' => $name,
-            'status' => 1
+            'status' => 1,
         ];
     }
 }

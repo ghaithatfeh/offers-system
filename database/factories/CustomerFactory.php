@@ -24,7 +24,7 @@ class CustomerFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->name,
             'status' => rand(0, 1),
-            'city_id' => City::all()->random()->id,
+            'city_id' => 1,
         ];
     }
 }

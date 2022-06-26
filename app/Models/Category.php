@@ -18,12 +18,19 @@ class Category extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function allActiveChildren()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('allActiveChildren', function ($query) {
+            $query->where('status', 1);
+        })->where('status', 1);
     }
 
     public function customers_interests()

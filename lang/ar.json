@@ -162,5 +162,8 @@
     "My Offers": "عروضي",
     "No photos have been uploaded yet.": "لم يتم تحميل أي صور حتى الآن.",
     "Store Offers": "عروض المتجر",
-    "Your Account is suspended, please contact Admin.": "حسابك موقف حالياً، الرجاء التواصل مع المسؤول."
+    "Your account has been suspended. Please contact administrator.": "حسابك موقف حالياً، الرجاء التواصل مع المسؤول.",
+    "This file is empty !!": "هذا الملف فارغ !!",
+    "There was an error on row :row. :message": "هناك خطأ في السطر :row: :message",
+    "The :attribute field is required.": "حقل :attribute مطلوب."
 }

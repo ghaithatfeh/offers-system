@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\OffersImport;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Image;
@@ -13,17 +12,15 @@ use App\Models\Tag;
 use App\Models\TargetArea;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\File;
 
 class OfferController extends Controller
 {
     public function index(Request $request)
     {
-        if (auth()->user()->role != 'Store Owner')
-            $offers = Offer::orderByDesc('id')->paginate(10);
-        else
-            $offers = Offer::where('user_id', '=', auth()->id())->orderByDesc('id')->paginate(10);
+        $offers = Offer::with('user.store')->when(auth()->user()->role == 'Store Owner', function ($offers) {
+            $offers->where('user_id', '=', auth()->id());
+        })->orderByDesc('id')->paginate(10);
 
         return view('offers.index', [
             'offers' => $offers,
@@ -32,12 +29,30 @@ class OfferController extends Controller
 
     public function create()
     {
+        $category = Category::whereNull('parent_id')
+            ->with('allActiveChildren')
+            ->where('status', 1)
+            ->get();
+        $category = $this->flattenTree($category->toArray());
+
         return view('offers.create', [
             'offer_types' => OfferType::all(),
-            'categories' => Category::where('status', 1)->get(),
+            'categories' => $category,
             'cities' => City::where('status', 1)->get(),
             'tags' => Tag::all(),
         ]);
+    }
+
+    public function flattenTree($array)
+    {
+        $result = [];
+        foreach ($array as $item) {
+            $item_without_children = $item;
+            unset($item_without_children['all_active_children']);
+            $result[] = $item_without_children;
+            $result = array_merge($result, $this->flattenTree($item['all_active_children']));
+        }
+        return $result;
     }
 
     public function store(Request $request)
@@ -149,12 +164,11 @@ class OfferController extends Controller
         if ($offer->user_id != auth()->id())
             return abort('403');
 
-        if (json_decode($offer->images))
-            foreach ($offer->images as $image)
-                if (file_exists(public_path('uploaded_images/' . $image->name)))
-                    unlink(public_path('uploaded_images/' . $image->name));
+        foreach ($offer->images as $image)
+            File::delete('uploaded_images/' . $image->name);
+
         $offer->delete();
-        return back();
+        return redirect('/offers');
     }
 
     public function review(Offer $offer, Request $request)
