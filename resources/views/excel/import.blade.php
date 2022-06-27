@@ -3,9 +3,10 @@
     <h1 class="text-center">{{ __('Import Offers From Excel File') }}</h1>
     <form class="mt-4 col-12 col-md-8 col-xl-6 mx-auto" action="/bulk-offers/import-from-excel" method="POST"
         enctype="multipart/form-data">
-        <div class="alert alert-warning">
-            {!! __('The excel file must contain columns with the following headers:<br>Title(required), Price(required), Expiry Date(optional), Description(optional).<br>You can download and fill out the template file from ') !!}
-            <a class="text-primary" href="/uploaded_images/excel_files/offer.xlsx">{{ __('here') }}</a>.
+        <div class="alert alert-warning" style="line-height: 1.7;">
+            {!! __('The excel file must contain columns with the following headers:<br>Title(required), Price(required), Expiry Date(optional), Tags(optional), Description(optional).<br>You can download and fill out the template file from ') !!}
+            <a class="text-primary" href="/uploaded_images/excel_files/offer.xlsx">{{ __('here') }}</a>. <br>
+            {{ __('When writing multiple tags, each tag must be written on a new line. You can create a new line in Excel by pressing Alt + Enter.') }}
         </div>
         @csrf
         <div class="mb-3">
@@ -27,15 +28,6 @@
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}" {{ in_array($city->id, old('cities') ?? []) ? 'selected' : '' }}>
                         {{ $city->name_en }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="tags">{{ __('Tags') }}</label>
-            <select class="select2 form-control" name="tags[]" id="tags" multiple="multiple">
-                @foreach ($tags as $tag)
-                    <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? []) ? 'selected' : '' }}>
-                        {{ $tag->name }}</option>
                 @endforeach
             </select>
         </div>

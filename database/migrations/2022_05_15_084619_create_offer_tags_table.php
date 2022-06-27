@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('offer_id');
             $table->unsignedBigInteger('tag_id');
             $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->primary(['offer_id', 'tag_id']);
             $table->timestamps();
         });

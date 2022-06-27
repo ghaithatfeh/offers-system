@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-end">
         <h2 class="">{{ __('Offers By Excel File: ') . $excel_file->name }}</h2>
         <button
-            onclick="if(confirm('Are you sure you want to delete this file and all its offers?')) document.getElementById('delete-form').submit()"
+            onclick="if(confirm('{{ __('Are you sure you want to delete this file and all its offers?') }}')) document.getElementById('delete-form').submit()"
             class="btn btn-danger w-auto">{{ __('Delete the file and all its offers') }}</button>
         <form method="POST" action="/bulk-offers/{{ $excel_file->id }}" id="delete-form" class="d-none">
             @csrf
@@ -16,7 +16,7 @@
 
     <table class="table table-borderd text-center mt-4">
         <thead>
-            <th>{{ __('Id') }}</th>
+            <th>#</th>
             <th>{{ __('Titile') }}</th>
             <th>{{ __('Expiry Date') }}</th>
             <th>{{ __('Price') }}</th>
@@ -53,7 +53,7 @@
                                 @method('DELETE')
                                 <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
                                     type="submit"
-                                    onclick="return confirm('Are you sure you want to delete this offer type?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('offer')]) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelFileController extends Controller
 {
@@ -38,14 +37,12 @@ class ExcelFileController extends Controller
 
     public function importFromExcel(Request $request)
     {
-        if ($request->isMethod('get'))
+        if ($request->isMethod('get')) {
             return view('excel.import', [
                 'categories' => Category::where('status', 1)->get(),
                 'cities' => City::where('status', 1)->get(),
-                'tags' => Tag::all()
             ]);
-
-        elseif ($request->isMethod('post')) {
+        } elseif ($request->isMethod('post')) {
             $request->validate([
                 'category_id' => 'required',
                 'file' => 'required|mimes:xlsx|max:2048',
@@ -53,35 +50,14 @@ class ExcelFileController extends Controller
             $file = $request->file('file');
             $file_name = time() . '_' . $file->getClientOriginalName();
 
-            $row_count = count(Excel::toArray(new OffersImport(), $file)[0]);
-            if ($row_count == 0)
-                throw ValidationException::withMessages(['file' => __('This file is empty !!')]);
-
             try {
                 $excel = ExcelFile::create(['name' => $file_name, 'user_id' => auth()->id()]);
-                Excel::import(new OffersImport($excel->id), $file);
+                $import = new OffersImport($excel->id);
+                $import->import($file);
                 $file->move('uploaded_images/excel_files', $file_name);
             } catch (ValidationException $e) {
                 $excel->delete();
                 return back()->with('file', $e->errors());
-            }
-
-            if ($request->has('cities') || $request->has('tags')) {
-                $offers_ids = Offer::select('id')->where('excel_id', $excel->id)->pluck('id')->toArray();
-                foreach ($offers_ids as $offer_id) {
-                    $target_areas_data = [];
-                    $tags_data = [];
-                    if ($request->has('cities')) {
-                        foreach ($request->cities as $city)
-                            $target_areas_data[] = ['offer_id' => $offer_id, 'city_id' => $city];
-                        TargetArea::insert($target_areas_data);
-                    }
-                    if ($request->has('tags')) {
-                        foreach ($request->tags as $tag)
-                            $tags_data[] = ['offer_id' => $offer_id, 'tag_id' => $tag];
-                        OfferTag::insert($tags_data);
-                    }
-                }
             }
 
             return redirect('/bulk-offers');
