@@ -102,7 +102,7 @@ class StoreController extends Controller
             'email' => 'required|string|email|max:255',
             'expiry_date' => 'required|date|after:yesterday'
         ]);
-        $store->update($request->validate());
+        $store->update($request->all());
         $store->user->update([
             'name' => $request->user_name,
             'email' => $request->email
@@ -166,6 +166,33 @@ class StoreController extends Controller
             return abort(403);
         $store->$image_type ? $this->delete_file($store[$image_type]) : '';
         $store->update([$image_type => null]);
+        return back();
+    }
+
+    public function expandExpiry(Request $request, Store $store)
+    {
+        if ($store->status == 'Inactive')
+            return abort(403);
+
+        $request->validate([
+            'expiry_date' => 'after:yesterday',
+        ]);
+        $request['status'] = 'Active';
+        $store->update($request->all());
+        $store->user->update(['status' => 1]);
+
+        return back();
+    }
+
+    public function changeStatus(Store $store)
+    {
+        if ($store->status == 'Active') {
+            $store->update(['status' => 'Inactive']);
+            $store->user->update(['status' => 0]);
+        } elseif ($store->status == 'Inactive') {
+            $store->update(['status' => 'Active']);
+            $store->user->update(['status' => 1]);
+        }
         return back();
     }
 }

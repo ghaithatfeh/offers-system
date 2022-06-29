@@ -45,7 +45,7 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 
 Route::middleware('role:Store Owner')->group(function () {
     Route::get('/my-store', [StoreController::class, 'myStore']);
-    Route::get('/my-store/edit', function(){
+    Route::get('/my-store/edit', function () {
         return App::call('App\Http\Controllers\StoreController@edit', ['store_id' => auth()->id()]);
     });
     Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
@@ -58,6 +58,7 @@ Route::middleware('role:Store Owner')->group(function () {
 Route::middleware('role:Admin,Supervisor')->group(function () {
     Route::get('/customers/change-status/{customer}', [CustomerController::class, 'changeStatus']);
     Route::get('/categories/change-status/{category}', [CategoryController::class, 'changeStatus']);
+    Route::get('/stores/change-status/{store}', [StoreController::class, 'changeStatus']);
     Route::get('/cities/change-status/{city}', [CityController::class, 'changeStatus']);
 
     Route::get('/cities/search', [CityController::class, 'search']);
@@ -80,6 +81,7 @@ Route::middleware('role:Admin')->group(function () {
     // Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
     Route::get('/users/change-status/{user}', [UserController::class, 'changeStatus']);
     // Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
+    Route::post('/stores/{store}/expand-expiry', [StoreController::class, 'expandExpiry']);
 
     Route::resources([
         '/stores' => StoreController::class,

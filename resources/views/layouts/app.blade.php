@@ -38,8 +38,7 @@
         </style>
     @endif
     <style>
-        th,
-        td {
+        th {
             white-space: nowrap;
         }
 

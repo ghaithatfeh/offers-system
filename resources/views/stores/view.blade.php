@@ -1,14 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"
+        integrity="sha512-rxThY3LYIfYsVCWPCW9dB0k+e3RZB39f23ylUYTEuZMDrN/vRqLdaCBo/FbvVT6uC2r0ObfPzotsfKF9Qc5W5g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html[lang="ar"] .datepicker {
+            direction: rtl;
+        }
+    </style>
     <style>
         td:first-child {
             font-weight: bold;
         }
+
+        .header .btn {
+            width: 119px
+        }
+
+        html[lang="ar"] .header .btn {
+            width: 121px
+        }
     </style>
-    <div class="d-flex">
+    <div class="d-flex header flex-wrap">
         <h2>{{ __('Store Details') }}</h2>
-        <div class="ms-auto d-flex align-items-center">
+        <div class="ms-auto d-flex align-items-center flex-wrap">
+            @if (auth()->user()->role == 'Admin' && $store->status != 'Inactive')
+                <!-- Modal -->
+                <div class="modal fade" id="reject-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">{{ __('New Expiry Date') }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="form-expand-expiry" action="/stores/{{ $store->id }}/expand-expiry" method="post">
+                                <div class="modal-body">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly
+                                            value="{{ $store->expiry_date }}">
+                                        <label for="expiry_date" class="input-group-text">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">{{ __('Close') }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#reject-modal">
+                    {{ __('Expand expiry') }}
+                </button>
+            @endif
             <a class="btn btn-primary mx-1"
                 href="{{ auth()->user()->role == 'Store Owner' ? '/my-store/edit' : '/stores/' . $store->id . '/edit' }}">{{ __('Edit') }}</a>
             @if (!$store->user->offers->count() && auth()->user()->role != 'Store Owner')
@@ -21,6 +73,7 @@
             @endif
         </div>
     </div>
+
 
     <table class="table text-center mt-4">
         <tbody>
@@ -38,7 +91,13 @@
             </tr>
             <tr>
                 <td>{{ __('City') }}</td>
-                <td>{{ $store->city->name_en }}</td>
+                <td>
+                    @if (isset($store->city))
+                        {{ $store->city->name_en }}
+                    @else
+                        <em class="text-danger">{{ __('Not Set') }}</em>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Expiry Date') }}</td>
@@ -50,7 +109,9 @@
             </tr>
             <tr>
                 <td>{{ __('Description') }}</td>
-                <td class="pr-4 text-break w-50">{!! $store->description !!}</td>
+                <td class="pr-4 text-break w-50">
+                    {!! nl2br($store->description) !!}
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Subscriptions') }}</td>
@@ -166,4 +227,23 @@
         </div>
         {{ $offers->appends(Request::except('page'))->links() }}
     @endif
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: 'd',
+            autoclose: true,
+            clearBtn: true,
+            todayBtn: true,
+            todayHighlight: true,
+            @if (Lang::locale() == 'ar')
+                rtl: true
+            @endif
+        });
+    </script>
 @endsection

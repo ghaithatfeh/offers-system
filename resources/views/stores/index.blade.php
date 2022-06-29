@@ -22,48 +22,70 @@
     </div>
 
     <div class="table-responsive">
-    <table class="table text-center mt-4">
-        <thead>
-            <th>{{ __('#') }}</th>
-            <th>{{ __('Store Name') }}</th>
-            <th>{{ __('Store Owner') }}</th>
-            <th>{{ __('City') }}</th>
-            <th>{{ __('Expiry Date') }}</th>
-            <th>{{ __('Status') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </thead>
-        <tbody>
-            @foreach ($stores as $i => $store)
-                <tr>
-                    <td>{{ ++$i }}</td>
-                    <td>{{ $store->name }}</td>
-                    <td>{{ $store->user->name }}</td>
-                    <td>{{ $store->city->name_en }}</td>
-                    <td>{{ $store->expiry_date }}</td>
-                    <td>{{ __($store->status) }}</td>
-                    <td>
-                        <a href="/stores/{{ $store->id }}" title="{{ __('View') }}">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="/stores/{{ $store->id }}/edit" title="{{ __('Edit') }}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        @if (!$store->user->offers->count())
-                            <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
-                                    type="submit"
-                                    onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('store')]) }}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <table class="table text-center mt-4">
+            <thead>
+                <th>{{ __('#') }}</th>
+                <th>{{ __('Store Name') }}</th>
+                <th>{{ __('Store Owner') }}</th>
+                <th>{{ __('City') }}</th>
+                <th>{{ __('Expiry Date') }}</th>
+                <th>{{ __('Status') }}</th>
+                <th>{{ __('Actions') }}</th>
+            </thead>
+            <tbody>
+                @foreach ($stores as $i => $store)
+                    <tr>
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $store->name }}</td>
+                        <td>{{ $store->user->name }}</td>
+                        <td>
+                            @if (isset($store->city))
+                                {{ $store->city->name_en }}
+                            @else
+                                <em class="text-danger">{{ __('Not Set') }}</em>
+                            @endif
+                        </td>
+                        <td>{{ $store->expiry_date }}</td>
+                        <td>
+                            @if ($store->status != 'Expired')
+                                <div class="form-check form-switch">
+                                    <input
+                                        onchange="if (confirm('{{ __('Are you sure you want to change this status?') }}'))
+                                            window.location.href = '/stores/change-status/{{ $store->id }}'
+                                        else
+                                            this.checked = !this.checked"
+                                        class="form-check-input" type="checkbox" id="toggle-{{ $store->id }}"
+                                        {{ $store->status == 'Active' ? 'checked' : '' }}>
+                                    <label class="form-check-label"
+                                        for="toggle-{{ $store->id }}">{{ __($store->status) }}</label>
+                                </div>
+                            @else
+                                {{ __($store->status) }}
+                            @endif
+                        </td>
+                        <td>
+                            <a href="/stores/{{ $store->id }}" title="{{ __('View') }}">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="/stores/{{ $store->id }}/edit" title="{{ __('Edit') }}">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            @if (!$store->user->offers->count())
+                                <form class="d-inline-block" method="POST" action="/stores/{{ $store->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="border-0 bg-transparent text-danger px-0" title="{{ __('Delete') }}"
+                                        type="submit"
+                                        onclick="return confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('store')]) }}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
     {{ $stores->appends(Request::except('page'))->links() }}
 @endsection

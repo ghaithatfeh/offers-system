@@ -22,10 +22,15 @@
                 <td>{{ __('Gender') }}</td>
                 <td>{{ __($customer->gender) }}</td>
             </tr>
-            </tr>
             <tr>
                 <td>{{ __('Phone Number') }}</td>
-                <td>{!! $customer->phone ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>
+                    @if ($customer->phone != '')
+                        {{ $customer->phone }}
+                    @else
+                        <em class="text-danger"> {{ __('Not Set') }} </em>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Email') }}</td>
@@ -52,7 +57,10 @@
                 <td>
                     <div class="mx-auto">
                         @forelse ($customer->customers_interests as $i => $interested_category)
-                            {!! $interested_category->name_en . ($i + 1 != count($customer->customers_interests) ? '<br>' : '') !!}
+                            {{ $interested_category->name_en }}
+                            @if ($i + 1 != count($customer->customers_interests))
+                                <br>
+                            @endif
                         @empty
                             <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
@@ -64,7 +72,10 @@
                 <td>
                     <div class="mx-auto">
                         @forelse ($customer->stores as $i => $store)
-                            {!! $store->title . ($i + 1 != count($customer->stores) ? '<br>' : '') !!}
+                            {{ $store->title }}
+                            @if ($i + 1 != count($customer->stores))
+                                <br>
+                            @endif
                         @empty
                             <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse

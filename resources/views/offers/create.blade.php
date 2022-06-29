@@ -9,6 +9,10 @@
         html[lang="ar"] .datepicker {
             direction: rtl;
         }
+
+        #expiry_date-error{
+            display: none !important;
+        }
     </style>
 
     <h2 class="text-center">{{ __('Add Offer') }}</h2>
@@ -130,4 +134,8 @@
             @endif
         });
     </script>
+
+    {{-- Validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\OfferRequest') !!}
 @endsection

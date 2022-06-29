@@ -24,7 +24,8 @@
     "Add Offer": "إضافة عرض",
     "Search here": "ابحث هنا",
     "Titile": "العنوان",
-    "Expiry Date": "تاريخ انتهاء الصلاحية",
+    "Expiry Date": "تاريخ الصلاحية",
+    "Expand expiry": "تمديد الصلاحية",
     "Price": "السعر",
     "Status": "الحالة",
     "Actions": "الإجراءات",
@@ -138,7 +139,7 @@
     "Uploaded At: ": "تاريخ الرفع: ",
     "Import Offers From Excel File": "استيراد العروض من ملف إكسل",
     "Choase File": "اختر الملف",
-    "The excel file must contain columns with the following headers:<br>Title(required), Price(required), Expiry Date(optional), Tags(optional), Description(optional).<br>You can download and fill out the template file from ": "يجب أن يحتوي ملف الإكسل على أعمدة بالرؤوس التالية:<br>العنوان (مطلوب)، السعر (مطلوب)، الوسوم (اختياري)، تاريخ انتهاء الصلاحية (اختياري)، الوصف (اختياري).<br>يمكنك تنزيل وتعبئة ملف النموذج من ",
+    "The excel file must contain columns with the following headers:<br>Title(required), Price(required), Expiry Date(optional), Tags(optional), Description(optional).<br>You can download and fill out the template file from ": "يجب أن يحتوي ملف الإكسل على أعمدة بالرؤوس التالية:<br>Title (مطلوب)، Price (مطلوب)، Tags (اختياري)، Expiry Date (اختياري)، Description (اختياري).<br>يمكنك تنزيل وتعبئة ملف النموذج من ",
     "here": "هنا",
     "Sign in to start your session": "سجل الدخول وابدأ جلستك",
     "Remember Me": "تذكّرني",
@@ -167,5 +168,7 @@
     "There was an error on row :row. :message": "هناك خطأ في السطر :row: :message",
     "The :attribute field is required.": "حقل :attribute مطلوب.",
     "Are you sure you want to delete this file and all its offers?": "هل انت متأكد من حذف هذا الملف وجميع عروضه؟",
-    "When writing multiple tags, each tag must be written on a new line. You can create a new line in Excel by pressing Alt + Enter.": "عند كتابة وسوم متعددة، يجب كتابة كل وسم في سطر جديد. يمكنك النزول إلى سطر جديد في الإكسل بالضغط على Alt + Enter."
+    "When writing multiple tags, each tag must be written on a new line. You can create a new line in Excel by pressing Alt + Enter.": "عند كتابة وسوم متعددة، يجب كتابة كل وسم في سطر جديد. يمكنك النزول إلى سطر جديد في الإكسل بالضغط على Alt + Enter.",
+    "Your account is expired. Please contact administrator.": "حسابك منتهي الصلاحية، الرجاء التواصل مع المسؤول.",
+    "New Expiry Date": "تاريخ الصلاحية الجديدة"
 }

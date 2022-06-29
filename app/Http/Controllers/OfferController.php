@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfferRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Image;
@@ -55,16 +56,8 @@ class OfferController extends Controller
         return $result;
     }
 
-    public function store(Request $request)
+    public function store(OfferRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'expiry_date' => 'nullable|after:yesterday',
-            'price' => 'numeric|min:1',
-            'category_id' => 'required',
-            'description' => 'min:20',
-            'images.*' => 'image',
-        ]);
         if (auth()->user()->role == 'Store Owner')
             $request['offer_type_id'] = 1;
 

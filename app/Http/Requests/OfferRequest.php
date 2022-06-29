@@ -13,7 +13,7 @@ class OfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,10 +26,13 @@ class OfferRequest extends FormRequest
         return [
             'title' => 'required',
             'expiry_date' => 'nullable|after:yesterday',
-            'price' => 'numeric|min:1',
+            'price' => 'required|numeric|min:1',
             'category_id' => 'required',
-            'description' => 'min:20',
+            'description' => 'required|min:20',
             'images.*' => 'image',
+            'offer_type_id' => 'nullable',
+            'cities.*' => 'nullable',
+            'tags.*' => 'nullable'
         ];
     }
 }

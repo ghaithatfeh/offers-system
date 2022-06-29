@@ -17,9 +17,11 @@ class CheckStatus
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && (auth()->user()->status == 0)) {
-            auth()->logout();
+        if (auth()->check() && auth()->user()->status == 0) {
             $message = __('Your account has been suspended. Please contact administrator.');
+            if (auth()->user()->role == 'Store Owner' && auth()->user()->store->status == 'Expired')
+                $message = __('Your account is expired. Please contact administrator.');
+            auth()->logout();
             return redirect()->route('login')->withMessage($message);
         }
 

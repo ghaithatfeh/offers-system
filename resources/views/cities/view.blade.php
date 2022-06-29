@@ -30,11 +30,11 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{!! $city->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>{{ $city->name_pt }}</td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{!! $city->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>{{ $city->name_ar }}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>

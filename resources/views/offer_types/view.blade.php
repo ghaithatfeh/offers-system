@@ -22,11 +22,11 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{!! $offer_type->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>{{ $offer_type->name_pt }}</td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{!! $offer_type->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>{{ $offer_type->name_ar }}</td>
             </tr>
             <tr>
                 <td>{{ __('Price') }}</td>

@@ -35,16 +35,18 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $city->name_en }}</td>
-                        <td>{!! $city->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
-                        <td>{!! $city->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                        <td>{{ $city->name_pt }}</td>
+                        <td>{{ $city->name_ar }}</td>
                         <td>
                             <div class="form-check form-switch">
-                                <input onchange="
+                                <input
+                                    onchange="
                                     if (confirm('{{ __('Are you sure you want to change this status?') }}'))
                                         window.location.href = '/cities/change-status/{{ $city->id }}'
                                     else
                                         this.checked = !this.checked
-                                    " class="form-check-input" type="checkbox" id="toggle-{{ $city->id }}"
+                                    "
+                                    class="form-check-input" type="checkbox" id="toggle-{{ $city->id }}"
                                     {{ $city->status ? 'checked' : '' }}>
                                 <label class="form-check-label"
                                     for="toggle-{{ $city->id }}">{{ $city->status ? __('Active') : __('Inactive') }}</label>

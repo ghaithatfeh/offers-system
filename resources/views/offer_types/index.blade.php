@@ -30,8 +30,8 @@
                 <tr>
                     <td>{{ ++$i }}</td>
                     <td>{{ $offer_type->name_en }}</td>
-                    <td>{!! $offer_type->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
-                    <td>{!! $offer_type->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                    <td>{{ $offer_type->name_pt }}</td>
+                    <td>{{ $offer_type->name_ar }}</td>
                     <td>{{ $offer_type->price . ' ' . __('validation.currency')}}</td>
                     <td>
                         <a href="/offer_types/{{ $offer_type->id }}" title="{{ __('View') }}">

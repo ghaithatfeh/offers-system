@@ -67,12 +67,14 @@
             </tr>
             <tr>
                 <th>{{ __('Offer Owner') }}</th>
-                <td>
-                    <a
-                        href="/{{ isset($offer->user) ? 'users/' . $offer->user->id : 'customers/' . $offer->customer->id }}">
-                        {{ $offer->user->name ?? $offer->customer->first_name . $offer->customer->last_name }}
-                    </a>
-                </td>
+                @if (auth()->user()->role != 'Store Owner')
+                    <td>
+                        <a
+                            href="/{{ isset($offer->user) ? ($offer->user->store ? 'stores/' . $offer->user->store->id : 'users/' . $offer->user->id) : 'customers/' . $offer->customer->id }}">
+                            {{ isset($offer->user) ? ($offer->user->store ? $offer->user->store->name : $offer->user->name) : $offer->customer->first_name . $offer->customer->last_name }}
+                        </a>
+                    </td>
+                @endif
             </tr>
             <tr>
                 <td>{{ __('Expiry Date') }}</td>
@@ -84,15 +86,15 @@
             </tr>
             <tr>
                 <td>{{ __('Offer Type') }}</td>
-                <td>{!! $offer->offerType->name_en !!}</td>
+                <td>{{ $offer->offerType->name_en }}</td>
             </tr>
             <tr>
                 <td>{{ __('Category') }}</td>
-                <td>{!! $offer->category->name_en !!}</td>
+                <td>{{ $offer->category->name_en }}</td>
             </tr>
             <tr>
-                <td>{{ __('User') }}</td>
-                <td>{!! $offer->user->name ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>{{ isset($offer->user) ? __('User') : __('Customer') }}</td>
+                <td>{{ $offer->user->name ?? $offer->customer->name }}</td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>
@@ -134,7 +136,7 @@
             <tr>
                 <td>{{ __('Description') }}</td>
                 <td class="pr-4 text-break w-50">
-                    {!! $offer->description !!}
+                    {{ $offer->description }}
                 </td>
             </tr>
             <tr>
@@ -142,7 +144,10 @@
                 <td>
                     <div class="mx-auto">
                         @forelse ($offer->tags as $i => $tags)
-                            {!! $tags->name . ($i + 1 != count($offer->tags) ? '<br>' : '') !!}
+                            {{ $tags->name }}
+                            @if ($i + 1 != count($offer->targetAreas))
+                                <br>
+                            @endif
                         @empty
                             <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse
@@ -154,7 +159,10 @@
                 <td>
                     <div class="mx-auto">
                         @forelse ($offer->targetAreas as $i => $target)
-                            {!! $target->name_en . ($i + 1 != count($offer->targetAreas) ? '<br>' : '') !!}
+                            {{ $target->name_en }}
+                            @if ($i + 1 != count($offer->targetAreas))
+                                <br>
+                            @endif
                         @empty
                             <em class="text-danger">{{ __('Not Set') }}</em>
                         @endforelse

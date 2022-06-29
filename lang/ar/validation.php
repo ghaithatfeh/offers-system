@@ -61,7 +61,7 @@ return [
         'numeric' => 'The :attribute must be greater than or equal to :value.',
         'string' => 'The :attribute must be greater than or equal to :value characters.',
     ],
-    'image' => 'The :attribute must be an image.',
+    'image' => 'الملف يجب ان يحتوي على صور.',
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
     'integer' => 'The :attribute must be an integer.',
@@ -93,7 +93,7 @@ return [
     'min' => [
         'array' => 'The :attribute must have at least :min items.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => ':attribute يجب ان يكون على الأقل :min.',
         'string' => 'يجب ان يحتوي هذا الحقل :min حرف على الأقل.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
@@ -171,7 +171,14 @@ return [
         'name_en' => 'الإسم بالنجليزية',
         'name_pt' => 'الاسم بالبرتغالية',
         'name_ar' => 'الاسم بالعربية',
-        "category_id" => 'الصنف'
+        "category_id" => 'الصنف',
+        "description" => "الوصف",
+        "body" => "الرسالة",
+        "target_value" => 'نوع الهدف',
+        "name" => 'الاسم',
+        "user_name" => 'الاسم',
+        "expiry_date" => "صالح حتى",
+        "password" => 'كلمة المرور'
     ],
 
     'currency' => '$'

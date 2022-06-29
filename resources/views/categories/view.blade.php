@@ -5,7 +5,6 @@
         td:first-child {
             font-weight: bold;
         }
-
     </style>
     <div class="d-flex justify-content-between">
         <h2>{{ __('Category Details') }}</h2>
@@ -30,15 +29,33 @@
             </tr>
             <tr>
                 <td>{{ __('Name Portuguese') }}</td>
-                <td>{!! $category->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>
+                    @if ($category->name_pt != '')
+                        {{ $category->name_pt }}
+                    @else
+                        <em class="text-danger">{{ __('Not Set') }}</em>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Name Arabic') }}</td>
-                <td>{!! $category->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>
+                    @if ($category->name_ar != '')
+                        {{ $category->name_ar }}
+                    @else
+                        <em class="text-danger">{{ __('Not Set') }}</em>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Parent Category') }}</td>
-                <td>{!! $category->parent->name_en ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                <td>
+                    @if (isset($category->parent))
+                        {{ $category->parent->name_en }}
+                    @else
+                        <em class="text-danger">{{ __('Not Set') }}</em>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>{{ __('Status') }}</td>

@@ -123,4 +123,8 @@
             @endif
         });
     </script>
+    
+    {{-- Validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\OfferRequest') !!}
 @endsection

@@ -30,7 +30,7 @@ class NotificationController extends Controller
             'title' => 'required|min:3|max:255',
             'body' => 'required|min:50',
             'target_type' => 'required',
-            // 'target_value' => 'required_if:target_type,Broadcast'
+            'target_value' => 'numeric',
             'target_value' => Rule::requiredIf($request->target_type != 'Broadcast')
         ]);
         if ($request->target_value)

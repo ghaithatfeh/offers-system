@@ -47,10 +47,10 @@ class OffersImport implements
         ++self::$rows;
 
         return new Offer([
-            'title' => $row['title'] ?? 'Offer Title',
+            'title' => ($row['title'] ?? $row['العنوان']) ?? 'Offer Title',
             'price' => $row['price'],
             'expiry_date' => $row['expiry_date'],
-            'description' => $row['description'] ?? ($row['title'] ?? 'Offer Description'),
+            'description' => $row['description'] ?? (($row['title'] ?? $row['العنوان']) ?? 'Offer Description'),
             'category_id' => request()->category_id,
             'offer_type_id' => 1,
             'user_id' => auth()->id(),

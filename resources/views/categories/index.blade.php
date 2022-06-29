@@ -36,17 +36,37 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $category->name_en }}</td>
-                        <td>{!! $category->name_pt ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
-                        <td>{!! $category->name_ar ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
-                        <td>{!! $category->parent->name_en ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
+                        <td>
+                            @if ($category->name_pt != '')
+                                {{ $category->name_pt }}
+                            @else
+                                <em class="text-danger">{{ __('Not Set') }}</em>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($category->name_ar != '')
+                                {{ $category->name_ar }}
+                            @else
+                                <em class="text-danger">{{ __('Not Set') }}</em>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($category->parent))
+                                {{ $category->parent->name_en }}
+                            @else
+                                <em class="text-danger">{{ __('Not Set') }}</em>
+                            @endif
+                        </td>
                         <td>
                             <div class="form-check form-switch">
-                                <input onchange="
+                                <input
+                                    onchange="
                                     if (confirm('{{ __('Are you sure you want to change this status?') }}'))
                                         window.location.href = '/categories/change-status/{{ $category->id }}'
                                     else
-                                        this.checked = !this.checked" class="form-check-input" type="checkbox"
-                                    id="toggle-{{ $category->id }}" {{ $category->status ? 'checked' : '' }}>
+                                        this.checked = !this.checked"
+                                    class="form-check-input" type="checkbox" id="toggle-{{ $category->id }}"
+                                    {{ $category->status ? 'checked' : '' }}>
                                 <label class="form-check-label"
                                     for="toggle-{{ $category->id }}">{{ $category->status ? __('Active') : __('Inactive') }}</label>
                             </div>
