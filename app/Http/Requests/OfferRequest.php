@@ -30,7 +30,7 @@ class OfferRequest extends FormRequest
             'category_id' => 'required',
             'description' => 'required|min:20',
             'images.*' => 'image',
-            'offer_type_id' => 'nullable',
+            'offer_type_id' => 'required',
             'cities.*' => 'nullable',
             'tags.*' => 'nullable'
         ];

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class CustomerInterestFactory extends Factory
     {
         return [
             'category_id' => Category::all()->random()->id,
-            'customer_id' => 1
+            'customer_id' => Customer::all()->random()->id
         ];
     }
 }

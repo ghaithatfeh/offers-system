@@ -178,7 +178,8 @@ return [
         "name" => 'الاسم',
         "user_name" => 'الاسم',
         "expiry_date" => "صالح حتى",
-        "password" => 'كلمة المرور'
+        "password" => 'كلمة المرور',
+        "offer_type_id" => 'نوع العرض'
     ],
 
     'currency' => '$'

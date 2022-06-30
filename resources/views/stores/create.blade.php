@@ -57,7 +57,7 @@
                 <option value=""></option>
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}" {{ $city->id == old('city_id') ? 'selected' : '' }}>
-                        {{ $city->name_en }}</option>
+                        {{ $city['name_' . App::getLocale()] }}</option>
                 @endforeach
             </select>
             @error('city_id')

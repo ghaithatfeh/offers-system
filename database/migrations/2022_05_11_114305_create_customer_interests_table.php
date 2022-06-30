@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('customers_interests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('customer_id');
             $table->text('device_token')->nullable();
+            $table->unique(['category_id', 'customer_id']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });

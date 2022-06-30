@@ -13,6 +13,7 @@ use App\Models\Tag;
 use App\Models\TargetArea;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 
 class OfferController extends Controller
@@ -30,16 +31,18 @@ class OfferController extends Controller
 
     public function create()
     {
-        $category = Category::whereNull('parent_id')
+        $categories = Category::whereNull('parent_id')
             ->with('allActiveChildren')
             ->where('status', 1)
             ->get();
-        $category = $this->flattenTree($category->toArray());
+        $categories = $this->flattenTree($categories->toArray());
 
         return view('offers.create', [
             'offer_types' => OfferType::all(),
-            'categories' => $category,
-            'cities' => City::where('status', 1)->get(),
+            'categories' => $categories,
+            'cities' => City::select(['id', 'name_' . App::getLocale() . ' AS name'])
+                ->where('status', 1)
+                ->get(),
             'tags' => Tag::all(),
         ]);
     }
@@ -48,9 +51,10 @@ class OfferController extends Controller
     {
         $result = [];
         foreach ($array as $item) {
-            $item_without_children = $item;
-            unset($item_without_children['all_active_children']);
-            $result[] = $item_without_children;
+            $result[] = [
+                'id' => $item['id'],
+                'name' => $item['name_' . App::getLocale()]
+            ];
             $result = array_merge($result, $this->flattenTree($item['all_active_children']));
         }
         return $result;
@@ -58,11 +62,12 @@ class OfferController extends Controller
 
     public function store(OfferRequest $request)
     {
+        $offer = new Offer($request->validated());
+        $offer->user_id = auth()->id();
         if (auth()->user()->role == 'Store Owner')
-            $request['offer_type_id'] = 1;
+            $offer->offer_type_id = 1;
+        $offer->save();
 
-        $request['user_id'] = auth()->id();
-        $offer = Offer::create($request->all());
 
         if ($request->tags) {
             $offerTags = [];
@@ -108,10 +113,16 @@ class OfferController extends Controller
         if ($offer->user_id != auth()->id())
             return abort('403');
 
+        $categories = Category::whereNull('parent_id')
+            ->with('allActiveChildren')
+            ->where('status', 1)
+            ->get();
+        $categories = $this->flattenTree($categories->toArray());
+
         return view('offers.edit', [
             'offer' => $offer,
             'offer_types' => OfferType::all(),
-            'categories' => Category::where('status', 1)->get(),
+            'categories' => $categories,
             'cities' => City::where('status', 1)->get(),
             'tags' => Tag::all(),
         ]);

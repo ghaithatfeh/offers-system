@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\NotificationReceiver;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -21,7 +22,7 @@ class NotificationController extends Controller
 
     public function create()
     {
-        return view('notifications.create', []);
+        return view('notifications.create');
     }
 
     public function store(Request $request)
@@ -100,9 +101,9 @@ class NotificationController extends Controller
     public function getOptions(Request $request)
     {
         if ($request->type == 'Categories') {
-            $resulte = Category::select(['id', 'name_en as text'])->where('status', 1)->get();
+            $resulte = Category::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
         } elseif ($request->type == 'Cities') {
-            $resulte = City::select(['id', 'name_en as text'])->where('status', 1)->get();
+            $resulte = City::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
         }
         return $resulte;
     }

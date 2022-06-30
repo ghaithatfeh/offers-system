@@ -48,7 +48,6 @@ function targetTypeChange() {
                 type: $(this).val()
             },
                 function (data) {
-                    console.log(data);
                     select2(data);
                 });
     }

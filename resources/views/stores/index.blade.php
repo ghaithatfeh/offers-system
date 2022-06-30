@@ -40,7 +40,7 @@
                         <td>{{ $store->user->name }}</td>
                         <td>
                             @if (isset($store->city))
-                                {{ $store->city->name_en }}
+                                {{ $store->city['name_' . App::getLocale()] }}
                             @else
                                 <em class="text-danger">{{ __('Not Set') }}</em>
                             @endif

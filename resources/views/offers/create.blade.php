@@ -52,7 +52,7 @@
                 @foreach ($categories as $category)
                     <option value="{{ $category['id'] }}"
                         {{ $category['id'] == old('category_id') ? 'selected' : '' }}>
-                        {{ $category['name_en'] }}</option>
+                        {{ $category['name'] }}</option>
                 @endforeach
             </select>
             @error('category_id')
@@ -67,7 +67,7 @@
                     @foreach ($offer_types as $offer_type)
                         <option value="{{ $offer_type->id }}"
                             {{ $offer_type->id == old('offer_type_id') ? 'selected' : '' }}>
-                            {{ $offer_type->name_en }}</option>
+                            {{ $offer_type['name_' . App::getLocale()] }}</option>
                     @endforeach
                 </select>
                 @error('offer_type_id')
@@ -81,7 +81,7 @@
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}"
                         {{ in_array($city->id, old('cities') ?? []) ? 'selected' : '' }}>
-                        {{ $city->name_en }}</option>
+                        {{ $city->name }}</option>
                 @endforeach
             </select>
         </div>

@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>{{ __('City') }}</td>
-                <td>{{ $customer->city->name_en }}</td>
+                <td>{{ $customer->city['name_' . App::getLocale()] }}</td>
             </tr>
             <tr>
                 <td>{{ __('Registration Date') }}</td>
@@ -56,9 +56,9 @@
                 <td>{{ __('Interest Categories') }}</td>
                 <td>
                     <div class="mx-auto">
-                        @forelse ($customer->customers_interests as $i => $interested_category)
-                            {{ $interested_category->name_en }}
-                            @if ($i + 1 != count($customer->customers_interests))
+                        @forelse ($interested_categories as $i => $interested_category)
+                            {{ $interested_category->name }}
+                            @if ($i + 1 != count($interested_categories))
                                 <br>
                             @endif
                         @empty

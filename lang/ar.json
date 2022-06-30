@@ -46,7 +46,7 @@
     "Updated At": "تم تعديله في",
     "Description": "الوصف",
     "Target Areas": "المناطق المستهدفة",
-    "Images": "الصور",
+    "Images Of Offer": "الصور العرض",
     "Approve": "موافقة",
     "Reject": "رفض",
     "Reject Reason": "سبب الرفض",
@@ -83,7 +83,7 @@
     "NOTE: You can't delete a store if there offer releted to it, you can deactivate it. Inactive store and its offers won’t be displayed in mobile application.": "ملاحظة: لا يمكنك حذف متجر إذا كان هناك عرض متعلق به، يمكنك إلغاء تنشيطه. المتجر الغير نشط وعروضه لن تظهر في تطبيق الهاتف.",
     "Title": "العنوان",
     "Upload Images": "رفع صور",
-    "A default image will be displayed for offer if images are not uploaded.": "سيتم عرض الصورة الافتراضية للعرض إذا لم يتم تحميل الصور.",
+    "A default image will be displayed for offer if images are not uploaded.": "سيتم عرض صورة افتراضية للعرض إذا لم يتم تحميل الصور.",
     "Edit Offer": "تعديل العرض",
     "Store City": "مدينة المتجر",
     "Owner Name": "اسم المالك",
@@ -170,5 +170,6 @@
     "Are you sure you want to delete this file and all its offers?": "هل انت متأكد من حذف هذا الملف وجميع عروضه؟",
     "When writing multiple tags, each tag must be written on a new line. You can create a new line in Excel by pressing Alt + Enter.": "عند كتابة وسوم متعددة، يجب كتابة كل وسم في سطر جديد. يمكنك النزول إلى سطر جديد في الإكسل بالضغط على Alt + Enter.",
     "Your account is expired. Please contact administrator.": "حسابك منتهي الصلاحية، الرجاء التواصل مع المسؤول.",
-    "New Expiry Date": "تاريخ الصلاحية الجديدة"
+    "New Expiry Date": "تاريخ الصلاحية الجديدة",
+    "Are you sure you want to delete this image from your :attribute?": "هل انت متأكد من حذف هذه الصورة من ال:attribute؟"
 }

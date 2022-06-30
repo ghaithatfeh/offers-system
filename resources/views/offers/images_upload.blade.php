@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h2 class="text-center">{{ $offer->title . ': ' . __('Images') }}</h2>
+    <h2 class="text-center">{{ __('Images Of Offer') . ': ' . $offer->title }}</h2>
     <form class="mt-5 col-12 col-md-7 mx-auto row" action="/offers/upload/{{ $offer->id }}" method="post"
         enctype="multipart/form-data">
         @method('put')
@@ -26,7 +26,7 @@
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-danger rounded-0 rounded-bottom w-100"
-                        onclick="return confirm('Are you sure you want to delete this image from your offer?')">
+                        onclick="return confirm('{{ __('Are you sure you want to delete this image from your :attribute?', ['attribute' => __('offer')]) }}')">
                         <i class="fa-solid fa-trash" aria-hidden="true"></i>
                         {{ __('Delete image') }}
                     </button>

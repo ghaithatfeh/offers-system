@@ -90,7 +90,7 @@
             </tr>
             <tr>
                 <td>{{ __('Category') }}</td>
-                <td>{{ $offer->category->name_en }}</td>
+                <td>{{ $offer->category['name_' . App::getLocale()] }}</td>
             </tr>
             <tr>
                 <td>{{ isset($offer->user) ? __('User') : __('Customer') }}</td>
@@ -159,7 +159,7 @@
                 <td>
                     <div class="mx-auto">
                         @forelse ($offer->targetAreas as $i => $target)
-                            {{ $target->name_en }}
+                            {{ $target['name_' . App::getLocale()] }}
                             @if ($i + 1 != count($offer->targetAreas))
                                 <br>
                             @endif

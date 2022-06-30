@@ -93,7 +93,7 @@
                 <td>{{ __('City') }}</td>
                 <td>
                     @if (isset($store->city))
-                        {{ $store->city->name_en }}
+                        {{ $store->city['name_' . App::getLocale()] }}
                     @else
                         <em class="text-danger">{{ __('Not Set') }}</em>
                     @endif
@@ -137,7 +137,7 @@
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-sm btn-danger rounded-0 rounded-bottom w-100 p-0"
-                                    onclick="return confirm('Are you sure you want to delete this image from your offer?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this image from your :attribute?', ['attribute' => __('store')]) }}')">
                                     <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                     {{ __('Delete') }}
                                 </button>
@@ -158,7 +158,7 @@
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-sm btn-danger rounded-0 rounded-bottom w-100 p-0"
-                                    onclick="return confirm('Are you sure you want to delete this image from your offer?')">
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this image from your :attribute?', ['attribute' => __('store')]) }}')">
                                     <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                     {{ __('Delete') }}
                                 </button>

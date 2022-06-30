@@ -49,9 +49,9 @@
             <select class="form-control" name="category_id" id="category">
                 <option value=""></option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}"
-                        {{ old('category_id') != null ? ($category->id == old('category_id') ? 'selected' : '') : ($category->id == $offer->category->id ? 'selected' : '') }}>
-                        {{ $category->name_en }}</option>
+                    <option value="{{ $category['id'] }}"
+                        {{ old('category_id') != null ? ($category['id'] == old('category_id') ? 'selected' : '') : ($category['id'] == $offer->category->id ? 'selected' : '') }}>
+                        {{ $category['name'] }}</option>
                 @endforeach
             </select>
             @error('category_id')
