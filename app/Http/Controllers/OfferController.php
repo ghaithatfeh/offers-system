@@ -68,7 +68,6 @@ class OfferController extends Controller
             $offer->offer_type_id = 1;
         $offer->save();
 
-
         if ($request->tags) {
             $offerTags = [];
             foreach ($request->tags as $tag) {

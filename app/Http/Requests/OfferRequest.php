@@ -29,8 +29,8 @@ class OfferRequest extends FormRequest
             'price' => 'required|numeric|min:1',
             'category_id' => 'required',
             'description' => 'required|min:20',
-            'images.*' => 'image',
             'offer_type_id' => 'required',
+            'images.*' => 'image',
             'cities.*' => 'nullable',
             'tags.*' => 'nullable'
         ];

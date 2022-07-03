@@ -24,12 +24,7 @@ class TagController extends Controller
             'name' => 'required|unique:tags|min:3'
         ]);
         Tag::create($request->all());
-        return redirect('/tags');
-    }
-
-    public function show(Tag $tag)
-    {
-        //
+        return back();
     }
 
     public function edit(Tag $tag)

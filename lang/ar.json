@@ -171,5 +171,6 @@
     "When writing multiple tags, each tag must be written on a new line. You can create a new line in Excel by pressing Alt + Enter.": "عند كتابة وسوم متعددة، يجب كتابة كل وسم في سطر جديد. يمكنك النزول إلى سطر جديد في الإكسل بالضغط على Alt + Enter.",
     "Your account is expired. Please contact administrator.": "حسابك منتهي الصلاحية، الرجاء التواصل مع المسؤول.",
     "New Expiry Date": "تاريخ الصلاحية الجديدة",
-    "Are you sure you want to delete this image from your :attribute?": "هل انت متأكد من حذف هذه الصورة من ال:attribute؟"
+    "Are you sure you want to delete this image from your :attribute?": "هل انت متأكد من حذف هذه الصورة من ال:attribute؟",
+    "Images": "الصور"
 }

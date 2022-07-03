@@ -143,9 +143,9 @@
                 <td>{{ __('Tags') }}</td>
                 <td>
                     <div class="mx-auto">
-                        @forelse ($offer->tags as $i => $tags)
-                            {{ $tags->name }}
-                            @if ($i + 1 != count($offer->targetAreas))
+                        @forelse ($offer->tags as $i => $tag)
+                            {{ $tag->name }}
+                            @if ($i + 1 != count($offer->tags))
                                 <br>
                             @endif
                         @empty
