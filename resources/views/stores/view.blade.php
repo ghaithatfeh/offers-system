@@ -62,7 +62,7 @@
                 </button>
             @endif
             <a class="btn btn-primary mx-1"
-                href="{{ auth()->user()->role == 'Store Owner' ? '/my-store/edit' : '/stores/' . $store->id . '/edit' }}">{{ __('Edit') }}</a>
+                href="{{ (auth()->user()->role == 'Store Owner' ? '/my-store/' : '/stores/') . $store->id . '/edit' }}">{{ __('Edit') }}</a>
             @if (!$store->user->offers->count() && auth()->user()->role != 'Store Owner')
                 <a class="btn btn-danger mx-1" href=""
                     onclick="event.preventDefault();confirm('{{ __('Are you sure you want to delete this :item?', ['item' => __('store')]) }}') ? document.querySelector('#form-delete').submit() : '';">{{ __('Delete') }}</a>

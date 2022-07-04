@@ -10,7 +10,7 @@
             direction: rtl;
         }
 
-        #expiry_date-error{
+        #expiry_date-error {
             display: none !important;
         }
     </style>
@@ -20,7 +20,7 @@
         @csrf
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
-            <input id="title" name="title" class="form-control" type="text" value="{{ old('title') }}">
+            <input id="title" name="title" class="form-control" type="text">
             @error('title')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -28,8 +28,7 @@
         <div class="mb-3 date">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
             <div class="input-group">
-                <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly
-                    value="{{ old('expiry_date') }}">
+                <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly>
                 <label for="expiry_date" class="input-group-text">
                     <i class="fa-solid fa-calendar-days"></i>
                 </label>
@@ -40,7 +39,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
-            <input id="price" name="price" class="form-control" type="number" value="{{ old('price') }}">
+            <input id="price" name="price" class="form-control" type="number">
             @error('price')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -50,9 +49,9 @@
             <select class="form-control" name="category_id" id="category">
                 <option value=""></option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category['id'] }}"
-                        {{ $category['id'] == old('category_id') ? 'selected' : '' }}>
-                        {{ $category['name'] }}</option>
+                    <option value="{{ $category['id'] }}">
+                        {{ $category['name'] }}
+                    </option>
                 @endforeach
             </select>
             @error('category_id')
@@ -65,9 +64,9 @@
                 <select class="form-control" name="offer_type_id" id="offer_type">
                     <option value=""></option>
                     @foreach ($offer_types as $offer_type)
-                        <option value="{{ $offer_type->id }}"
-                            {{ $offer_type->id == old('offer_type_id') ? 'selected' : '' }}>
-                            {{ $offer_type['name_' . App::getLocale()] }}</option>
+                        <option value="{{ $offer_type->id }}">
+                            {{ $offer_type['name_' . App::getLocale()] }}
+                        </option>
                     @endforeach
                 </select>
                 @error('offer_type_id')
@@ -79,9 +78,9 @@
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
             <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">
                 @foreach ($cities as $city)
-                    <option value="{{ $city->id }}"
-                        {{ in_array($city->id, old('cities') ?? []) ? 'selected' : '' }}>
-                        {{ $city->name }}</option>
+                    <option value="{{ $city->id }}">
+                        {{ $city->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -89,14 +88,15 @@
             <label class="form-label" for="tags">{{ __('Tags') }}</label>
             <select class="select2 form-control" name="tags[]" id="tags" multiple="multiple">
                 @foreach ($tags as $tag)
-                    <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tags') ?? []) ? 'selected' : '' }}>
-                        {{ $tag->name }}</option>
+                    <option value="{{ $tag->id }}">
+                        {{ $tag->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
-            <textarea id="description" name="description" class="form-control" cols="30" rows="5">{{ old('description') }}</textarea>
+            <textarea id="description" name="description" class="form-control" cols="30" rows="5"></textarea>
             @error('description')
                 <small class="text-danger">{{ $message }}</small>
             @enderror

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfferTypeRequest;
 use App\Models\OfferType;
 use Illuminate\Http\Request;
 
@@ -22,16 +23,9 @@ class OfferTypeController extends Controller
         return view('offer_types.edit', ['offer_type' => $offerType]);
     }
     
-    public function update(Request $request, OfferType $offerType)
+    public function update(OfferTypeRequest $request, OfferType $offerType)
     {
-        $request->validate([
-            'name_en' => 'required|min:3',
-            'name_pt' => 'required|min:3',
-            'name_ar' => 'required|min:3',
-            'price' => 'numeric|required|min:1',
-            'description' => 'required|min:20',
-        ]);
-        $offerType->update($request->all());
+        $offerType->update($request->validated());
         return redirect('offer_types');
     }
 }

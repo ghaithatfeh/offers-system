@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -18,13 +19,10 @@ class TagController extends Controller
         return view('tags.create');
     }
 
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
-        $request->validate([
-            'name' => 'required|unique:tags|min:3'
-        ]);
-        Tag::create($request->all());
-        return back();
+        Tag::create($request->validated());
+        return back()->with('success', __('Tag has added successfuly.'));
     }
 
     public function edit(Tag $tag)
@@ -32,12 +30,9 @@ class TagController extends Controller
         return view('tags.edit', ['tag' => $tag]);
     }
 
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
-        $request->validate([
-            'name' => 'required|unique:tags|min:3'
-        ]);
-        $tag->update($request->all());
+        $tag->update($request->validated());
         return redirect('/tags');
     }
 

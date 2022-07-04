@@ -127,19 +127,12 @@ class OfferController extends Controller
         ]);
     }
 
-    public function update(Request $request, Offer $offer)
+    public function update(OfferRequest $request, Offer $offer)
     {
         if ($offer->user_id != auth()->id())
             return abort('403');
-        $request->validate([
-            'title' => 'required',
-            'expiry_date' => 'nullable:after:yesterday',
-            'price' => 'numeric|min:1',
-            'category_id' => 'required',
-            'offer_type_id' => 'required',
-            'description' => 'min:20',
-        ]);
-        $offer->update($request->all());
+
+        $offer->update($request->validated());
         OfferTag::destroy($offer->id);
         TargetArea::destroy($offer->id);
 

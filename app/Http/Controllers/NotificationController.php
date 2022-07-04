@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NotificationRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Notification;
@@ -25,27 +26,21 @@ class NotificationController extends Controller
         return view('notifications.create');
     }
 
-    public function store(Request $request)
+    public function store(NotificationRequest $request)
     {
-        $request->validate([
-            'title' => 'required|min:3|max:255',
-            'body' => 'required|min:50',
-            'target_type' => 'required',
-            'target_value' => 'numeric',
-            'target_value' => Rule::requiredIf($request->target_type != 'Broadcast')
-        ]);
+        $notification = new Notification($request->validated());
         if ($request->target_value)
-            $request['target_value'] = implode("|", $request->target_value);
-        $notification = Notification::create($request->all());
-        if (!$this->notificationReciever($notification)) {
+            $$notification->target_value = implode("|", $request->target_value);
+        $notification->save();
+
+        if ($this->notificationReciever($notification)) {
+            $request->session()->flash('notify-message', __('The notification has been sent successfully.'));
+            $request->session()->flash('notify-alert', 'alert-success');
+        } else {
             $notification->delete();
             $request->session()->flash('notify-message', __('An error occurred, the notification was not sent.'));
             $request->session()->flash('notify-alert', 'alert-danger');
-        } else {
-            $request->session()->flash('notify-message', __('The notification has been sent successfully.'));
-            $request->session()->flash('notify-alert', 'alert-success');
         }
-
 
         return redirect('/notifications');
     }

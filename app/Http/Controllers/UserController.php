@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,17 +30,11 @@ class UserController extends Controller
         return view('users.create');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'in:Admin,Supervisor'],
-            'status' => ['required']
-        ]);
-        $request['password'] = Hash::make($request->password);
-        User::create($request->all());
+        $user = new User($request->validated());
+        $user->password = Hash::make($request->password);
+        $user->save();
         return redirect('/users');
     }
 
@@ -48,17 +45,9 @@ class UserController extends Controller
         return view('users.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        if ($user->role == 'Store Owner')
-            return abort(404);
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'role' => ['required'],
-            'status' => ['required']
-        ]);
-        $user->update($request->all());
+        $user->update($request->validated());
         return redirect('/users');
     }
 
@@ -76,11 +65,8 @@ class UserController extends Controller
         return view('auth.passwords.change');
     }
 
-    public function changePasswordStore(Request $request, User $user)
+    public function changePasswordStore(PasswordRequest $request, User $user)
     {
-        $request->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
         $user->update([
             'password' => Hash::make($request->password)
         ]);

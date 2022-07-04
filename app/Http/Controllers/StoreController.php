@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateStoreRequest;
 use App\Models\City;
 use App\Models\Offer;
 use App\Models\Store;
@@ -25,30 +27,20 @@ class StoreController extends Controller
         return view('stores.create', ['cities' => $cities]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'cover_image' => 'image',
-            'logo_image' => 'image',
-            'user_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'expiry_date' => 'required|date|after:yesterday',
-        ]);
-
-        $request['logo'] = $this->upload_file($request, 'logo_image');
-        $request['cover'] = $this->upload_file($request, 'cover_image');
+        $store = new Store($request->validated());
+        $store->logo = $this->upload_file($request, 'logo_image');
+        $store->cover = $this->upload_file($request, 'cover_image');
         $user = User::create([
             'email' => $request->email,
             'name' => $request->user_name,
             'role' => 'Store Owner',
             'password' => Hash::make($request->password),
         ]);
+        $store->user_id = $user->id;
 
-        $request['user_id'] = $user->id;
-
-        Store::create($request->all());
+        $store->save();
         return redirect('/stores');
     }
 
@@ -66,27 +58,17 @@ class StoreController extends Controller
         ]);
     }
 
-    public function edit(Store $store, $store_id = 0)
+    public function edit(Store $store)
     {
-        if ($store_id != 0)
-            $store = Store::where('user_id', $store_id)->first();
         return view('stores.edit', [
             'store' => $store,
             'cities' => City::all(),
         ]);
     }
 
-    public function myStoreUpdate(Request $request)
+    public function myStoreUpdate(UpdateStoreRequest $request, Store $store)
     {
-        $store = Store::where('user_id', auth()->id())->first();
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'city_id' => 'numeric',
-            'description' => 'string',
-            'user_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-        ]);
-        $store->update($request->all(['name', 'city_id', 'description']));
+        $store->update($request->safe()->except(['expiry_date']));
         $store->user->update([
             'name' => $request->user_name,
             'email' => $request->email
@@ -94,15 +76,9 @@ class StoreController extends Controller
         return redirect('/my-store');
     }
 
-    public function update(Request $request, Store $store)
+    public function update(UpdateStoreRequest $request, Store $store)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'user_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'expiry_date' => 'required|date|after:yesterday'
-        ]);
-        $store->update($request->all());
+        $store->update($request->validated());
         $store->user->update([
             'name' => $request->user_name,
             'email' => $request->email

@@ -3,7 +3,10 @@
 @section('content')
     <h2 class="">{{ __('Notifications') }}</h2>
     @if (Session::has('notify-message'))
-        <div class="alert {{ session('notify-alert') }}">{{ session('notify-message') }}</div>
+        <div class="alert alert-dismissible fade show {{ session('notify-alert') }}">
+            {{ session('notify-message') }}
+            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+        </div>
     @endif
 
     <div class="d-flex mt-4">

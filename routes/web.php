@@ -45,9 +45,7 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 
 Route::middleware('role:Store Owner')->group(function () {
     Route::get('/my-store', [StoreController::class, 'myStore']);
-    Route::get('/my-store/edit', function () {
-        return App::call('App\Http\Controllers\StoreController@edit', ['store_id' => auth()->id()]);
-    });
+    Route::get('/my-store/{store}/edit', [StoreController::class, 'edit']);
     Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::resources([
@@ -94,5 +92,5 @@ Route::middleware('role:Admin,Store Owner')->group(function () {
     Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
     Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
     Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
-    Route::put('/my-store-update', [StoreController::class, 'myStoreUpdate']);
+    Route::put('/my-store-update/{store}', [StoreController::class, 'myStoreUpdate']);
 });

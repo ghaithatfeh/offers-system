@@ -8,15 +8,15 @@
         <div class="mb-3">
             <label class="form-label" for="name_en">{{ __('Name English') }}</label>
             <input id="name" name="name" class="form-control" type="text" value="{{ $tag->name }}">
-            <div class="valid-feedback"></div>
-            <small class="text-danger">
-                @error('name')
-                    {{ $message }}
-                @enderror
-            </small>
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
+@endsection
+
+@section('script')
+    {{-- Validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\TagRequest') !!}
 @endsection

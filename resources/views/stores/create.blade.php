@@ -88,8 +88,11 @@
 
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
-            <div class="input-group">
-                <input readonly name="expiry_date" id="expiry_date" class="form-control datepicker" value="{{ old('expiry_date') }}">
+            <div class="d-flex">
+                <div class="w-100">
+                    <input readonly name="expiry_date" id="expiry_date" class="form-control datepicker"
+                        value="{{ old('expiry_date') }}">
+                </div>
                 <label for="expiry_date" class="input-group-text">
                     <i class="fa-solid fa-calendar-days"></i>
                 </label>
@@ -132,4 +135,8 @@
             @endif
         });
     </script>
+
+    {{-- Validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\StoreRequest') !!}
 @endsection

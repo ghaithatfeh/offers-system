@@ -12,34 +12,23 @@
     </style>
 
     <h2 class="text-center">{{ __('Edit Store') . ': ' . $store->name }}</h2>
-    <form action="{{ auth()->user()->role == 'Store Owner' ? '/my-store-update' : '/stores/' . $store->id }}" method="post"
-        class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
+    <form action="{{ (auth()->user()->role == 'Store Owner' ? '/my-store-update/' : '/stores/') . $store->id }}"
+        method="post" class="mt-4 col-12 col-md-8 col-lg-6 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
             <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
             <input type="text" name="user_name" class="form-control"
-                value="{{ old('user_name') ?? $store->user->name }}">
-            @error('user_name')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+                value="{{ $store->user->name }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="email">{{ __('Email') }}</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email') ?? $store->user->email }}">
-            @error('email')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+            <input type="email" name="email" class="form-control" value="{{ $store->user->email }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="name">{{ __('Store Name') }}</label>
             <input id="name" name="name" class="form-control" type="text"
-                value="{{ old('name') ?? $store->name }}">
-            <small class="text-danger">
-                @error('name')
-                    {{ $message }}
-                @enderror
-            </small>
+                value="{{ $store->name }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="city">{{ __('Store City') }}</label>
@@ -47,34 +36,27 @@
                 <option value=""></option>
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}"
-                        {{ old('city_id') != null ? ($city->id == old('city_id') ? 'selected' : '') : ($city->id == $store->city_id ? 'selected' : '') }}>
+                        {{ $city->id == $store->city_id ? 'selected' : '' }}>
                         {{ $city['name_' . App::getLocale()] }}</option>
                 @endforeach
             </select>
-            @error('city_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
-            <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description') ?? $store->description }}</textarea>
-            @error('description')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+            <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ $store->description }}</textarea>
         </div>
         @if (auth()->user()->role != 'Store Owner')
             <div class="mb-3">
                 <label class="form-label" for="expiry_date">{{ __('Valid Until') }}</label>
-                <div class="input-group">
-                    <input name="expiry_date" id="expiry_date" class="form-control datepicker" readonly
-                        value="{{ old('expiry_date') ?? $store->expiry_date }}">
+                <div class="d-flex">
+                    <div class="w-100">
+                        <input name="expiry_date" id="expiry_date" class="form-control datepicker" readonly
+                            value="{{ $store->expiry_date }}">
+                    </div>
                     <label for="expiry_date" class="input-group-text">
                         <i class="fa-solid fa-calendar-days"></i>
                     </label>
                 </div>
-                @error('expiry_date')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
             </div>
         @endif
         <div class="d-flex">
@@ -107,4 +89,8 @@
             @endif
         });
     </script>
+
+    {{-- Validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateStoreRequest') !!}
 @endsection

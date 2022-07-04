@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,14 +30,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name_en' => 'required|min:3',
-            'name_pt' => 'required|min:3',
-            'name_ar' => 'required|min:3',
-        ]);
-        Category::create($request->all());
+        Category::create($request->validated());
         return redirect('/categories');
     }
 
@@ -59,14 +55,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'name_en' => 'required|min:3',
-            'name_pt' => 'required|min:3',
-            'name_ar' => 'required|min:3',
-        ]);
-        $category->update($request->all());
+        $category->update($request->validated());
         return redirect('/categories');
     }
 

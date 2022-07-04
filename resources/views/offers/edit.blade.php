@@ -9,6 +9,10 @@
         html[lang="ar"] .datepicker {
             direction: rtl;
         }
+
+        #expiry_date-error {
+            display: none !important;
+        }
     </style>
 
     <h2 class="text-center">{{ __('Edit Offer') }}</h2>
@@ -18,31 +22,22 @@
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
             <input id="title" name="title" class="form-control" type="text"
-                value="{{ old('title') ?? $offer->title }}">
-            @error('title')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+                value="{{ $offer->title }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
             <div class="input-group">
                 <input id="expiry_date" name="expiry_date" class="form-control datepicker" readonly
-                    value="{{ old('expiry_date') ?? $offer->expiry_date }}">
+                    value="{{ $offer->expiry_date }}">
                 <label for="expiry_date" class="input-group-text">
                     <i class="fa-solid fa-calendar-days"></i>
                 </label>
             </div>
-            @error('expiry_date')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
             <input id="price" name="price" class="form-control" type="number"
-                value="{{ old('price') ?? $offer->price }}">
-            @error('price')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+                value="{{ $offer->price }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="category">{{ __('Category') }}</label>
@@ -50,13 +45,10 @@
                 <option value=""></option>
                 @foreach ($categories as $category)
                     <option value="{{ $category['id'] }}"
-                        {{ old('category_id') != null ? ($category['id'] == old('category_id') ? 'selected' : '') : ($category['id'] == $offer->category->id ? 'selected' : '') }}>
+                        {{ $category['id'] == $offer->category->id ? 'selected' : '' }}>
                         {{ $category['name'] }}</option>
                 @endforeach
             </select>
-            @error('category_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
@@ -64,20 +56,17 @@
                 <option value=""></option>
                 @foreach ($offer_types as $offer_type)
                     <option value="{{ $offer_type->id }}"
-                        {{ old('offer_type_id') != null ? ($offer_type->id == old('offer_type_id') ? 'selected' : '') : ($offer_type->id == $offer->offerType->id ? 'selected' : '') }}>
+                        {{ $offer_type->id == $offer->offerType->id ? 'selected' : '' }}>
                         {{ $offer_type->name_en }}</option>
                 @endforeach
             </select>
-            @error('offer_type_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
             <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">
                 @foreach ($cities as $city)
                     <option value="{{ $city->id }}"
-                        {{ old('cities') != null ? (in_array($city->id, old('cities')) ? 'selected' : '') : (in_array($city->id, $offer->targetAreas->modelKeys()) ? 'selected' : '') }}>
+                        {{ in_array($city->id, $offer->targetAreas->modelKeys()) ? 'selected' : '' }}>
                         {{ $city->name_en }}</option>
                 @endforeach
             </select>
@@ -87,7 +76,7 @@
             <select class="select2 form-control" name="tags[]" id="tags" multiple="multiple">
                 @foreach ($tags as $tag)
                     <option value="{{ $tag->id }}"
-                        {{ old('tags') != null ? (in_array($tag->id, old('tags')) ? 'selected' : '') : (in_array($tag->id, $offer->tags->modelKeys()) ? 'selected' : '') }}>
+                        {{ in_array($tag->id, $offer->tags->modelKeys()) ? 'selected' : '' }}>
                         {{ $tag->name }}
                     </option>
                 @endforeach
@@ -96,9 +85,6 @@
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
             <textarea id="description" name="description" class="form-control" cols="30" rows="5">{{ old('description') ?? $offer->description }}</textarea>
-            @error('description')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
@@ -123,7 +109,7 @@
             @endif
         });
     </script>
-    
+
     {{-- Validation --}}
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\OfferRequest') !!}

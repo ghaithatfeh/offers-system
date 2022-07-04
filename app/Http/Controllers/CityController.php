@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CityRequest;
 use App\Models\City;
 use Illuminate\Http\Request;
 
@@ -18,14 +19,9 @@ class CityController extends Controller
         return view('cities.create');
     }
 
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        $request->validate([
-            'name_en' => ['required', 'min:3'],
-            'name_pt' => ['required', 'min:3'],
-            'name_ar' => ['required', 'min:3'],
-        ]);
-        City::create($request->all());
+        City::create($request->validated());
         return redirect('/cities');
     }
 
@@ -39,14 +35,9 @@ class CityController extends Controller
         return view('cities.edit', ['city' => $city]);
     }
 
-    public function update(Request $request, City $city)
+    public function update(CityRequest $request, City $city)
     {
-        $request->validate([
-            'name_en' => ['required', 'min:3'],
-            'name_pt' => ['required', 'min:3'],
-            'name_ar' => ['required', 'min:3'],
-        ]);
-        $city->update($request->all());
+        $city->update($request->validated());
         return redirect('cities');
     }
 
