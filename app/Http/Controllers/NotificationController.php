@@ -28,9 +28,10 @@ class NotificationController extends Controller
 
     public function store(NotificationRequest $request)
     {
+        // dd($request->target_value);
         $notification = new Notification($request->validated());
         if ($request->target_value)
-            $$notification->target_value = implode("|", $request->target_value);
+            $notification->target_value = implode("|", $request->target_value);
         $notification->save();
 
         if ($this->notificationReciever($notification)) {
