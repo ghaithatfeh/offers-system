@@ -17,8 +17,6 @@
         <button type="submit" class="btn btn-primary col-2 mb-auto">
             {{ __('Submit') }}
         </button>
-        
-        <span class="fa-"></span>
     </form>
     <div class="row mt-4 mx-auto justify-content-center">
         @forelse ($offer->images as $image)
@@ -41,3 +39,5 @@
         @endforelse
     </div>
 @endsection
+
+
