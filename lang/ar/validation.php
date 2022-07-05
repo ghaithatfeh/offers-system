@@ -174,7 +174,7 @@ return [
         "category_id" => 'الصنف',
         "description" => "الوصف",
         "body" => "الرسالة",
-        "target_value" => 'نوع الهدف',
+        "target_value" => 'قيمة الهدف',
         "name" => 'الاسم',
         "user_name" => 'الاسم',
         "expiry_date" => "تاريخ الصلاحية",
