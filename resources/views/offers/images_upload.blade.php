@@ -7,7 +7,7 @@
         @csrf
         <label class="form-label" for="images">{{ __('Upload Images') }}</label>
         <div class="form-group col-10">
-            <input type="file"
+            <input type="file" required
                 class="form-control {{ $errors->has('images') || $errors->has('images.*') ? 'is-invalid' : '' }}"
                 name="images[]" id="images" multiple>
             @error('images.*')
@@ -17,6 +17,8 @@
         <button type="submit" class="btn btn-primary col-2 mb-auto">
             {{ __('Submit') }}
         </button>
+        
+        <span class="fa-"></span>
     </form>
     <div class="row mt-4 mx-auto justify-content-center">
         @forelse ($offer->images as $image)

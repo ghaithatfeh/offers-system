@@ -21,9 +21,6 @@
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
             <input id="title" name="title" class="form-control" type="text">
-            @error('title')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3 date">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
@@ -33,16 +30,10 @@
                     <i class="fa-solid fa-calendar-days"></i>
                 </label>
             </div>
-            @error('expiry_date')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
             <input id="price" name="price" class="form-control" type="number">
-            @error('price')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="category">{{ __('Category') }}</label>
@@ -54,25 +45,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('category_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         @if (auth()->user()->role != 'Store Owner')
-            <div class="mb-3">
-                <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
-                <select class="form-control" name="offer_type_id" id="offer_type">
-                    <option value=""></option>
-                    @foreach ($offer_types as $offer_type)
-                        <option value="{{ $offer_type->id }}">
-                            {{ $offer_type['name_' . App::getLocale()] }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('offer_type_id')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
+        <div class="mb-3">
+            <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
+            <select class="form-control" name="offer_type_id" id="offer_type">
+                <option value=""></option>
+                @foreach ($offer_types as $offer_type)
+                    <option value="{{ $offer_type->id }}">
+                        {{ $offer_type['name_' . App::getLocale()] }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         @endif
         <div class="mb-3">
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
@@ -97,16 +82,10 @@
         <div class="mb-3">
             <label class="form-label" for="description">{{ __('Description') }}</label>
             <textarea id="description" name="description" class="form-control" cols="30" rows="5"></textarea>
-            @error('description')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="images">{{ __('Upload Images') }}</label>
             <input type="file" id="images" name="images[]" class="form-control" multiple>
-            @error('images.*')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
         </div>
         <div class="alert alert-warning">
             {{ __('A default image will be displayed for offer if images are not uploaded.') }}
@@ -123,19 +102,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            startDate: 'd',
-            autoclose: true,
-            clearBtn: true,
-            todayBtn: true,
-            todayHighlight: true,
-            @if (Lang::locale() == 'ar')
-                rtl: true
-            @endif
-        });
+                format: 'yyyy-mm-dd',
+                startDate: 'd',
+                autoclose: true,
+                clearBtn: true,
+                todayBtn: true,
+                todayHighlight: true,
+                @if (Lang::locale() == 'ar')
+                    rtl: true
+                @endif
+            });
     </script>
 
-    {{-- Validation --}}
+{{-- Validation --}}
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\OfferRequest') !!}
 @endsection

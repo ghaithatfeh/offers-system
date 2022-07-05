@@ -34,7 +34,7 @@ class NotificationController extends Controller
             $notification->target_value = implode("|", $request->target_value);
         $notification->save();
 
-        if ($this->notificationReciever($notification)) {
+        if ($this->notificationReceiver($notification)) {
             $request->session()->flash('notify-message', __('The notification has been sent successfully.'));
             $request->session()->flash('notify-alert', 'alert-success');
         } else {
@@ -46,7 +46,7 @@ class NotificationController extends Controller
         return redirect('/notifications');
     }
 
-    public function notificationReciever($notification)
+    public function notificationReceiver($notification)
     {
         $target_value = explode('|', $notification->target_value);
 
@@ -97,11 +97,11 @@ class NotificationController extends Controller
     public function getOptions(Request $request)
     {
         if ($request->type == 'Categories') {
-            $resulte = Category::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
+            $result = Category::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
         } elseif ($request->type == 'Cities') {
-            $resulte = City::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
+            $result = City::select(['id', 'name_' . App::getLocale() . ' as text'])->where('status', 1)->get();
         }
-        return $resulte;
+        return $result;
     }
 
     public function show(Notification $notification)
