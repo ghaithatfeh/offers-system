@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OfferRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class OfferRequest extends FormRequest
             'price' => 'required|numeric|min:1',
             'category_id' => 'required',
             'description' => 'required|min:20',
-            'offer_type_id' => 'required',
+            'offer_type_id' => Rule::requiredIf(auth()->user()->role != 'Store Owner'),
             'images.*' => 'image',
             'cities.*' => 'nullable',
             'tags.*' => 'nullable'
