@@ -33,9 +33,9 @@ Route::get('/', function () {
 Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/change-password', [UserController::class, 'changePassword']);
+    Route::get('/change-password', [UserController::class, 'changePassword'])->name('change-password');
     Route::post('/change-password/{user}', [UserController::class, 'changePasswordStore']);
-    Route::get('/offers/upload/{offer}', [OfferController::class, 'upload']);
+    Route::get('/offers/upload/{offer}', [OfferController::class, 'upload'])->name('offers.upload');
     Route::put('/offers/upload/{offer}', [OfferController::class, 'upload']);
     Route::delete('/offers/delete_image/{image}', [OfferController::class, 'delete_image']);
     Route::resources([
@@ -44,9 +44,9 @@ Route::middleware('role:Admin,Supervisor,Store Owner')->group(function () {
 });
 
 Route::middleware('role:Store Owner')->group(function () {
-    Route::get('/my-store', [StoreController::class, 'myStore']);
-    Route::get('/my-store/{store}/edit', [StoreController::class, 'edit']);
-    Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
+    Route::get('/my-store', [StoreController::class, 'myStore'])->name('stores.show');
+    Route::get('/my-store/{store}/edit', [StoreController::class, 'edit'])->name('stores.edit');
+    Route::get('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel'])->name('bulk-offers.import');
     Route::post('/bulk-offers/import-from-excel', [ExcelFileController::class, 'importFromExcel']);
     Route::resources([
         '/bulk-offers' => ExcelFileController::class
@@ -77,8 +77,8 @@ Route::middleware('role:Admin')->group(function () {
     // Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
     // Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
     // Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
-    Route::get('/users/change-status/{user}', [UserController::class, 'changeStatus']);
     // Route::get('/offer_types/change-status/{offerType}', [OfferTypeController::class, 'changeStatus']);
+    Route::get('/users/change-status/{user}', [UserController::class, 'changeStatus']);
     Route::post('/stores/{store}/expand-expiry', [StoreController::class, 'expandExpiry']);
 
     Route::resources([
@@ -89,7 +89,8 @@ Route::middleware('role:Admin')->group(function () {
 });
 
 Route::middleware('role:Admin,Store Owner')->group(function () {
-    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload']);
+    Route::get('/stores/upload/{image_type}/{store}', [StoreController::class, 'upload'])->name('stores.upload');
+    Route::get('/my-store/upload/{image_type}/{store}', [StoreController::class, 'upload'])->name('stores.upload');
     Route::put('/stores/upload_store/{image_type}/{store}', [StoreController::class, 'upload_store']);
     Route::delete('/stores/delete_image/{image_type}/{store}', [StoreController::class, 'delete_image']);
     Route::put('/my-store-update/{store}', [StoreController::class, 'myStoreUpdate']);

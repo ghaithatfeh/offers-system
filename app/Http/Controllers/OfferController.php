@@ -62,7 +62,11 @@ class OfferController extends Controller
 
     public function store(OfferRequest $request)
     {
-        $offer = new Offer($request->validated());
+        if (auth()->user()->role == 'Store Owner')
+            $offer = new Offer($request->safe()->except('offer_type_id'));
+        else
+            $offer = new Offer($request->validated());
+
         $offer->user_id = auth()->id();
         if (auth()->user()->role == 'Store Owner')
             $offer->offer_type_id = 1;
@@ -131,8 +135,12 @@ class OfferController extends Controller
     {
         if ($offer->user_id != auth()->id())
             return abort('403');
+        if (auth()->user()->role == 'Store Owner')
+            $validated_data = $request->safe()->except('offer_type_id');
+        else
+            $validated_data = $request->validated();
 
-        $offer->update($request->validated());
+        $offer->update($validated_data);
         OfferTag::destroy($offer->id);
         TargetArea::destroy($offer->id);
 

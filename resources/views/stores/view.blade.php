@@ -144,7 +144,7 @@
                             </form>
                         </div>
                     @endif
-                    <a href="/stores/upload/logo/{{ $store->id }}"
+                    <a href="{{ (auth()->user()->role == 'Store Owner' ? '/my-store' : '/stores') . '/upload/logo/' . $store->id }}"
                         class="btn-sm btn-success">{{ __('Upload New Logo') }}</a>
                 </td>
             </tr>
@@ -165,7 +165,7 @@
                             </form>
                         </div>
                     @endif
-                    <a href="/stores/upload/cover/{{ $store->id }}"
+                    <a href="{{ (auth()->user()->role == 'Store Owner' ? '/my-store' : '/stores') . '/upload/cover/' . $store->id }}"
                         class="btn-sm btn-success">{{ __('Upload New Cover') }}</a>
                 </td>
             </tr>

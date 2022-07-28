@@ -18,8 +18,7 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label" for="user_name">{{ __('Owner Name') }}</label>
-            <input type="text" name="user_name" class="form-control"
-                value="{{ $store->user->name }}">
+            <input type="text" name="user_name" class="form-control" value="{{ $store->user->name }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="email">{{ __('Email') }}</label>
@@ -27,16 +26,14 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="name">{{ __('Store Name') }}</label>
-            <input id="name" name="name" class="form-control" type="text"
-                value="{{ $store->name }}">
+            <input id="name" name="name" class="form-control" type="text" value="{{ $store->name }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="city">{{ __('Store City') }}</label>
             <select class="select2-single form-control" name="city_id" id="city">
                 <option value=""></option>
                 @foreach ($cities as $city)
-                    <option value="{{ $city->id }}"
-                        {{ $city->id == $store->city_id ? 'selected' : '' }}>
+                    <option value="{{ $city->id }}" {{ $city->id == $store->city_id ? 'selected' : '' }}>
                         {{ $city['name_' . App::getLocale()] }}</option>
                 @endforeach
             </select>
@@ -63,14 +60,6 @@
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
-
-    <script>
-        $('.select2-single').select2({
-            placeholder: '',
-            allowClear: true,
-            debug: true
-        });
-    </script>
 @endsection
 
 @section('script')
@@ -87,6 +76,12 @@
             @if (Lang::locale() == 'ar')
                 rtl: true
             @endif
+        });
+
+        $('.select2-single').select2({
+            placeholder: '',
+            allowClear: true,
+            debug: true
         });
     </script>
 

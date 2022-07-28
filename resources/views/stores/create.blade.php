@@ -108,15 +108,6 @@
             <button type="submit" class="btn btn-primary mx-auto">{{ __('Submit') }}</button>
         </div>
     </form>
-
-    <script>
-        $('.select2-single').select2({
-            placeholder: '',
-            allowClear: true,
-            closeOnSelect: false,
-            debug: true
-        });
-    </script>
 @endsection
 
 @section('script')
@@ -133,6 +124,12 @@
             @if (Lang::locale() == 'ar')
                 rtl: true
             @endif
+        });
+
+        $('.select2-single').select2({
+            placeholder: '',
+            closeOnSelect: false,
+            debug: true
         });
     </script>
 

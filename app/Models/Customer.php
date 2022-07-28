@@ -29,4 +29,9 @@ class Customer extends Model
     {
         return $this->belongsToMany(Store::class, 'subscriptions');
     }
+
+    public function tracks()
+    {
+        return $this->hasMany(CustomerTrack::class);
+    }
 }

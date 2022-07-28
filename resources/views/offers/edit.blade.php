@@ -21,8 +21,7 @@
         @method('PUT')
         <div class="mb-3">
             <label class="form-label" for="title">{{ __('Title') }}</label>
-            <input id="title" name="title" class="form-control" type="text"
-                value="{{ $offer->title }}">
+            <input id="title" name="title" class="form-control" type="text" value="{{ $offer->title }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="expiry_date">{{ __('Expiry Date') }}</label>
@@ -36,8 +35,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">{{ __('Price') }}</label>
-            <input id="price" name="price" class="form-control" type="number"
-                value="{{ $offer->price }}">
+            <input id="price" name="price" class="form-control" type="number" value="{{ $offer->price }}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="category">{{ __('Category') }}</label>
@@ -50,17 +48,19 @@
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
-            <select class="form-control" name="offer_type_id" id="offer_type">
-                <option value=""></option>
-                @foreach ($offer_types as $offer_type)
-                    <option value="{{ $offer_type->id }}"
-                        {{ $offer_type->id == $offer->offerType->id ? 'selected' : '' }}>
-                        {{ $offer_type->name_en }}</option>
-                @endforeach
-            </select>
-        </div>
+        @if (auth()->user()->role != 'Store Owner')
+            <div class="mb-3">
+                <label class="form-label" for="offer_type">{{ __('Offer Type') }}</label>
+                <select class="form-control" name="offer_type_id" id="offer_type">
+                    <option value=""></option>
+                    @foreach ($offer_types as $offer_type)
+                        <option value="{{ $offer_type->id }}"
+                            {{ $offer_type->id == $offer->offerType->id ? 'selected' : '' }}>
+                            {{ $offer_type->name_en }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
         <div class="mb-3">
             <label class="form-label" for="cities">{{ __('Target Areas') }}</label>
             <select class="select2 form-control" name="cities[]" id="cities" multiple="multiple">

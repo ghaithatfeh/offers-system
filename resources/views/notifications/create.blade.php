@@ -39,6 +39,50 @@
 @endsection
 
 @section('script')
+    <script>
+        $('#target_type').change(function() {
+            $('.loading').removeClass('d-none')
+            switch ($(this).val()) {
+                case "Broadcast":
+                    $('#target_value').html('');
+                    $('#target_value').parent().addClass('d-none')
+                    break;
+                case "Gender":
+                    $('#target_value').html('');
+                    $('#target_value').parent().removeClass('d-none')
+                    var data = [{
+                            id: "Male",
+                            text: male
+                        },
+                        {
+                            id: "Female",
+                            text: female
+                        },
+                    ];
+                    select2(data);
+                    break;
+                default:
+                    $('#target_value').html('');
+                    $('#target_value').parent().removeClass('d-none')
+                    $.get("/notification/get-options", {
+                            type: $(this).val()
+                        },
+                        function(data) {
+                            select2(data);
+                        });
+            }
+        });
+
+        function select2(data = []) {
+            $('.loading').addClass('d-none')
+            $('#target_value').select2({
+                data: data,
+                debug: true,
+                closeOnSelect: false,
+            });
+        }
+    </script>
+
     {{-- Validation --}}
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\NotificationRequest') !!}

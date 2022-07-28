@@ -93,10 +93,6 @@
                 <td>{{ $offer->category['name_' . App::getLocale()] }}</td>
             </tr>
             <tr>
-                <td>{{ isset($offer->user) ? __('User') : __('Customer') }}</td>
-                <td>{{ $offer->user->name ?? $offer->customer->name }}</td>
-            </tr>
-            <tr>
                 <td>{{ __('Status') }}</td>
                 <td>
                     {{ __($offer->status) }}

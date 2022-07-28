@@ -105,16 +105,10 @@ class StoreController extends Controller
     public function upload_file($request, $file_name)
     {
         if ($request->hasFile($file_name)) {
-            if (!file_exists(public_path('uploaded_images'))) {
-                mkdir(public_path('uploaded_images'), 0777, true);
-            }
-            $file = $request->file($file_name);
-            $file_name = time() . '_' . $file->getClientOriginalName();
-            if ($file->move(public_path('uploaded_images'), $file_name)) {
-                return $file_name;
-            }
-            return false;
+            $file_name = $request->file($file_name)->store('uploaded_images', 'public');
+            return basename($file_name);
         }
+        return false;
     }
 
     public function upload($image_type, Store $store)

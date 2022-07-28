@@ -51,7 +51,7 @@
                         @endif
                         <td>{!! $offer->expiry_date ?? '<em class="text-danger">' . __('Not Set') . '</em>' !!}</td>
                         <td>{{ $offer->price . ' ' . __('validation.currency') }}</td>
-                        <td>
+                        <td class="text-nowrap">
                             {{ __($offer->status) }}
                             @if ($offer->status == 'On Hold')
                                 <i class="fa-solid fa-circle-question text-warning"></i>

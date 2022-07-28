@@ -55,6 +55,15 @@
         .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline {
             float: right;
         }
+
+        .select2-selection.select2-selection--single {
+            min-height: 38px;
+        }
+
+        .select2-selection__arrow {
+            top: 6px !important;
+            right: 4px !important;
+        }
     </style>
 </head>
 
@@ -148,30 +157,32 @@
                         @php
                             $nav_items = [];
                             if (auth()->user()->role == 'Store Owner') {
-                                $nav_items[] = ['link' => '/my-store', 'lable' => __('My Store'), 'icon' => 'fa-solid fa-cart-arrow-down'];
-                                $nav_items[] = ['link' => '/offers', 'lable' => __('My Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
+                                $nav_items[] = ['link' => 'my-store', 'lable' => __('My Store'), 'icon' => 'fa-solid fa-cart-arrow-down'];
+                                $nav_items[] = ['link' => 'offers', 'lable' => __('My Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
                             }
                             if (auth()->user()->role != 'Store Owner') {
-                                $nav_items[] = ['link' => '/offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
-                                $nav_items[] = ['link' => '/customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'];
-                                $nav_items[] = ['link' => '/cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'];
-                                $nav_items[] = ['link' => '/categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'];
-                                $nav_items[] = ['link' => '/tags', 'lable' => __('Tags'), 'icon' => 'fa-solid fa-hashtag'];
-                                $nav_items[] = ['link' => '/notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell'];
+                                $nav_items[] = ['link' => 'offers', 'lable' => __('Offers'), 'icon' => 'fa-solid fa-cart-arrow-down'];
+                                $nav_items[] = ['link' => 'customers', 'lable' => __('Customers'), 'icon' => 'fa-solid fa-users'];
+                                $nav_items[] = ['link' => 'cities', 'lable' => __('Cities'), 'icon' => 'fa-solid fa-city'];
+                                $nav_items[] = ['link' => 'categories', 'lable' => __('Categories'), 'icon' => 'fa-solid fa-tags'];
+                                $nav_items[] = ['link' => 'tags', 'lable' => __('Tags'), 'icon' => 'fa-solid fa-hashtag'];
+                                $nav_items[] = ['link' => 'notifications', 'lable' => __('Notifications'), 'icon' => 'fa-solid fa-bell'];
                                 if (auth()->user()->role == 'Admin') {
-                                    array_splice($nav_items, 2, 0, [['link' => '/stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store']]);
-                                    array_splice($nav_items, 6, 0, [['link' => '/offer_types', 'lable' => __('Offers Types'), 'icon' => 'fa-solid fa-list-check']]);
-                                    $nav_items[] = ['link' => '/users', 'lable' => __('Users'), 'icon' => 'fa-solid fa-user-gear'];
+                                    array_splice($nav_items, 2, 0, [['link' => 'stores', 'lable' => __('Stores'), 'icon' => 'fa-solid fa-store']]);
+                                    array_splice($nav_items, 6, 0, [['link' => 'offer_types', 'lable' => __('Offers Types'), 'icon' => 'fa-solid fa-list-check']]);
+                                    $nav_items[] = ['link' => 'users', 'lable' => __('Users'), 'icon' => 'fa-solid fa-user-gear'];
                                 }
                             } else {
-                                $nav_items[] = ['link' => '/bulk-offers', 'lable' => __('Bulk Offers'), 'icon' => 'fa-solid fa-boxes-packing'];
+                                $nav_items[] = ['link' => 'bulk-offers', 'lable' => __('Bulk Offers'), 'icon' => 'fa-solid fa-boxes-packing'];
                             }
-                            $nav_items[] = ['link' => '/change-password', 'lable' => __('Change Password'), 'icon' => 'fa-solid fa-key'];
+                            $nav_items[] = ['link' => 'change-password', 'lable' => __('Change Password'), 'icon' => 'fa-solid fa-key'];
                         @endphp
                         @foreach ($nav_items as $nav_item)
                             <li class="nav-item">
-                                <a href="{{ $nav_item['link'] }}"
-                                    class="nav-link {{ strpos(Request::url(), $nav_item['link']) ? 'active' : '' }}">
+                                <a href="/{{ $nav_item['link'] }}" @class([
+                                    'nav-link',
+                                    'active' => \Request::is($nav_item['link'] . '*'),
+                                ])>
                                     <i class="{{ $nav_item['icon'] }} nav-icon"></i>
                                     <p>{{ $nav_item['lable'] }}</p>
                                 </a>
