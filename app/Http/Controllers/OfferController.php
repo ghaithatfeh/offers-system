@@ -89,15 +89,11 @@ class OfferController extends Controller
         }
 
         if ($request->hasFile('images')) {
-            if (!file_exists(public_path('uploaded_images'))) {
-                mkdir(public_path('uploaded_images'), 0777, true);
-            }
             $files = $request->file('images');
             foreach ($files as $file) {
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move('uploaded_images', $fileName);
+                $filePath = $file->store('uploaded_images', 'public');
                 Image::create([
-                    'name' => $fileName,
+                    'name' => basename($filePath),
                     'offer_id' => $offer->id
                 ]);
             }
@@ -207,10 +203,9 @@ class OfferController extends Controller
             if ($request->hasFile('images')) {
                 $images = $request->file('images');
                 foreach ($images as $image) {
-                    $image_name = time() . '_' . $image->getClientOriginalName();
-                    $image->move(public_path('uploaded_images'), $image_name);
+                    $image_path = $image->store('uploaded_images', 'public');
                     Image::create([
-                        'name' => $image_name,
+                        'name' => basename($image_path),
                         'offer_id' => $offer->id
                     ]);
                 }
